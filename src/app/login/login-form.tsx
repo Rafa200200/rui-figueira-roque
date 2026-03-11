@@ -32,7 +32,7 @@ export default function LoginForm({ className, ...props }: LoginFormProps) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const [error, setError] = React.useState<string | null>(null)
 
-    const from = searchParams.get("redirect") || "/"
+    const from = searchParams.get("redirect") || null
 
     const {
         register,
@@ -42,11 +42,12 @@ export default function LoginForm({ className, ...props }: LoginFormProps) {
         resolver: zodResolver(loginSchema),
     })
 
+    const destinationRef = React.useRef<string>("/")
+
     async function onSubmit(data: FormData) {
         setIsLoading(true)
         setError(null)
 
-        // In a real app we'd use Supabase Auth
         const supabase = createClient()
         const { error: signInError } = await supabase.auth.signInWithPassword({
             email: data.email,
@@ -59,7 +60,7 @@ export default function LoginForm({ className, ...props }: LoginFormProps) {
             return setError("Credenciais inválidas. Tente novamente.")
         }
 
-        router.push(from)
+        router.push(from || destinationRef.current)
         router.refresh()
     }
 
@@ -108,12 +109,35 @@ export default function LoginForm({ className, ...props }: LoginFormProps) {
                         </div>
                     )}
 
-                    <Button disabled={isLoading} type="submit" className="mt-2">
-                        {isLoading && (
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        )}
-                        Entrar
-                    </Button>
+                    <div className="grid gap-2 mt-2">
+                        <Button
+                            disabled={isLoading}
+                            type="button"
+                            onClick={() => {
+                                destinationRef.current = "/"
+                                handleSubmit(onSubmit)()
+                            }}
+                        >
+                            {isLoading && destinationRef.current === "/" && (
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            )}
+                            Entrar no Site
+                        </Button>
+                        <Button
+                            disabled={isLoading}
+                            type="button"
+                            variant="outline"
+                            onClick={() => {
+                                destinationRef.current = "/admin"
+                                handleSubmit(onSubmit)()
+                            }}
+                        >
+                            {isLoading && destinationRef.current === "/admin" && (
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            )}
+                            Entrar no Backoffice
+                        </Button>
+                    </div>
                 </div>
             </form>
         </div>
