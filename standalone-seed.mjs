@@ -1,0 +1,152 @@
+const supabaseUrl = '***SUPABASE_URL_REMOVED***';
+const supabaseKey = '***SUPABASE_ANON_KEY_REMOVED***';
+
+async function seedProperties() {
+    console.log("Starting to seed properties...");
+
+    const properties = [
+        {
+            title: "Moradia T4 de Luxo com Piscina e Vista Deslumbrante",
+            slug: "moradia-t4-luxo-piscina-vista-" + Date.now(),
+            description: "Descubra o requinte e a sofisticação nesta magnífica moradia T4 de arquitetura contemporânea. Situada numa zona premium, esta propriedade oferece uma vista panorâmica inigualável. O interior destaca-se pelos seus acabamentos de altíssima qualidade, com piso radiante, domótica avançada e uma Master Suite com walking closet imponente. A zona exterior convida ao lazer com uma piscina de horizonte infinito, zona de barbecue e um jardim paisagístico cuidadosamente desenhado para garantir total privacidade. Uma oportunidade única para quem procura exclusividade e conforto num só lugar.",
+            price: 1250000,
+            business_type: "sale",
+            property_type: "house",
+            typology: "T4",
+            area_m2: 340,
+            bedrooms: 4,
+            bathrooms: 5,
+            energy_certificate: "A+",
+            district: "Porto",
+            municipality: "Porto",
+            parish: "Aldoar, Foz do Douro e Nevogilde",
+            address: "Foz do Douro, Porto",
+            status: "active",
+            featured: true,
+            features: ["Piscina Infinita", "Domótica", "Vista Mar", "Piso Radiante", "Jardim Privado", "Garagem 4 Carros"],
+            tags: ["Destaque"]
+        },
+        {
+            title: "Apartamento T3 Duplex no Coração da Cidade",
+            slug: "apartamento-t3-duplex-centro-" + Date.now(),
+            description: "Excecional apartamento T3 Duplex localizado num edifício histórico totalmente reabilitado no centro nevrálgico da cidade. Este imóvel combina o charme da traça original (como o teto trabalhado e portadas de madeira) com as comodidades modernas exigidas atualmente. O primeiro piso conta com uma sala de estar ampla e luminosa com varanda, sala de jantar integrada, e uma cozinha equipada com eletrodomésticos topo de gama. O segundo piso é reservado para a zona íntima com três quartos, sendo dois com varanda privativa. Beneficia ainda de isolamento térmico e acústico de excelência e estacionamento privativo duplo.",
+            price: 680000,
+            business_type: "sale",
+            property_type: "apartment",
+            typology: "T3",
+            area_m2: 185,
+            bedrooms: 3,
+            bathrooms: 3,
+            energy_certificate: "B",
+            district: "Lisboa",
+            municipality: "Lisboa",
+            parish: "Misericórdia",
+            address: "Baixa, Lisboa",
+            status: "active",
+            featured: true,
+            features: ["Duplex", "Prédio Reabilitado", "Cozinha Equipada", "Varandas", "Ar Condicionado", "2 Lugares de Garagem"],
+            tags: ["Destaque"]
+        },
+        {
+            title: "Quinta Centenária Renovada com Terreno Agrícola",
+            slug: "quinta-centenaria-renovada-" + Date.now(),
+            description: "Um refúgio de paz e tranquilidade: deslumbrante Quinta Centenária minuciosamente restaurada, preservando a sua autenticidade arquitetónica aliada ao conforto do século XXI. A casa principal dispõe de amplos salões em pedra exposta, lareiras rústicas e uma cozinha regional típica de invejar. Além da habitação principal impressionante, a propriedade abrange 2 hectares de terreno, incluindo uma vinha ativa, pomares exuberantes e uma zona de bosque. Ideal tanto para residência permanente de quem procura qualidade de vida e ligação à natureza, como para investimento em turismo de habitação de luxo.",
+            price: 950000,
+            business_type: "sale",
+            property_type: "other", // 'estate' was causing issues so defaulting to 'other' based on zod enum
+            typology: "T5",
+            area_m2: 450,
+            bedrooms: 5,
+            bathrooms: 4,
+            energy_certificate: "C",
+            district: "Vila Real",
+            municipality: "Peso da Régua",
+            parish: "Peso da Régua e Godim",
+            address: "Vale do Douro, Peso da Régua",
+            status: "active",
+            featured: true,
+            features: ["Terreno 2ha", "Vinha", "Adega", "Poço Próprio", "Casa Mães", "Aquecimento Central"],
+            tags: ["Destaque"]
+        }
+    ];
+
+    const placeHolderImages = [
+        [
+            "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+            "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80",
+            "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80",
+            "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80",
+            "https://images.unsplash.com/photo-1600607686527-6fb886090705?w=800&q=80",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+        ],
+        [
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80",
+            "https://images.unsplash.com/photo-1502672260266-1c1de2d9d06b?w=800&q=80",
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80",
+            "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80",
+            "https://images.unsplash.com/photo-1583847268964-b28ce8fba3d5?w=800&q=80",
+            "https://images.unsplash.com/photo-1493809842364-78817add7ff6?w=800&q=80"
+        ],
+        [
+            "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&q=80",
+            "https://images.unsplash.com/photo-1501183638710-841dd1904471?w=800&q=80",
+            "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=800&q=80",
+            "https://images.unsplash.com/photo-1464146072230-91cabc968266?w=800&q=80",
+            "https://images.unsplash.com/photo-1472224371017-08207f84aaae?w=800&q=80",
+            "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&q=80"
+        ]
+    ];
+
+    for (let i = 0; i < properties.length; i++) {
+        const prop = properties[i];
+        console.log(`Inserting ${prop.title}...`);
+
+        try {
+            const propResp = await fetch(`${supabaseUrl}/rest/v1/properties`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': supabaseKey,
+                    'Authorization': `Bearer ${supabaseKey}`,
+                    'Prefer': 'return=representation'
+                },
+                body: JSON.stringify(prop)
+            });
+
+            if (!propResp.ok) {
+                console.error(`Failed to insert property ${prop.title}:`, await propResp.text());
+                continue;
+            }
+
+            const insertedProps = await propResp.json();
+            const insertedProp = insertedProps[0];
+
+            const imagesToInsert = placeHolderImages[i].map((url, idx) => ({
+                property_id: insertedProp.id,
+                url: url,
+                display_order: idx
+            }));
+
+            const imgResp = await fetch(`${supabaseUrl}/rest/v1/property_images`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': supabaseKey,
+                    'Authorization': `Bearer ${supabaseKey}`
+                },
+                body: JSON.stringify(imagesToInsert)
+            });
+
+            if (!imgResp.ok) {
+                console.error(`Failed to insert images for ${prop.title}:`, await imgResp.text());
+            } else {
+                console.log(`Successfully seeded ${prop.title}.`);
+            }
+
+        } catch (e) {
+            console.error("Fetch error", e)
+        }
+    }
+}
+
+seedProperties();

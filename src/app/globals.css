@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-outfit);
+
+  /* Brand Colors - Based on Logo */
+  --color-brand-primary: #4CAF50;
+  --color-brand-dark: #2E7D32;
+  --color-brand-light: #81C784;
+  --color-brand-accent: #66BB6A;
+  
+  /* Neutral Colors */
+  --color-brand-charcoal: #1A1A1A;
+  --color-background-main: #FFFFFF;
+  --color-background-alt: #FAFAFA;
+  --color-text-main: #111827;
+  --color-text-muted: #6B7280;
+  
+  /* Feedback Colors */
+  --color-status-success: #059669;
+  --color-status-warning: #F59E0B;
+  --color-status-error: #EF4444;
+
+  /* Map to standard semantic tailwind colors for shadcn/ui and general use */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+}
+
+:root {
+  --background: var(--color-background-main);
+  --foreground: var(--color-text-main);
+  --muted: #F3F4F6;
+  --accent: #F3F4F6;
+  --border: #E5E7EB;
+}
+
+.dark {
+  --color-brand-charcoal: #FAFAFA;
+  --color-background-main: #09090B;
+  --color-background-alt: #18181B;
+  --color-text-main: #FAFAFA;
+  --color-text-muted: #A1A1AA;
+  
+  --background: var(--color-background-main);
+  --foreground: var(--color-text-main);
+  --muted: #27272A;
+  --accent: #27272A;
+  --border: #27272A;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2;
+  }
+}
