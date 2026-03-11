@@ -36,7 +36,7 @@ export default async function EditInsurancePage({ params }: { params: Promise<{ 
                         <ArrowLeft className="h-5 w-5" />
                     </Link>
                 </Button>
-                <h2 className="text-3xl font-bold tracking-tight text-brand-dark">Editar Seguro</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-brand-dark dark:text-zinc-100">Editar Seguro</h2>
             </div>
 
             <div className="rounded-md border bg-background p-6">
