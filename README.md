@@ -39,29 +39,4 @@ O projeto foi construído utilizando as mais recentes e modernas tecnologias do 
 * **Row Level Security (RLS) no Supabase:** Regras extremamente estritas implementadas na tabela de `leads` (clientes normais apenas inserem dados, mas não conseguem aceder à tabela. Apenas administradores validados têm permissões de LEITURA e REJEIÇÃO).
 * **Armazenamento de Imagens Segregado:** Buckets independentes para "Property Images" e "Insurance Images" garantido segurança e otimização.
 
-## 🛠️ Como Iniciar o Projeto Localmente
 
-Se clonar este projeto, siga os seguintes passos:
-
-1. Instalar as dependências:
-```bash
-npm install
-```
-
-2. Configurar o Supabase. Crie um ficheiro `.env.local` na raiz contendo:
-```env
-NEXT_PUBLIC_SUPABASE_URL=a_sua_url_supabase
-NEXT_PUBLIC_SUPABASE_ANON_KEY=a_sua_anon_key_supabase
-```
-
-3. Iniciar o servidor de desenvolvimento:
-```bash
-npm run dev
-```
-
-Abrir os endereços locais:
-* Site Público: [http://localhost:3000](http://localhost:3000)
-* Acesso Gestão: [http://localhost:3000/login](http://localhost:3000/login)
-
----
-*Construído com atenção ao detalhe.*
