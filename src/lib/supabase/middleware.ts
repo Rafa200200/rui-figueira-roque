@@ -22,10 +22,11 @@ export async function updateSession(request: NextRequest) {
                         request,
                     })
                     cookiesToSet.forEach(({ name, value, options }) => {
-                        // Remove maxAge/expires so cookies are session-only
-                        // (session ends when browser is closed)
-                        const { maxAge, expires, ...sessionOptions } = options || {}
-                        supabaseResponse.cookies.set(name, value, sessionOptions)
+                        // Short session: auto-expire after 2 hours
+                        supabaseResponse.cookies.set(name, value, {
+                            ...options,
+                            maxAge: 60 * 60 * 2, // 2 hours
+                        })
                     })
                 },
             },

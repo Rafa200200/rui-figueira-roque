@@ -15,10 +15,11 @@ export async function createClient() {
                 setAll(cookiesToSet) {
                     try {
                         cookiesToSet.forEach(({ name, value, options }) => {
-                            // Remove maxAge/expires so cookies are session-only
-                            // (session ends when browser is closed)
-                            const { maxAge, expires, ...sessionOptions } = options || {}
-                            cookieStore.set(name, value, sessionOptions)
+                            // Short session: auto-expire after 2 hours
+                            cookieStore.set(name, value, {
+                                ...options,
+                                maxAge: 60 * 60 * 2, // 2 hours
+                            })
                         })
                     } catch {
                         // The `setAll` method was called from a Server Component.
