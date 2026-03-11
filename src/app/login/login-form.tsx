@@ -74,6 +74,8 @@ export default function LoginForm({ className, ...props }: LoginFormProps) {
             document.body.removeChild(link)
             router.refresh()
         } else {
+            // Small delay so mobile browsers finish writing auth cookies before navigation
+            await new Promise((r) => setTimeout(r, 300))
             // Hard navigation to avoid middleware race condition on /login
             window.location.href = destination
         }

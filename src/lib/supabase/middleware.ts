@@ -49,10 +49,12 @@ export async function updateSession(request: NextRequest) {
         return NextResponse.redirect(url)
     }
 
-    // Redirect logged-in users away from login page to home
+    // Redirect logged-in users away from login page
     if (isLoginPage && user) {
         const url = request.nextUrl.clone()
-        url.pathname = '/'
+        const redirectTo = request.nextUrl.searchParams.get('redirect')
+        url.pathname = redirectTo || '/'
+        url.searchParams.delete('redirect')
         return NextResponse.redirect(url)
     }
 
