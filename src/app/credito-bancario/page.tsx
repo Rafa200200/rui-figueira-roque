@@ -43,9 +43,9 @@ Na Rui Figueira & Roque Lda fazemos intermediação de crédito vinculado, procu
 <p>Trabalhamos com várias instituições financeiras para garantir-lhe as condições mais vantajosas, sempre com aconselhamento transparente e responsável.</p>`
 
     return (
-        <div className="flex flex-col min-h-screen bg-white">
+        <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
             {/* HEADER SECTION */}
-            <header className="bg-zinc-50 border-b border-zinc-200 pb-12">
+            <header className="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 pb-12">
                 <PageNavigation padding="pt-8 pb-4" />
                 <div className="container mx-auto px-4 md:px-6 mt-4">
                     <div className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-6">
@@ -58,20 +58,20 @@ Na Rui Figueira & Roque Lda fazemos intermediação de crédito vinculado, procu
                                     href={bdpLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-block bg-white text-zinc-500 hover:text-brand-primary px-4 py-1.5 rounded-lg text-[10px] font-bold tracking-wider border border-zinc-200 hover:border-brand-primary/50 uppercase shadow-xs transition-colors"
+                                    className="inline-block bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-brand-primary px-4 py-1.5 rounded-lg text-[10px] font-bold tracking-wider border border-zinc-200 dark:border-zinc-700 hover:border-brand-primary/50 uppercase shadow-xs transition-colors"
                                 >
                                     Registo Banco de Portugal: {bdpString}
                                 </a>
                             ) : (
-                                <span className="inline-block bg-white text-zinc-500 px-4 py-1.5 rounded-lg text-[10px] font-bold tracking-wider border border-zinc-200 uppercase shadow-xs">
+                                <span className="inline-block bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 px-4 py-1.5 rounded-lg text-[10px] font-bold tracking-wider border border-zinc-200 dark:border-zinc-700 uppercase shadow-xs">
                                     Registo Banco de Portugal: {bdpString}
                                 </span>
                             )
                         )}
-                        <h1 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-tight leading-tight">
+                        <h1 className="text-3xl md:text-5xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight leading-tight">
                             {title}
                         </h1>
-                        <p className="text-lg md:text-xl text-zinc-500 max-w-2xl">
+                        <p className="text-lg md:text-xl text-zinc-500 dark:text-zinc-400 max-w-2xl">
                             Simplificamos a sua vida financeira, negociando as melhores taxas e condições junto da banca para que concretize os seus projetos com total confiança.
                         </p>
                     </div>
@@ -85,8 +85,8 @@ Na Rui Figueira & Roque Lda fazemos intermediação de crédito vinculado, procu
                     <div className="lg:col-span-7 space-y-12">
                         <div className="prose prose-zinc prose-sm md:prose-base max-w-none text-zinc-600 leading-relaxed font-normal" dangerouslySetInnerHTML={{ __html: textHtml }} />
 
-                        <div className="bg-zinc-50 p-8 rounded-xl border border-zinc-200 shadow-sm">
-                            <h3 className="text-2xl font-bold text-zinc-900 mb-8 flex items-center gap-3">
+                        <div className="bg-zinc-50 dark:bg-zinc-900 p-8 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
+                            <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-8 flex items-center gap-3">
                                 <div className="p-2.5 bg-brand-primary rounded-lg flex items-center justify-center text-white shadow-sm shrink-0">
                                     <ShieldCheck className="h-5 w-5" />
                                 </div>
@@ -98,7 +98,7 @@ Na Rui Figueira & Roque Lda fazemos intermediação de crédito vinculado, procu
 
                     {/* RIGHT: CONTACT CARD */}
                     <div className="lg:col-span-5 lg:sticky lg:top-24">
-                        <div className="bg-white rounded-xl shadow-lg border border-zinc-200 overflow-hidden">
+                        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
                             <div className="bg-brand-dark p-8 text-white text-center relative">
                                 <h3 className="text-2xl font-bold mb-3 relative z-10">Apoio Financeiro</h3>
                                 <p className="text-white/60 text-sm font-medium relative z-10">
@@ -111,8 +111,8 @@ Na Rui Figueira & Roque Lda fazemos intermediação de crédito vinculado, procu
                                     <div className="group">
                                         <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-3">Linha Direta</h4>
                                         {settings.contact_credit_phone ? (
-                                            <a href={`tel:${settings.contact_credit_phone}`} className="flex items-center gap-3 bg-zinc-50 p-4 rounded-lg hover:bg-brand-primary hover:text-white transition-all border border-zinc-100 group/item">
-                                                <div className="p-2.5 bg-white rounded-lg text-brand-primary shadow-sm group-hover/item:bg-white/20 group-hover/item:text-white transition-colors">
+                                            <a href={`tel:${settings.contact_credit_phone}`} className="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-800 p-4 rounded-lg hover:bg-brand-primary hover:text-white transition-all border border-zinc-100 dark:border-zinc-700 group/item">
+                                                <div className="p-2.5 bg-white dark:bg-zinc-700 rounded-lg text-brand-primary shadow-sm group-hover/item:bg-white/20 group-hover/item:text-white transition-colors">
                                                     <Landmark className="h-4 w-4" />
                                                 </div>
                                                 <span className="text-xl font-bold">{settings.contact_credit_phone}</span>
@@ -125,8 +125,8 @@ Na Rui Figueira & Roque Lda fazemos intermediação de crédito vinculado, procu
                                     <div>
                                         <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-3">Enviar Proposta</h4>
                                         {settings.contact_credit_email ? (
-                                            <a href={`mailto:${settings.contact_credit_email}`} className="flex items-center gap-3 bg-zinc-50 p-4 rounded-lg hover:bg-zinc-900 hover:text-white transition-all border border-zinc-100 group/email">
-                                                <div className="p-2.5 bg-white rounded-lg text-zinc-400 shadow-sm group-hover/email:bg-white/10 group-hover/email:text-white transition-colors">
+                                            <a href={`mailto:${settings.contact_credit_email}`} className="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-800 p-4 rounded-lg hover:bg-zinc-900 hover:text-white transition-all border border-zinc-100 dark:border-zinc-700 group/email">
+                                                <div className="p-2.5 bg-white dark:bg-zinc-700 rounded-lg text-zinc-400 shadow-sm group-hover/email:bg-white/10 group-hover/email:text-white transition-colors">
                                                     <CheckCircle2 className="h-4 w-4" />
                                                 </div>
                                                 <span className="text-sm font-bold truncate">{settings.contact_credit_email}</span>

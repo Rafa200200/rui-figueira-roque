@@ -18,7 +18,7 @@ export function PageNavigation({ backText = "Voltar", padding = "py-6" }: PageNa
             <Button
                 variant="outline"
                 size="sm"
-                className="rounded-full shadow-sm text-zinc-600 hover:text-brand-primary hover:border-brand-primary/30 border-zinc-200 transition-colors bg-white font-bold"
+                className="rounded-full shadow-sm text-zinc-600 dark:text-zinc-400 hover:text-brand-primary hover:border-brand-primary/30 border-zinc-200 dark:border-zinc-700 transition-colors bg-white dark:bg-zinc-900 font-bold"
                 onClick={() => router.back()}
                 type="button"
             >
@@ -27,7 +27,7 @@ export function PageNavigation({ backText = "Voltar", padding = "py-6" }: PageNa
             <Button
                 variant="outline"
                 size="sm"
-                className="rounded-full shadow-sm text-zinc-600 hover:text-brand-primary hover:border-brand-primary/30 border-zinc-200 transition-colors bg-white font-bold"
+                className="rounded-full shadow-sm text-zinc-600 dark:text-zinc-400 hover:text-brand-primary hover:border-brand-primary/30 border-zinc-200 dark:border-zinc-700 transition-colors bg-white dark:bg-zinc-900 font-bold"
                 asChild
             >
                 <Link href="/">

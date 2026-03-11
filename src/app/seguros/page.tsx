@@ -30,15 +30,15 @@ export default async function InsurancesListPage() {
     const insuranceEmail = contacts?.find(c => c.key === 'contact_insurance_email')?.value
 
     return (
-        <div className="flex flex-col min-h-screen bg-white">
+        <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
             {/* Header */}
-            <header className="bg-zinc-50 border-b border-zinc-200 pb-12">
+            <header className="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 pb-12">
                 <PageNavigation padding="pt-8 pb-4" />
                 <div className="container mx-auto px-4 md:px-6 text-center mt-4">
-                    <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-4">
+                    <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">
                         Seguros & Proteção
                     </h1>
-                    <p className="text-zinc-500 text-lg max-w-2xl mx-auto">
+                    <p className="text-zinc-500 dark:text-zinc-400 text-lg max-w-2xl mx-auto">
                         Soluções de proteção desenhadas à sua medida, com as melhores seguradoras do mercado.
                     </p>
                 </div>
@@ -50,18 +50,18 @@ export default async function InsurancesListPage() {
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {insurances.map((insurance) => (
                             <Link key={insurance.slug} href={`/seguros/${insurance.slug}`} className="group flex flex-col">
-                                <div className="bg-white rounded-xl border border-zinc-200 p-8 h-full flex flex-col shadow-sm hover:shadow-md transition-all">
-                                    <div className="w-12 h-12 bg-brand-dark/10 text-brand-dark rounded-xl flex items-center justify-center mb-6 border border-brand-dark/20 group-hover:bg-brand-dark group-hover:text-white transition-colors shadow-sm overflow-hidden">
+                                <div className="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 p-8 h-full flex flex-col shadow-sm hover:shadow-md transition-all">
+                                    <div className="w-12 h-12 bg-brand-dark/10 dark:bg-brand-dark/20 text-brand-dark dark:text-brand-light rounded-xl flex items-center justify-center mb-6 border border-brand-dark/20 group-hover:bg-brand-dark group-hover:text-white transition-colors shadow-sm overflow-hidden">
                                         {insurance.icon_url ? (
                                             <img src={insurance.icon_url} alt="Icon" className="w-full h-full object-cover" />
                                         ) : (
                                             <ShieldCheck className="h-6 w-6" />
                                         )}
                                     </div>
-                                    <h2 className="text-lg font-bold text-zinc-900 mb-3 uppercase tracking-tight group-hover:text-brand-dark transition-colors">
+                                    <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-3 uppercase tracking-tight group-hover:text-brand-dark dark:group-hover:text-brand-light transition-colors">
                                         {insurance.name}
                                     </h2>
-                                    <p className="text-zinc-500 text-sm leading-relaxed mb-8 flex-1 font-medium">
+                                    <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-8 flex-1 font-medium">
                                         {insurance.short_description}
                                     </p>
                                     <div className="mt-auto">
@@ -74,12 +74,12 @@ export default async function InsurancesListPage() {
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center py-32 bg-zinc-50 rounded-[3rem] border-2 border-dashed border-zinc-200">
-                        <div className="w-20 h-20 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <ShieldCheck className="h-10 w-10 text-zinc-300" />
+                    <div className="text-center py-32 bg-zinc-50 dark:bg-zinc-900 rounded-[3rem] border-2 border-dashed border-zinc-200 dark:border-zinc-700">
+                        <div className="w-20 h-20 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <ShieldCheck className="h-10 w-10 text-zinc-300 dark:text-zinc-600" />
                         </div>
-                        <h2 className="text-3xl font-bold text-zinc-900 mb-2">Seguros em breve</h2>
-                        <p className="text-zinc-500 text-lg">Estamos a preparar as melhores ofertas para si.</p>
+                        <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">Seguros em breve</h2>
+                        <p className="text-zinc-500 dark:text-zinc-400 text-lg">Estamos a preparar as melhores ofertas para si.</p>
                     </div>
                 )
                 }

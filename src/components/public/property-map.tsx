@@ -26,12 +26,12 @@ export default function PropertyMap({ lat, lng, parish, municipality }: Property
 
     return (
         <div className="space-y-4">
-            <div className="flex items-center gap-3 border-b border-zinc-100 pb-4">
-                <div className="h-6 w-1 bg-zinc-900 rounded-full" />
-                <h3 className="font-bold text-zinc-900 uppercase tracking-widest text-xs">Localização Aproximada</h3>
+            <div className="flex items-center gap-3 border-b border-zinc-100 dark:border-zinc-800 pb-4">
+                <div className="h-6 w-1 bg-zinc-900 dark:bg-zinc-100 rounded-full" />
+                <h3 className="font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-widest text-xs">Localização Aproximada</h3>
             </div>
 
-            <div className="h-[350px] w-full rounded-2xl overflow-hidden border border-zinc-200 shadow-sm z-0 relative">
+            <div className="h-[350px] w-full rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-sm z-0 relative">
                 <MapContainer
                     center={[lat, lng]}
                     zoom={14}
@@ -55,10 +55,10 @@ export default function PropertyMap({ lat, lng, parish, municipality }: Property
                     <MapResizer />
                 </MapContainer>
 
-                <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-3 rounded-xl border border-white/20 shadow-lg z-[1000] flex items-center justify-between">
+                <div className="absolute bottom-4 left-4 right-4 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md p-3 rounded-xl border border-white/20 dark:border-zinc-700/50 shadow-lg z-[1000] flex items-center justify-between">
                     <div>
                         <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Zona de Referência</p>
-                        <p className="text-sm font-bold text-zinc-900">
+                        <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
                             {parish ? `${parish}, ` : ''}{municipality}
                         </p>
                     </div>

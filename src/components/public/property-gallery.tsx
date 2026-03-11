@@ -50,7 +50,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
 
     if (!images || images.length === 0) {
         return (
-            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl bg-zinc-100 border border-zinc-100 aspect-[16/10]">
+            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-800 aspect-[16/10]">
                 <Image src={mainImage} alt={title} fill className="object-cover" priority />
             </div>
         )
@@ -65,7 +65,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                         <div
                             key={i}
                             onClick={() => openAt(i)}
-                            className="relative flex-none w-[88vw] aspect-[4/3] rounded-[2rem] overflow-hidden shadow-lg border border-zinc-200 cursor-pointer snap-center group bg-zinc-100"
+                            className="relative flex-none w-[88vw] aspect-[4/3] rounded-[2rem] overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-800 cursor-pointer snap-center group bg-zinc-100 dark:bg-zinc-800"
                         >
                             <Image
                                 src={img.url}
@@ -92,7 +92,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                     {/* Main Image */}
                     <div
                         onClick={() => openAt(0)}
-                        className="col-span-3 relative rounded-[2rem] overflow-hidden shadow-2xl bg-zinc-100 border border-zinc-100 cursor-pointer group"
+                        className="col-span-3 relative rounded-[2rem] overflow-hidden shadow-2xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-800 cursor-pointer group"
                     >
                         <Image
                             src={mainImage}
@@ -112,7 +112,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                             <div
                                 key={i}
                                 onClick={() => openAt(i + 1)}
-                                className="relative flex-1 rounded-2xl overflow-hidden shadow-sm bg-zinc-100 border border-zinc-100 cursor-pointer group"
+                                className="relative flex-1 rounded-2xl overflow-hidden shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-800 cursor-pointer group"
                             >
                                 <Image
                                     src={img.url}
@@ -144,7 +144,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                         {images.length === 3 && (
                             <div
                                 onClick={() => openAt(0)}
-                                className="relative flex-1 rounded-2xl overflow-hidden border-2 border-dashed border-zinc-200 flex items-center justify-center cursor-pointer hover:bg-zinc-50 transition-colors text-zinc-400"
+                                className="relative flex-1 rounded-2xl overflow-hidden border-2 border-dashed border-zinc-200 dark:border-zinc-700 flex items-center justify-center cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors text-zinc-400"
                             >
                                 <Maximize2 className="w-6 h-6" />
                             </div>

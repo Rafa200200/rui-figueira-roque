@@ -23,14 +23,14 @@ export function PropertySearch() {
     }
 
     return (
-        <div className="bg-white rounded-xl shadow-sm p-5 border border-zinc-200">
+        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-sm p-5 border border-zinc-200 dark:border-zinc-800">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
                 <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Negócio</label>
                     <select
                         value={type}
                         onChange={(e) => setType(e.target.value)}
-                        className="w-full bg-zinc-50 border border-zinc-200 rounded-lg p-2.5 text-sm font-semibold outline-none focus:ring-2 focus:ring-brand-primary/20 appearance-none cursor-pointer text-zinc-900"
+                        className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg p-2.5 text-sm font-semibold outline-none focus:ring-2 focus:ring-brand-primary/20 appearance-none cursor-pointer text-zinc-900 dark:text-zinc-100"
                     >
                         <option value="">Todos os Tipos</option>
                         <option value="sale">Comprar</option>
@@ -42,7 +42,7 @@ export function PropertySearch() {
                     <select
                         value={propertyType}
                         onChange={(e) => setPropertyType(e.target.value)}
-                        className="w-full bg-zinc-50 border border-zinc-200 rounded-lg p-2.5 text-sm font-semibold outline-none focus:ring-2 focus:ring-brand-primary/20 appearance-none cursor-pointer text-zinc-900"
+                        className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg p-2.5 text-sm font-semibold outline-none focus:ring-2 focus:ring-brand-primary/20 appearance-none cursor-pointer text-zinc-900 dark:text-zinc-100"
                     >
                         <option value="">Qualquer</option>
                         <option value="house">Moradia</option>
@@ -59,7 +59,7 @@ export function PropertySearch() {
                         value={district}
                         onChange={(e) => setDistrict(e.target.value)}
                         placeholder="Distrito ou Cidade"
-                        className="w-full bg-zinc-50 border border-zinc-200 rounded-lg p-2.5 text-sm font-semibold outline-none focus:ring-2 focus:ring-brand-primary/20 text-zinc-900"
+                        className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg p-2.5 text-sm font-semibold outline-none focus:ring-2 focus:ring-brand-primary/20 text-zinc-900 dark:text-zinc-100"
                         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                     />
                 </div>

@@ -45,11 +45,11 @@ id, title, slug, price, business_type, typology, municipality, district,
     .limit(3)
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
       {/* PROFESSIONAL COMPACT HEADER */}
-      <header className="w-full bg-white border-b border-zinc-100 py-6 lg:py-8 relative z-10">
+      <header className="w-full bg-white dark:bg-zinc-950 border-b border-zinc-100 dark:border-zinc-800 py-6 lg:py-8 relative z-10">
         <div className="container px-4 md:px-6 mx-auto flex flex-col items-center text-center">
-          <h1 className="text-3xl md:text-5xl font-black tracking-tighter mb-3 text-zinc-900 uppercase">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tighter mb-3 text-zinc-900 dark:text-zinc-100 uppercase">
             {settings.hero_title || "Rui Figueira & Roque, Lda"}
           </h1>
           <p className="text-xs md:text-sm font-bold text-zinc-400 uppercase tracking-[0.3em] max-w-2xl leading-relaxed">
@@ -59,52 +59,52 @@ id, title, slug, price, business_type, typology, municipality, district,
       </header>
 
       {/* SERVICES SECTION - BROUGHT TO TOP */}
-      <section className="py-8 lg:py-12 bg-zinc-50/50 relative z-20">
+      <section className="py-8 lg:py-12 bg-zinc-50/50 dark:bg-zinc-900/50 relative z-20">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Real Estate Card */}
-            <div className="group bg-white rounded-2xl p-10 border border-zinc-100 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 flex flex-col h-full">
+            <div className="group bg-white dark:bg-zinc-900 rounded-2xl p-10 border border-zinc-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 flex flex-col h-full">
               <div className="w-14 h-14 bg-brand-primary rounded-xl flex items-center justify-center mb-8 text-white shadow-lg shadow-brand-primary/20 group-hover:scale-110 transition-transform">
                 <Building2 className="h-7 w-7" />
               </div>
-              <h3 className="text-2xl font-bold text-zinc-900 mb-4 tracking-tight">Imobiliária</h3>
-              <p className="text-zinc-500 mb-8 text-sm leading-relaxed font-medium">
+              <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-4 tracking-tight">Imobiliária</h3>
+              <p className="text-zinc-500 dark:text-zinc-400 mb-8 text-sm leading-relaxed font-medium">
                 Gestão profissional na compra, venda e arrendamento de imóveis. O seu parceiro estratégico no mercado imobiliário nacional.
               </p>
               <Link href="/imoveis" className="mt-auto">
-                <Button variant="outline" className="w-full border-zinc-200 text-brand-primary font-bold text-xs uppercase tracking-widest h-11 rounded-xl hover:bg-brand-primary hover:text-white hover:border-brand-primary transition-all shadow-sm">
+                <Button variant="outline" className="w-full border-zinc-200 dark:border-zinc-700 text-brand-primary font-bold text-xs uppercase tracking-widest h-11 rounded-xl hover:bg-brand-primary hover:text-white hover:border-brand-primary transition-all shadow-sm">
                   Consultar Portefólio
                 </Button>
               </Link>
             </div>
 
             {/* Insurance Card */}
-            <div className="group bg-white rounded-2xl p-10 border border-zinc-100 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 flex flex-col h-full">
+            <div className="group bg-white dark:bg-zinc-900 rounded-2xl p-10 border border-zinc-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 flex flex-col h-full">
               <div className="w-14 h-14 bg-brand-dark rounded-xl flex items-center justify-center mb-8 text-white shadow-lg shadow-brand-dark/20 group-hover:scale-110 transition-transform">
                 <ShieldCheck className="h-7 w-7" />
               </div>
-              <h3 className="text-2xl font-bold text-zinc-900 mb-4 tracking-tight">Seguros</h3>
-              <p className="text-zinc-500 mb-8 text-sm leading-relaxed font-medium">
+              <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-4 tracking-tight">Seguros</h3>
+              <p className="text-zinc-500 dark:text-zinc-400 mb-8 text-sm leading-relaxed font-medium">
                 Proteção abrangente para particulares e empresas. Consultoria especializada para garantir as melhores coberturas do mercado.
               </p>
               <Link href="/seguros" className="mt-auto">
-                <Button variant="outline" className="w-full border-zinc-100 text-brand-dark font-bold text-xs uppercase tracking-widest h-11 rounded-xl hover:bg-brand-dark hover:text-white hover:border-brand-dark transition-all shadow-sm">
+                <Button variant="outline" className="w-full border-zinc-100 dark:border-zinc-700 text-brand-dark dark:text-brand-light font-bold text-xs uppercase tracking-widest h-11 rounded-xl hover:bg-brand-dark hover:text-white hover:border-brand-dark transition-all shadow-sm">
                   Pedir Simulação
                 </Button>
               </Link>
             </div>
 
             {/* Credit Card */}
-            <div className="group bg-white rounded-2xl p-10 border border-zinc-100 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 flex flex-col h-full">
+            <div className="group bg-white dark:bg-zinc-900 rounded-2xl p-10 border border-zinc-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 flex flex-col h-full">
               <div className="w-14 h-14 bg-brand-accent rounded-xl flex items-center justify-center mb-8 text-white shadow-lg shadow-brand-accent/20 group-hover:scale-110 transition-transform">
                 <Landmark className="h-7 w-7" />
               </div>
-              <h3 className="text-2xl font-bold text-zinc-900 mb-4 tracking-tight">Crédito Bancário</h3>
-              <p className="text-zinc-500 mb-8 text-sm leading-relaxed font-medium">
+              <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-4 tracking-tight">Crédito Bancário</h3>
+              <p className="text-zinc-500 dark:text-zinc-400 mb-8 text-sm leading-relaxed font-medium">
                 Intermediação de crédito certificada. Soluções financeiras otimizadas para crédito habitação e crédito pessoal.
               </p>
               <Link href="/credito-bancario" className="mt-auto">
-                <Button variant="outline" className="w-full border-zinc-100 text-brand-accent font-bold text-xs uppercase tracking-widest h-11 rounded-xl hover:bg-brand-accent hover:text-white hover:border-brand-accent transition-all shadow-sm">
+                <Button variant="outline" className="w-full border-zinc-100 dark:border-zinc-700 text-brand-accent font-bold text-xs uppercase tracking-widest h-11 rounded-xl hover:bg-brand-accent hover:text-white hover:border-brand-accent transition-all shadow-sm">
                   Analisar Opções
                 </Button>
               </Link>
@@ -114,9 +114,9 @@ id, title, slug, price, business_type, typology, municipality, district,
       </section>
 
       {/* NEW ABOUT US TRUST SECTION */}
-      <section className="py-8 bg-white overflow-hidden">
+      <section className="py-8 bg-white dark:bg-zinc-950 overflow-hidden">
         <div className="container px-4 md:px-6 mx-auto">
-          <div className="flex flex-col lg:flex-row items-stretch shadow-xl rounded-2xl overflow-hidden border border-zinc-100 max-w-5xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-stretch shadow-xl rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 max-w-5xl mx-auto">
             {/* Left Side: Photo */}
             <div className="lg:w-2/5 relative min-h-[300px]">
               {settings.about_photo ? (
@@ -127,7 +127,7 @@ id, title, slug, price, business_type, typology, municipality, district,
                   className="object-cover object-top"
                 />
               ) : (
-                <div className="w-full h-full bg-zinc-100 flex items-center justify-center text-zinc-300 font-bold uppercase tracking-[0.3em]">Foto em breve</div>
+                <div className="w-full h-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-300 dark:text-zinc-600 font-bold uppercase tracking-[0.3em]">Foto em breve</div>
               )}
             </div>
 
@@ -169,21 +169,21 @@ id, title, slug, price, business_type, typology, municipality, district,
 
       {/* FEATURED PROPERTIES SECTION */}
       {featuredProperties && featuredProperties.length > 0 && (
-        <section className="py-12 bg-white">
+        <section className="py-12 bg-white dark:bg-zinc-950">
           <div className="container px-4 md:px-6 mx-auto">
             <div className="flex flex-col md:flex-row items-center justify-between mb-16 gap-8 text-center md:text-left">
               <div className="max-w-xl">
                 <div className="flex items-center gap-3 mb-4 justify-center md:justify-start">
-                  <div className="h-px w-8 bg-zinc-200" />
+                  <div className="h-px w-8 bg-zinc-200 dark:bg-zinc-700" />
                   <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.3em]">Exclusividade</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-black tracking-tight text-zinc-900 mb-4 font-heading uppercase">
+                <h2 className="text-3xl md:text-4xl font-black tracking-tight text-zinc-900 dark:text-zinc-100 mb-4 font-heading uppercase">
                   Imóveis em Destaque
                 </h2>
                 <p className="text-zinc-400 text-sm font-medium uppercase tracking-widest">As nossas recomendações premium no mercado atual.</p>
               </div>
               <Link href="/imoveis">
-                <Button variant="outline" className="border-zinc-200 text-zinc-900 hover:bg-zinc-50 rounded-xl px-8 h-12 font-bold uppercase tracking-widest text-[10px] shadow-sm">
+                <Button variant="outline" className="border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-xl px-8 h-12 font-bold uppercase tracking-widest text-[10px] shadow-sm">
                   Ver Portefólio Completo <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
@@ -195,7 +195,7 @@ id, title, slug, price, business_type, typology, municipality, district,
                 const formattedPrice = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(property.price)
 
                 return (
-                  <Link key={property.id} href={`/imoveis/${property.slug}`} className="group flex flex-col rounded-3xl overflow-hidden bg-white border border-zinc-100 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                  <Link key={property.id} href={`/imoveis/${property.slug}`} className="group flex flex-col rounded-3xl overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                     <div className="relative aspect-[4/3] w-full overflow-hidden">
                       {primaryImage ? (
                         <Image
@@ -205,27 +205,27 @@ id, title, slug, price, business_type, typology, municipality, district,
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-zinc-50 text-zinc-300 font-bold text-[10px] uppercase tracking-widest">Sem Imagem Disponível</div>
+                        <div className="w-full h-full flex items-center justify-center bg-zinc-50 dark:bg-zinc-800 text-zinc-300 dark:text-zinc-600 font-bold text-[10px] uppercase tracking-widest">Sem Imagem Disponível</div>
                       )}
-                      <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md text-zinc-900 text-[10px] font-black px-4 py-1.5 rounded-full shadow-lg uppercase tracking-widest">
+                      <div className="absolute top-6 left-6 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md text-zinc-900 dark:text-zinc-100 text-[10px] font-black px-4 py-1.5 rounded-full shadow-lg uppercase tracking-widest">
                         {property.business_type === 'sale' ? 'Venda' : 'Arrendamento'}
                       </div>
                     </div>
 
                     <div className="p-8 flex flex-col flex-1">
-                      <div className="text-zinc-900 font-black text-2xl mb-2 tracking-tighter">
+                      <div className="text-zinc-900 dark:text-zinc-100 font-black text-2xl mb-2 tracking-tighter">
                         {formattedPrice}
                       </div>
-                      <h3 className="font-bold text-sm uppercase tracking-widest text-zinc-400 mb-6 line-clamp-1 group-hover:text-zinc-900 transition-colors">
+                      <h3 className="font-bold text-sm uppercase tracking-widest text-zinc-400 mb-6 line-clamp-1 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors">
                         {property.title}
                       </h3>
-                      <div className="mt-auto pt-6 border-t border-zinc-50 flex items-center justify-between text-zinc-400">
+                      <div className="mt-auto pt-6 border-t border-zinc-50 dark:border-zinc-800 flex items-center justify-between text-zinc-400">
                         <div className="flex items-center gap-2">
-                          <MapPin className="h-4 w-4 text-zinc-900" />
+                          <MapPin className="h-4 w-4 text-zinc-900 dark:text-zinc-300" />
                           <span className="text-[10px] font-bold uppercase tracking-widest truncate max-w-[120px]">{property.municipality}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Building2 className="h-4 w-4 text-zinc-900" />
+                          <Building2 className="h-4 w-4 text-zinc-900 dark:text-zinc-300" />
                           <span className="text-[10px] font-bold uppercase tracking-widest">{property.typology}</span>
                         </div>
                       </div>
@@ -239,7 +239,7 @@ id, title, slug, price, business_type, typology, municipality, district,
       )}
 
       {/* FINAL TRUST BANNER */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-zinc-950">
         <div className="container mx-auto px-4 md:px-6">
           <div className="bg-brand-dark rounded-2xl p-10 md:p-16 text-center text-white relative overflow-hidden shadow-lg border border-white/10">
             <div className="relative z-10 max-w-3xl mx-auto">

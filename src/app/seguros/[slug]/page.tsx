@@ -52,9 +52,9 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
     }, {}) || {}
 
     return (
-        <div className="flex flex-col min-h-screen bg-white">
+        <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
             {/* Header */}
-            <header className="bg-zinc-50 border-b border-zinc-200 pb-12 relative overflow-hidden">
+            <header className="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 pb-12 relative overflow-hidden">
                 {insurance.cover_image_url && (
                     <div className="absolute inset-0 z-0 opacity-10">
                         <img src={insurance.cover_image_url} alt="Cover" className="w-full h-full object-cover" />
@@ -72,7 +72,7 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
                                 <ShieldCheck className="h-8 w-8" />
                             )}
                         </div>
-                        <h1 className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-tight leading-tight relative">
+                        <h1 className="text-3xl md:text-5xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight leading-tight relative">
                             {insurance.name}
                         </h1>
                         <p className="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto">
@@ -86,8 +86,8 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
                 <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
 
                     <div className="lg:col-span-7 space-y-12">
-                        <section className="prose prose-zinc prose-sm md:prose-base max-w-none text-zinc-600 leading-relaxed font-normal">
-                            <h2 className="text-2xl font-bold text-zinc-900 mb-8 flex items-center gap-3">
+                        <section className="prose prose-zinc dark:prose-invert prose-sm md:prose-base max-w-none text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+                            <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-8 flex items-center gap-3">
                                 <div className="p-2.5 bg-brand-primary/10 rounded-lg flex items-center justify-center text-brand-primary shadow-xs border border-brand-primary/10">
                                     <FileText className="h-5 w-5" />
                                 </div>
@@ -97,8 +97,8 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
                         </section>
 
                         {insurance.benefits && Array.isArray(insurance.benefits) && insurance.benefits.length > 0 && (
-                            <section className="bg-zinc-50 p-8 rounded-xl border border-zinc-200">
-                                <h3 className="text-xl font-bold text-zinc-900 mb-8 flex items-center gap-3">
+                            <section className="bg-zinc-50 dark:bg-zinc-900 p-8 rounded-xl border border-zinc-200 dark:border-zinc-800">
+                                <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-8 flex items-center gap-3">
                                     <div className="p-2 bg-brand-primary rounded-lg flex items-center justify-center text-white shadow-sm">
                                         <CheckCircle2 className="h-5 w-5" />
                                     </div>
@@ -116,16 +116,16 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
 
                         {insurance.faqs && Array.isArray(insurance.faqs) && insurance.faqs.length > 0 && (
                             <section className="space-y-8">
-                                <h3 className="text-2xl font-bold text-zinc-900 flex items-center gap-3">
-                                    <div className="p-2.5 bg-zinc-100 rounded-lg flex items-center justify-center text-zinc-400 border border-zinc-200 shadow-xs">
+                                <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-3">
+                                    <div className="p-2.5 bg-zinc-100 dark:bg-zinc-800 rounded-lg flex items-center justify-center text-zinc-400 border border-zinc-200 dark:border-zinc-700 shadow-xs">
                                         <HelpCircle className="h-5 w-5" />
                                     </div>
                                     Perguntas Frequentes
                                 </h3>
                                 <div className="space-y-4">
                                     {insurance.faqs.map((faq: any, i: number) => (
-                                        <div key={i} className="p-6 rounded-xl bg-white border border-zinc-200 shadow-sm hover:border-brand-primary/20 transition-colors">
-                                            <p className="font-bold text-zinc-900 mb-2 text-base">{faq.q}</p>
+                                        <div key={i} className="p-6 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:border-brand-primary/20 transition-colors">
+                                            <p className="font-bold text-zinc-900 dark:text-zinc-100 mb-2 text-base">{faq.q}</p>
                                             <p className="text-zinc-500 text-sm leading-relaxed">{faq.a}</p>
                                         </div>
                                     ))}
@@ -136,7 +136,7 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
 
                     {/* RIGHT: SIMULATION FORM */}
                     <div className="lg:col-span-5 lg:sticky lg:top-24">
-                        <div className="bg-white rounded-xl shadow-lg border border-zinc-200 overflow-hidden">
+                        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
                             <div className="bg-brand-dark p-8 text-white text-center relative">
                                 <h3 className="text-2xl font-bold mb-3 relative z-10">Simulação Grátis</h3>
                                 <p className="text-white/60 text-sm font-medium relative z-10">
@@ -153,7 +153,7 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
                                 />
 
                                 {/* Department specific contacts */}
-                                <div className="pt-8 border-t border-zinc-100 space-y-6">
+                                <div className="pt-8 border-t border-zinc-100 dark:border-zinc-800 space-y-6">
                                     <p className="text-[10px] font-bold text-center text-zinc-400 uppercase tracking-widest leading-none">Apoio Direto</p>
                                     <div className="flex flex-col gap-4">
                                         {contacts.contact_insurance_phone && (
@@ -163,18 +163,18 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
                                                 </div>
                                                 <div className="flex flex-col">
                                                     <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider leading-tight">Telefone</span>
-                                                    <a href={`tel:${contacts.contact_insurance_phone}`} className="font-bold text-zinc-900 hover:text-brand-primary transition-colors">{contacts.contact_insurance_phone}</a>
+                                                    <a href={`tel:${contacts.contact_insurance_phone}`} className="font-bold text-zinc-900 dark:text-zinc-100 hover:text-brand-primary transition-colors">{contacts.contact_insurance_phone}</a>
                                                 </div>
                                             </div>
                                         )}
                                         {contacts.contact_insurance_email && (
                                             <div className="flex items-center gap-4 group">
-                                                <div className="w-10 h-10 bg-white border border-zinc-200 shadow-xs rounded-lg flex items-center justify-center text-zinc-400 group-hover:bg-brand-primary group-hover:text-white group-hover:border-brand-primary transition-colors">
+                                                <div className="w-10 h-10 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 shadow-xs rounded-lg flex items-center justify-center text-zinc-400 group-hover:bg-brand-primary group-hover:text-white group-hover:border-brand-primary transition-colors">
                                                     <Mail className="h-4 w-4" />
                                                 </div>
                                                 <div className="flex flex-col min-w-0">
                                                     <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider leading-tight">Email</span>
-                                                    <a href={`mailto:${contacts.contact_insurance_email}`} className="font-bold text-zinc-900 hover:text-brand-primary transition-colors truncate">{contacts.contact_insurance_email}</a>
+                                                    <a href={`mailto:${contacts.contact_insurance_email}`} className="font-bold text-zinc-900 dark:text-zinc-100 hover:text-brand-primary transition-colors truncate">{contacts.contact_insurance_email}</a>
                                                 </div>
                                             </div>
                                         )}

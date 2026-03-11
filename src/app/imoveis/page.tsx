@@ -60,14 +60,14 @@ export default async function PropertiesPage({
     }, {}) || {}
 
     return (
-        <div className="flex flex-col min-h-screen bg-white">
+        <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
             {/* Header / Search Hero */}
-            <header className="bg-zinc-50 border-b border-zinc-200 pb-12">
+            <header className="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 pb-12">
                 <PageNavigation padding="pt-8 pb-4" />
                 <div className="container mx-auto px-4 mt-4">
                     <div className="max-w-3xl mx-auto text-center mb-10">
-                        <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-3">Nossos Imóveis</h1>
-                        <p className="text-zinc-500 text-lg">Encontre o espaço perfeito para o seu próximo capítulo.</p>
+                        <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">Nossos Imóveis</h1>
+                        <p className="text-zinc-500 dark:text-zinc-400 text-lg">Encontre o espaço perfeito para o seu próximo capítulo.</p>
                     </div>
 
                     {/* Filters */}
@@ -82,8 +82,8 @@ export default async function PropertiesPage({
             {/* Results */}
             < main className="flex-1 container mx-auto px-4 py-12" >
                 <div className="flex items-center justify-between mb-8">
-                    <p className="text-zinc-600 text-sm font-medium">
-                        A mostrar <span className="font-bold text-zinc-900">{properties?.length || 0}</span> imóveis disponíveis
+                    <p className="text-zinc-600 dark:text-zinc-400 text-sm font-medium">
+                        A mostrar <span className="font-bold text-zinc-900 dark:text-zinc-100">{properties?.length || 0}</span> imóveis disponíveis
                     </p>
                     <Button variant="outline" size="sm" className="md:hidden rounded-lg font-semibold">
                         <SlidersHorizontal className="mr-2 h-4 w-4" /> Filtros
@@ -98,7 +98,7 @@ export default async function PropertiesPage({
                                 const priceFormatted = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(property.price)
 
                                 return (
-                                    <Link key={property.id} href={`/imoveis/${property.slug}`} className="group flex flex-col rounded-xl overflow-hidden bg-white border border-zinc-200 shadow-sm hover:shadow-md transition-all">
+                                    <Link key={property.id} href={`/imoveis/${property.slug}`} className="group flex flex-col rounded-xl overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all">
                                         <div className="relative aspect-[4/3] overflow-hidden">
                                             <Image
                                                 src={mainImage}
@@ -111,18 +111,18 @@ export default async function PropertiesPage({
                                             </div>
                                         </div>
                                         <div className="p-6 flex-1 flex flex-col">
-                                            <div className="text-brand-dark font-bold text-xl mb-1">
+                                            <div className="text-brand-dark dark:text-brand-light font-bold text-xl mb-1">
                                                 {priceFormatted}
                                                 {property.business_type === 'rent' && <span className="text-xs font-medium text-zinc-400 ml-1">/mês</span>}
                                             </div>
-                                            <h2 className="text-base font-semibold text-zinc-900 mb-4 line-clamp-1 group-hover:text-brand-primary transition-colors">{property.title}</h2>
+                                            <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100 mb-4 line-clamp-1 group-hover:text-brand-primary transition-colors">{property.title}</h2>
 
-                                            <div className="mt-auto space-y-3 pt-4 border-t border-zinc-100">
+                                            <div className="mt-auto space-y-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
                                                 <div className="flex items-center text-xs text-zinc-500 font-medium gap-1.5">
                                                     <MapPin className="h-3.5 w-3.5 text-brand-primary" />
                                                     <span>{property.municipality}, {property.district}</span>
                                                 </div>
-                                                <div className="flex items-center gap-4 text-xs font-semibold text-zinc-700">
+                                                <div className="flex items-center gap-4 text-xs font-semibold text-zinc-700 dark:text-zinc-300">
                                                     <div className="flex items-center gap-1.5">
                                                         <HomeIcon className="h-3.5 w-3.5 text-brand-primary" />
                                                         <span>{property.typology}</span>
@@ -139,12 +139,12 @@ export default async function PropertiesPage({
                             })}
                         </div>
                     ) : (
-                        <div className="text-center py-24 bg-zinc-50 rounded-xl border border-zinc-200">
-                            <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Search className="h-8 w-8 text-zinc-300" />
+                        <div className="text-center py-24 bg-zinc-50 dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800">
+                            <div className="w-16 h-16 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Search className="h-8 w-8 text-zinc-300 dark:text-zinc-600" />
                             </div>
-                            <h2 className="text-xl font-bold text-zinc-900 mb-1">Nenhum imóvel encontrado</h2>
-                            <p className="text-zinc-500 text-sm">Tente ajustar os seus filtros para encontrar o que procura.</p>
+                            <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">Nenhum imóvel encontrado</h2>
+                            <p className="text-zinc-500 dark:text-zinc-400 text-sm">Tente ajustar os seus filtros para encontrar o que procura.</p>
                         </div>
                     )
                 }

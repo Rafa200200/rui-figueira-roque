@@ -6,7 +6,7 @@ import React from "react"
 // Importamos o componente real do mapa com ssr: false dentro de um Client Component
 const PropertyMapInner = dynamic(() => import("./property-map"), {
     ssr: false,
-    loading: () => <div className="h-[350px] w-full bg-zinc-50 animate-pulse rounded-2xl border border-zinc-200" />
+    loading: () => <div className="h-[350px] w-full bg-zinc-50 dark:bg-zinc-800 animate-pulse rounded-2xl border border-zinc-200 dark:border-zinc-800" />
 })
 
 interface PropertyMapClientProps {

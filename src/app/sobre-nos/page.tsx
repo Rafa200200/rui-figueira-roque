@@ -39,7 +39,7 @@ export default async function AboutUsPage() {
                 <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl mx-auto">
 
                     {/* Imagem */}
-                    <div className="relative aspect-[4/5] md:aspect-square rounded-xl overflow-hidden shadow-lg border border-zinc-200">
+                    <div className="relative aspect-[4/5] md:aspect-square rounded-xl overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-800">
                         {settings.about_photo ? (
                             <Image
                                 src={settings.about_photo}
@@ -48,7 +48,7 @@ export default async function AboutUsPage() {
                                 className="object-cover object-center"
                             />
                         ) : (
-                            <div className="w-full h-full bg-zinc-50 flex items-center justify-center text-zinc-300">
+                            <div className="w-full h-full bg-zinc-50 dark:bg-zinc-800 flex items-center justify-center text-zinc-300 dark:text-zinc-600">
                                 Sem Imagem
                             </div>
                         )}
@@ -57,20 +57,20 @@ export default async function AboutUsPage() {
                     {/* Textos */}
                     <div className="space-y-12">
                         <section>
-                            <h2 className="text-2xl font-bold text-zinc-900 mb-6 flex items-center gap-3">
+                            <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-6 flex items-center gap-3">
                                 <div className="w-1 h-8 bg-brand-primary rounded-full" />
                                 Quem Somos
                             </h2>
                             <div
-                                className="prose prose-zinc prose-sm md:prose-base max-w-none text-zinc-600 leading-relaxed"
+                                className="prose prose-zinc dark:prose-invert prose-sm md:prose-base max-w-none text-zinc-600 dark:text-zinc-400 leading-relaxed"
                                 dangerouslySetInnerHTML={{ __html: settings.about_bio || "<p>A Rui Figueira & Roque atua no mercado...</p>" }}
                             />
                         </section>
 
-                        <section className="bg-zinc-50 p-8 rounded-xl border border-zinc-200 shadow-sm">
+                        <section className="bg-zinc-50 dark:bg-zinc-900 p-8 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
                             <h2 className="text-xl font-bold text-brand-primary mb-4 uppercase tracking-wider text-[10px]">A Nossa Missão</h2>
                             <div
-                                className="prose prose-zinc prose-sm max-w-none text-zinc-700 font-medium italic"
+                                className="prose prose-zinc dark:prose-invert prose-sm max-w-none text-zinc-700 dark:text-zinc-300 font-medium italic"
                                 dangerouslySetInnerHTML={{ __html: settings.about_mission || "<p>Providenciar segurança...</p>" }}
                             />
                         </section>

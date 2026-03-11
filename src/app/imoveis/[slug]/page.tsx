@@ -84,7 +84,7 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
     const priceFormatted = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(property.price)
 
     return (
-        <div className="flex flex-col min-h-screen bg-white">
+        <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
             {/* Top Navigation / Breadcrumbs */}
             <PageNavigation padding="py-8" />
 
@@ -102,10 +102,10 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
                                 </Badge>
                                 {property.featured && <Badge className="bg-amber-50 text-amber-600 border border-amber-100 font-bold px-3 py-1 rounded text-[10px] uppercase tracking-wider">Destaque</Badge>}
                                 {property.tags?.map((tag: string) => (
-                                    <Badge key={tag} variant="outline" className="border-zinc-200 text-zinc-500 font-semibold px-3 py-1 rounded text-[10px] uppercase tracking-wider">{tag}</Badge>
+                                    <Badge key={tag} variant="outline" className="border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 font-semibold px-3 py-1 rounded text-[10px] uppercase tracking-wider">{tag}</Badge>
                                 ))}
                             </div>
-                            <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-4 tracking-tight">
+                            <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-4 tracking-tight">
                                 {property.title}
                             </h1>
                             <div className="flex items-center text-zinc-500 gap-2">
@@ -118,65 +118,65 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
                         <PropertyGallery images={images} title={property.title} />
 
                         {/* Quick Specs Bar */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 bg-zinc-50 rounded-xl border border-zinc-200">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 bg-zinc-50 dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800">
                             <div className="flex items-center gap-3">
-                                <div className="p-2.5 bg-white rounded-lg shadow-sm border border-zinc-100">
+                                <div className="p-2.5 bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-zinc-100 dark:border-zinc-700">
                                     <Maximize2 className="h-5 w-5 text-brand-primary" />
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">Área Bruta</span>
-                                    <span className="font-bold text-zinc-900 text-sm">{property.area_m2} m²</span>
+                                    <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">{property.area_m2} m²</span>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
-                                <div className="p-2.5 bg-white rounded-lg shadow-sm border border-zinc-100">
+                                <div className="p-2.5 bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-zinc-100 dark:border-zinc-700">
                                     <BedDouble className="h-5 w-5 text-brand-primary" />
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">Quartos</span>
-                                    <span className="font-bold text-zinc-900 text-sm">{property.typology}</span>
+                                    <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">{property.typology}</span>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
-                                <div className="p-2.5 bg-white rounded-lg shadow-sm border border-zinc-100">
+                                <div className="p-2.5 bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-zinc-100 dark:border-zinc-700">
                                     <Bath className="h-5 w-5 text-brand-primary" />
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">Banhos</span>
-                                    <span className="font-bold text-zinc-900 text-sm">{property.bathrooms || 1}</span>
+                                    <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">{property.bathrooms || 1}</span>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
-                                <div className="p-2.5 bg-white rounded-lg shadow-sm border border-zinc-100">
+                                <div className="p-2.5 bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-zinc-100 dark:border-zinc-700">
                                     <Zap className="h-5 w-5 text-brand-primary" />
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">Certificado Ener.</span>
-                                    <span className="font-bold text-zinc-900 text-sm">{property.energy_certificate || 'N/A'}</span>
+                                    <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">{property.energy_certificate || 'N/A'}</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Description Section */}
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-zinc-900 mb-4">Sobre o Imóvel</h2>
+                            <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">Sobre o Imóvel</h2>
                             <div
-                                className="prose prose-zinc prose-sm md:prose-base max-w-none text-zinc-600 leading-relaxed font-normal"
+                                className="prose prose-zinc dark:prose-invert prose-sm md:prose-base max-w-none text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal"
                                 dangerouslySetInnerHTML={{ __html: property.description }}
                             />
                         </div>
 
                         {/* Features List */}
                         {property.features && property.features.length > 0 && (
-                            <div className="pt-10 border-t border-zinc-100">
-                                <h2 className="text-xl font-bold text-zinc-900 mb-6">Características Detalhadas</h2>
+                            <div className="pt-10 border-t border-zinc-100 dark:border-zinc-800">
+                                <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-6">Características Detalhadas</h2>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     {property.features.map((feat: string) => (
                                         <div key={feat} className="flex items-center gap-2.5 group">
                                             <div className="w-6 h-6 rounded bg-brand-primary/10 flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-colors">
                                                 <CheckCircle2 className="h-3.5 w-3.5" />
                                             </div>
-                                            <span className="text-zinc-700 font-semibold text-sm">{feat}</span>
+                                            <span className="text-zinc-700 dark:text-zinc-300 font-semibold text-sm">{feat}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -185,7 +185,7 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
 
                         {/* Property Map Location */}
                         {property.latitude && property.longitude && (
-                            <div className="pt-10 border-t border-zinc-100">
+                            <div className="pt-10 border-t border-zinc-100 dark:border-zinc-800">
                                 <PropertyMapClient
                                     lat={property.latitude}
                                     lng={property.longitude}
@@ -225,9 +225,9 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
                         </div>
 
                         {/* Visit Request Form */}
-                        <div className="bg-white p-8 rounded-xl border border-zinc-200 shadow-sm">
-                            <h3 className="text-xl font-bold text-zinc-900 mb-6 flex items-center gap-2.5">
-                                <div className="w-9 h-9 bg-zinc-50 rounded-lg flex items-center justify-center text-brand-primary">
+                        <div className="bg-white dark:bg-zinc-900 p-8 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
+                            <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-6 flex items-center gap-2.5">
+                                <div className="w-9 h-9 bg-zinc-50 dark:bg-zinc-800 rounded-lg flex items-center justify-center text-brand-primary">
                                     <Calendar className="h-4 w-4" />
                                 </div>
                                 Agendar Visita
@@ -239,17 +239,17 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
                             />
 
                             {/* Secondary contacts */}
-                            <div className="mt-8 pt-6 border-t border-zinc-100 space-y-4">
+                            <div className="mt-8 pt-6 border-t border-zinc-100 dark:border-zinc-800 space-y-4">
                                 <p className="text-[10px] font-bold text-center text-zinc-400 uppercase tracking-wider">Contacto Directo</p>
                                 <div className="flex flex-col gap-3">
-                                    <div className="flex items-center gap-3 text-zinc-900 font-semibold group">
-                                        <div className="p-2.5 bg-zinc-50 rounded-lg text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-colors">
+                                    <div className="flex items-center gap-3 text-zinc-900 dark:text-zinc-100 font-semibold group">
+                                        <div className="p-2.5 bg-zinc-50 dark:bg-zinc-800 rounded-lg text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-colors">
                                             <Phone className="h-3.5 w-3.5" />
                                         </div>
                                         <span className="text-sm">{contacts.contact_realestate_phone || 'N/A'}</span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-zinc-900 font-semibold group">
-                                        <div className="p-2.5 bg-zinc-50 rounded-lg text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-colors">
+                                    <div className="flex items-center gap-3 text-zinc-900 dark:text-zinc-100 font-semibold group">
+                                        <div className="p-2.5 bg-zinc-50 dark:bg-zinc-800 rounded-lg text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-colors">
                                             <Mail className="h-3.5 w-3.5" />
                                         </div>
                                         <span className="text-sm truncate">{contacts.contact_realestate_email || 'N/A'}</span>

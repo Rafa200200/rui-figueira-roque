@@ -73,20 +73,20 @@ export function LeadForm({
                 <div className="space-y-4">
                     {dynamicFields.map((field, idx) => (
                         <div key={idx} className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">{field.label}</label>
+                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">{field.label}</label>
                             {field.type === "multiline" ? (
                                 <textarea
                                     name={field.id}
                                     required={field.required}
                                     placeholder={field.label}
                                     rows={3}
-                                    className="w-full p-3 rounded-lg border border-zinc-200 bg-white focus:ring-2 focus:ring-brand-primary outline-none transition-all resize-none text-zinc-900"
+                                    className="w-full p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-brand-primary outline-none transition-all resize-none text-zinc-900 dark:text-zinc-100"
                                 />
                             ) : field.type === "select" ? (
                                 <select
                                     name={field.id}
                                     required={field.required}
-                                    className="w-full p-3 rounded-lg border border-zinc-200 bg-white focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900 appearance-none cursor-pointer"
+                                    className="w-full p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900 dark:text-zinc-100 appearance-none cursor-pointer"
                                 >
                                     <option value="">Selecione...</option>
                                     {(Array.isArray(field.options) ? field.options : typeof field.options === 'string' ? field.options.split(',') : []).map((opt: string) => (
@@ -99,7 +99,7 @@ export function LeadForm({
                                     type={field.type === 'number' ? 'number' : field.type === 'email' ? 'email' : field.type === 'tel' ? 'tel' : field.type === 'date' ? 'date' : 'text'}
                                     required={field.required}
                                     placeholder={field.label}
-                                    className="w-full p-3 rounded-lg border border-zinc-200 bg-white focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900"
+                                    className="w-full p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900 dark:text-zinc-100"
                                 />
                             )}
                         </div>
@@ -108,26 +108,26 @@ export function LeadForm({
                     {/* Auto-inject contact fields if the admin forgot to add them */}
                     {!dynamicFields.some(f => f.type === 'email' || f.id.toLowerCase().includes('email')) && (
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Email (Contacto)</label>
+                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Email (Contacto)</label>
                             <input
                                 name="email"
                                 type="email"
                                 required
                                 placeholder="O seu email"
-                                className="w-full p-3 rounded-lg border border-zinc-200 bg-white focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900"
+                                className="w-full p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900 dark:text-zinc-100"
                             />
                         </div>
                     )}
 
                     {!dynamicFields.some(f => f.type === 'tel' || f.id.toLowerCase().includes('telefone') || f.id.toLowerCase().includes('telemovel')) && (
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Telefone (Contacto)</label>
+                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Telefone (Contacto)</label>
                             <input
                                 name="phone"
                                 type="tel"
                                 required
                                 placeholder="O seu contacto numérico"
-                                className="w-full p-3 rounded-lg border border-zinc-200 bg-white focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900"
+                                className="w-full p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900 dark:text-zinc-100"
                             />
                         </div>
                     )}
@@ -136,45 +136,45 @@ export function LeadForm({
                 // DEFAULT FIELDS
                 <>
                     <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Nome Completo</label>
+                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Nome Completo</label>
                         <input
                             name="name"
                             type="text"
                             required
                             placeholder="O seu nome"
-                            className="w-full p-3 rounded-lg border border-zinc-200 bg-white focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900"
+                            className="w-full p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900 dark:text-zinc-100"
                         />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Email</label>
+                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Email</label>
                             <input
                                 name="email"
                                 type="email"
                                 required
                                 placeholder="O seu email"
-                                className="w-full p-3 rounded-lg border border-zinc-200 bg-white focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900"
+                                className="w-full p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900 dark:text-zinc-100"
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Telefone</label>
+                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Telefone</label>
                             <input
                                 name="phone"
                                 type="tel"
                                 required
                                 placeholder="O seu contacto"
-                                className="w-full p-3 rounded-lg border border-zinc-200 bg-white focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900"
+                                className="w-full p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900 dark:text-zinc-100"
                             />
                         </div>
                     </div>
 
                     {type === "contact" && (
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Assunto</label>
+                            <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Assunto</label>
                             <select
                                 name="subject"
-                                className="w-full p-3 rounded-lg border border-zinc-200 bg-white focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900 appearance-none cursor-pointer"
+                                className="w-full p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-brand-primary outline-none transition-all text-zinc-900 dark:text-zinc-100 appearance-none cursor-pointer"
                             >
                                 <option value="Informações Gerais">Informações Gerais</option>
                                 <option value="Imobiliária">Imobiliária</option>
@@ -185,19 +185,19 @@ export function LeadForm({
                     )}
 
                     <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Mensagem / Observações</label>
+                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Mensagem / Observações</label>
                         <textarea
                             name="message"
                             rows={type === "insurance_simulation" ? 3 : 2}
                             placeholder={type === "insurance_simulation" ? "Ex: Matrícula, Data de Nascimento, etc." : "Gostaria de agendar uma visita para..."}
-                            className="w-full p-3 rounded-lg border border-zinc-200 bg-white focus:ring-2 focus:ring-brand-primary outline-none transition-all resize-none text-zinc-900"
+                            className="w-full p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-brand-primary outline-none transition-all resize-none text-zinc-900 dark:text-zinc-100"
                         />
                     </div>
                 </>
             )}
 
             {status === "error" && (
-                <p className="text-red-600 text-xs font-medium bg-red-50 p-2 rounded border border-red-100 italic">
+                <p className="text-red-600 dark:text-red-400 text-xs font-medium bg-red-50 dark:bg-red-900/20 p-2 rounded border border-red-100 dark:border-red-900/50 italic">
                     {message}
                 </p>
             )}
