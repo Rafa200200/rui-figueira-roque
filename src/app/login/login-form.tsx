@@ -64,7 +64,14 @@ export default function LoginForm({ className, ...props }: LoginFormProps) {
 
         // "Entrar no Site" opens homepage in a new window
         if (!from && destinationRef.current === "/") {
-            window.open(destination, "_blank")
+            // Mobile browsers block window.open after async calls — use a hidden link as fallback
+            const link = document.createElement("a")
+            link.href = destination
+            link.target = "_blank"
+            link.rel = "noopener noreferrer"
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
             router.refresh()
         } else {
             // Hard navigation to avoid middleware race condition on /login
