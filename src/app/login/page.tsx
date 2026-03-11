@@ -1,7 +1,6 @@
 import { Metadata } from "next"
 import LoginForm from "./login-form"
 import { Suspense } from "react"
-import { ThemeToggle } from "@/components/theme-toggle"
 
 export const metadata: Metadata = {
     title: "Login Admin",
@@ -11,9 +10,6 @@ export const metadata: Metadata = {
 export default function LoginPage() {
     return (
         <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-            <div className="absolute right-4 top-4 z-50 md:right-8 md:top-8">
-                <ThemeToggle />
-            </div>
 
             <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
                 <div className="absolute inset-0 bg-brand-dark" />

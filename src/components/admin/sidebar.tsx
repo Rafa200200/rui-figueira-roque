@@ -18,7 +18,6 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
-import { ThemeToggle } from "@/components/theme-toggle"
 
 const navigation = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -120,10 +119,6 @@ export function Sidebar() {
                             <LogOut className="h-4 w-4" />
                             Terminar Sessão
                         </Button>
-                        <div className="flex items-center justify-between px-2 pt-2">
-                            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Tema</span>
-                            <ThemeToggle />
-                        </div>
                     </div>
                 </div>
             </div>

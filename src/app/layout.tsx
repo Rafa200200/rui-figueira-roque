@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 import "./globals.css";
 
 const inter = Inter({
@@ -37,6 +38,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          {/* Floating dark mode toggle — visible on every page */}
+          <div className="fixed bottom-4 right-4 z-[9999] rounded-full shadow-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900">
+            <ThemeToggle />
+          </div>
         </ThemeProvider>
       </body>
     </html>

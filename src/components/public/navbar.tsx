@@ -25,7 +25,7 @@ export function Navbar({ settings }: { settings: Record<string, string> }) {
                 </nav>
 
                 {/* Right Action */}
-                <div className="hidden md:block">
+                <div className="hidden md:flex items-center gap-2">
                     <Link href="/contacto">
                         <Button className="bg-brand-primary hover:bg-brand-dark text-white font-semibold text-sm px-6 rounded-lg h-10 shadow-sm transition-all">
                             Solicitar Contacto
@@ -34,9 +34,11 @@ export function Navbar({ settings }: { settings: Record<string, string> }) {
                 </div>
 
                 {/* Mobile Menu Button */}
-                <button className="lg:hidden p-2 text-zinc-900 dark:text-zinc-100">
-                    <Menu className="h-6 w-6" />
-                </button>
+                <div className="flex items-center gap-1 lg:hidden">
+                    <button className="p-2 text-zinc-900 dark:text-zinc-100">
+                        <Menu className="h-6 w-6" />
+                    </button>
+                </div>
             </div>
         </header>
     )
