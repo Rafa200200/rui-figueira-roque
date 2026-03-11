@@ -21,9 +21,12 @@ export async function updateSession(request: NextRequest) {
                     supabaseResponse = NextResponse.next({
                         request,
                     })
-                    cookiesToSet.forEach(({ name, value, options }) =>
-                        supabaseResponse.cookies.set(name, value, options)
-                    )
+                    cookiesToSet.forEach(({ name, value, options }) => {
+                        // Remove maxAge/expires so cookies are session-only
+                        // (session ends when browser is closed)
+                        const { maxAge, expires, ...sessionOptions } = options || {}
+                        supabaseResponse.cookies.set(name, value, sessionOptions)
+                    })
                 },
             },
         }
