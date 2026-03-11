@@ -60,8 +60,16 @@ export default function LoginForm({ className, ...props }: LoginFormProps) {
             return setError("Credenciais inválidas. Tente novamente.")
         }
 
-        router.push(from || destinationRef.current)
-        router.refresh()
+        const destination = from || destinationRef.current
+
+        // "Entrar no Site" opens homepage in a new window
+        if (!from && destinationRef.current === "/") {
+            window.open(destination, "_blank")
+            router.refresh()
+        } else {
+            router.push(destination)
+            router.refresh()
+        }
     }
 
     return (
