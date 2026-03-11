@@ -34,20 +34,21 @@ export async function updateSession(request: NextRequest) {
         data: { user },
     } = await supabase.auth.getUser()
 
-    // Protect admin routes
-    if (request.nextUrl.pathname.startsWith('/admin')) {
-        if (!user) {
-            const url = request.nextUrl.clone()
-            url.pathname = '/login'
-            url.searchParams.set('redirect', request.nextUrl.pathname)
-            return NextResponse.redirect(url)
-        }
+    const isLoginPage = request.nextUrl.pathname === '/login'
+    const isApiRoute = request.nextUrl.pathname.startsWith('/api')
+
+    // Protect ALL routes (site in test mode) — except login and API routes
+    if (!user && !isLoginPage && !isApiRoute) {
+        const url = request.nextUrl.clone()
+        url.pathname = '/login'
+        url.searchParams.set('redirect', request.nextUrl.pathname)
+        return NextResponse.redirect(url)
     }
 
-    // Redirect logged-in users away from login page
-    if (request.nextUrl.pathname === '/login' && user) {
+    // Redirect logged-in users away from login page to home
+    if (isLoginPage && user) {
         const url = request.nextUrl.clone()
-        url.pathname = '/admin'
+        url.pathname = '/'
         return NextResponse.redirect(url)
     }
 

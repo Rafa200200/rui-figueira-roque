@@ -32,7 +32,7 @@ export default function LoginForm({ className, ...props }: LoginFormProps) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const [error, setError] = React.useState<string | null>(null)
 
-    const from = searchParams.get("redirect") || "/admin"
+    const from = searchParams.get("redirect") || "/"
 
     const {
         register,
