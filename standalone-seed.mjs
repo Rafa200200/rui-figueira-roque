@@ -1,5 +1,15 @@
-const supabaseUrl = '***SUPABASE_URL_REMOVED***';
-const supabaseKey = '***SUPABASE_ANON_KEY_REMOVED***';
+import dotenv from 'dotenv';
+import path from 'path';
+
+dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+    console.error('Missing Supabase credentials in .env.local');
+    process.exit(1);
+}
 
 async function seedProperties() {
     console.log("Starting to seed properties...");
