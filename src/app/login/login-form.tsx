@@ -67,8 +67,8 @@ export default function LoginForm({ className, ...props }: LoginFormProps) {
             window.open(destination, "_blank")
             router.refresh()
         } else {
-            router.push(destination)
-            router.refresh()
+            // Hard navigation to avoid middleware race condition on /login
+            window.location.href = destination
         }
     }
 
