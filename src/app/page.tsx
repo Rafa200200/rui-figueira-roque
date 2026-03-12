@@ -62,7 +62,7 @@ id, title, slug, price, business_type, typology, municipality, district,
         {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-black/60" />
         {/* Content */}
-        <div className="relative z-10 container px-4 md:px-6 mx-auto flex flex-col items-center text-center py-10 lg:py-14">
+        <div className="relative z-10 container px-4 md:px-6 mx-auto flex flex-col items-center text-center py-6 lg:py-8">
           <h1 className="text-3xl md:text-5xl font-black tracking-tighter mb-3 text-white uppercase drop-shadow-lg">
             {settings.hero_title || "Rui Figueira & Roque, Lda"}
           </h1>
@@ -73,7 +73,7 @@ id, title, slug, price, business_type, typology, municipality, district,
       </header>
 
       {/* SERVICES SECTION - BROUGHT TO TOP */}
-      <section className="py-8 lg:py-12 bg-white dark:bg-zinc-950 relative z-20">
+      <section className="pt-8 lg:pt-12 pb-4 lg:pb-6 bg-white dark:bg-zinc-950 relative z-20">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Real Estate Card */}
@@ -128,7 +128,7 @@ id, title, slug, price, business_type, typology, municipality, district,
       </section>
 
       {/* NEW ABOUT US TRUST SECTION */}
-      <section className="py-8 bg-white dark:bg-zinc-950 overflow-hidden">
+      <section className="pt-4 lg:pt-6 pb-8 lg:pb-12 bg-white dark:bg-zinc-950 overflow-hidden">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="flex flex-col lg:flex-row items-stretch shadow-xl rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 max-w-5xl mx-auto">
             {/* Left Side: Photo */}
