@@ -267,7 +267,8 @@ export function InsuranceForm({ initialData }: { initialData?: any }) {
 
                             <div className="space-y-2">
                                 <Label htmlFor="display_order" className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-1">Ordem Layout</Label>
-                                <Input id="display_order" type="number" className="h-11 rounded-xl border-zinc-200 dark:border-zinc-800 focus-visible:ring-brand-primary font-bold text-zinc-900 dark:text-zinc-100" {...register("display_order")} />
+                                <Input id="display_order" type="number" className="h-11 rounded-xl border-zinc-200 dark:border-zinc-800 focus-visible:ring-brand-primary font-bold text-zinc-900 dark:text-zinc-100" {...register("display_order", { valueAsNumber: true })} />
+                                {errors.display_order && <p className="text-[10px] text-red-500 font-bold mt-1 px-1">{errors.display_order.message}</p>}
                             </div>
                         </div>
 
