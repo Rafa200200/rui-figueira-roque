@@ -125,7 +125,6 @@ export async function Footer() {
                 <div className="flex gap-6 mt-4 md:mt-0">
                     <Link href="/documentos/politica-privacidade" className="hover:text-white transition-colors">Privacidade</Link>
                     <Link href="/documentos/termos" className="hover:text-white transition-colors">Termos</Link>
-                    <Link href="/admin" className="hover:text-white transition-colors">Backoffice</Link>
                 </div>
             </div>
         </footer>
