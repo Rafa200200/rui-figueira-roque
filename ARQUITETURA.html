@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arquitetura — Rui Figueira &amp; Roque</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --green-50: #f0fdf4;
+    --green-100: #dcfce7;
+    --green-200: #bbf7d0;
+    --green-300: #86efac;
+    --green-400: #4ade80;
+    --green-500: #4CAF50;
+    --green-600: #2E7D32;
+    --green-700: #1a5c20;
+    --green-800: #14532d;
+    --green-900: #052e16;
+
+    --blue-50: #eff6ff;
+    --blue-100: #dbeafe;
+    --blue-200: #bfdbfe;
+    --blue-500: #3b82f6;
+    --blue-600: #2563eb;
+    --blue-700: #1d4ed8;
+
+    --purple-50: #faf5ff;
+    --purple-100: #f3e8ff;
+    --purple-500: #a855f7;
+    --purple-600: #9333ea;
+    --purple-700: #7e22ce;
+
+    --orange-50: #fff7ed;
+    --orange-100: #ffedd5;
+    --orange-500: #f97316;
+    --orange-600: #ea580c;
+
+    --red-50: #fef2f2;
+    --red-100: #fee2e2;
+    --red-500: #ef4444;
+    --red-600: #dc2626;
+
+    --yellow-50: #fefce8;
+    --yellow-100: #fef9c3;
+    --yellow-500: #eab308;
+    --yellow-600: #ca8a04;
+
+    --cyan-50: #ecfeff;
+    --cyan-100: #cffafe;
+    --cyan-500: #06b6d4;
+    --cyan-600: #0891b2;
+
+    --zinc-50: #fafafa;
+    --zinc-100: #f4f4f5;
+    --zinc-200: #e4e4e7;
+    --zinc-300: #d4d4d8;
+    --zinc-400: #a1a1aa;
+    --zinc-500: #71717a;
+    --zinc-600: #52525b;
+    --zinc-700: #3f3f46;
+    --zinc-800: #27272a;
+    --zinc-900: #18181b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--zinc-800);
+    background: #fff;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @media print {
+    body { font-size: 11px; }
+    .page-break { page-break-before: always; }
+    .no-break { page-break-inside: avoid; }
+    section { page-break-inside: avoid; }
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: linear-gradient(135deg, var(--green-600) 0%, var(--green-800) 50%, var(--green-900) 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -30%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    left: -20%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .cover h1 {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .cover .subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    opacity: 0.85;
+    position: relative;
+  }
+  .cover .badge {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 6px 18px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    backdrop-filter: blur(4px);
+    position: relative;
+  }
+
+  /* ── TOC ── */
+  .toc {
+    padding: 48px 0;
+    background: var(--zinc-50);
+    border-bottom: 1px solid var(--zinc-200);
+  }
+  .toc h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--zinc-900);
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 32px;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--zinc-600);
+    text-decoration: none;
+    border-bottom: 1px solid var(--zinc-100);
+  }
+  .toc-item:hover { color: var(--green-600); }
+  .toc-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--green-100);
+    color: var(--green-700);
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--zinc-100);
+  }
+  section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .section-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--zinc-900);
+  }
+  .section-header p {
+    font-size: 14px;
+    color: var(--zinc-500);
+    margin-top: 2px;
+  }
+
+  /* ── DIAGRAM BOXES ── */
+  .diagram {
+    background: var(--zinc-50);
+    border: 1px solid var(--zinc-200);
+    border-radius: 16px;
+    padding: 32px;
+    margin: 20px 0;
+    overflow-x: auto;
+  }
+
+  .flow-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .flow-horizontal {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .box {
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    position: relative;
+    min-width: 180px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .box .label {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .box .detail {
+    font-weight: 400;
+    font-size: 12px;
+    opacity: 0.75;
+  }
+  .box code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: rgba(0,0,0,0.06);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  .box-green { background: var(--green-50); border: 2px solid var(--green-500); color: var(--green-800); }
+  .box-blue { background: var(--blue-50); border: 2px solid var(--blue-500); color: var(--blue-700); }
+  .box-purple { background: var(--purple-50); border: 2px solid var(--purple-500); color: var(--purple-700); }
+  .box-orange { background: var(--orange-50); border: 2px solid var(--orange-500); color: var(--orange-600); }
+  .box-red { background: var(--red-50); border: 2px solid var(--red-500); color: var(--red-600); }
+  .box-cyan { background: var(--cyan-50); border: 2px solid var(--cyan-500); color: var(--cyan-600); }
+  .box-yellow { background: var(--yellow-50); border: 2px solid var(--yellow-500); color: var(--yellow-600); }
+  .box-zinc { background: white; border: 2px solid var(--zinc-300); color: var(--zinc-700); }
+
+  .arrow-down {
+    width: 2px;
+    height: 28px;
+    background: var(--zinc-300);
+    position: relative;
+  }
+  .arrow-down::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid var(--zinc-400);
+  }
+  .arrow-down .arrow-label {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: var(--zinc-400);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .arrow-right {
+    width: 32px;
+    height: 2px;
+    background: var(--zinc-300);
+    position: relative;
+    align-self: center;
+    flex-shrink: 0;
+  }
+  .arrow-right::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 8px solid var(--zinc-400);
+  }
+
+  .split-arrow {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    position: relative;
+    width: 100%;
+    height: 40px;
+  }
+  .split-arrow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 16px;
+    background: var(--zinc-300);
+    transform: translateX(-50%);
+  }
+  .split-arrow::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background: var(--zinc-300);
+  }
+  .split-left, .split-right {
+    position: absolute;
+    top: 16px;
+    width: 2px;
+    height: 24px;
+    background: var(--zinc-300);
+  }
+  .split-left { left: 25%; }
+  .split-right { right: 25%; }
+  .split-left::after, .split-right::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid var(--zinc-400);
+  }
+
+  /* ── TABLES ── */
+  .db-table {
+    background: white;
+    border: 2px solid var(--zinc-300);
+    border-radius: 12px;
+    overflow: hidden;
+    min-width: 260px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    flex: 1;
+  }
+  .db-table-header {
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .db-table-header .icon {
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+  .db-table-row {
+    padding: 5px 16px;
+    font-size: 12px;
+    border-top: 1px solid var(--zinc-100);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .db-table-row .type {
+    color: var(--zinc-400);
+    font-size: 11px;
+  }
+  .db-table-row .pk {
+    background: var(--yellow-100);
+    color: var(--yellow-600);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+  }
+  .db-table-row .fk {
+    background: var(--blue-100);
+    color: var(--blue-600);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .relation-line {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--zinc-400);
+    margin: 12px 0;
+    justify-content: center;
+  }
+  .relation-line .line {
+    height: 2px;
+    width: 40px;
+    background: var(--zinc-300);
+    position: relative;
+  }
+  .relation-badge {
+    background: var(--zinc-100);
+    padding: 2px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--zinc-500);
+  }
+
+  /* ── ROUTE MAP ── */
+  .route-tree {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .route-tree .route {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+  }
+  .route-tree .indent-1 { padding-left: 28px; }
+  .route-tree .indent-2 { padding-left: 56px; }
+  .route-tree .indent-3 { padding-left: 84px; }
+
+  .route-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-public { background: var(--green-100); color: var(--green-700); }
+  .badge-admin { background: var(--purple-100); color: var(--purple-700); }
+  .badge-api { background: var(--orange-100); color: var(--orange-600); }
+  .badge-auth { background: var(--red-100); color: var(--red-600); }
+  .badge-server { background: var(--blue-100); color: var(--blue-700); }
+  .badge-client { background: var(--cyan-100); color: var(--cyan-600); }
+
+  .route-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--zinc-400);
+    font-weight: 400;
+  }
+  .route-path {
+    color: var(--zinc-700);
+    font-weight: 500;
+  }
+
+  /* ── CARDS GRID ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .card {
+    border: 1px solid var(--zinc-200);
+    border-radius: 12px;
+    padding: 20px;
+    background: white;
+  }
+  .card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p, .card li {
+    font-size: 13px;
+    color: var(--zinc-600);
+    line-height: 1.6;
+  }
+  .card ul { list-style: none; padding: 0; }
+  .card li { padding: 3px 0; }
+  .card li::before {
+    content: '→';
+    color: var(--green-500);
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  .card-full {
+    grid-column: 1 / -1;
+  }
+
+  /* ── INFO BOXES ── */
+  .info-box {
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 13px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .info-box .icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .info-box-warn { background: var(--yellow-50); border: 1px solid var(--yellow-500); color: var(--yellow-600); }
+  .info-box-info { background: var(--blue-50); border: 1px solid var(--blue-500); color: var(--blue-700); }
+  .info-box-danger { background: var(--red-50); border: 1px solid var(--red-500); color: var(--red-600); }
+
+  /* ── TECH STACK PILLS ── */
+  .stack-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid;
+  }
+  .pill-green { background: var(--green-50); border-color: var(--green-200); color: var(--green-700); }
+  .pill-blue { background: var(--blue-50); border-color: var(--blue-200); color: var(--blue-700); }
+  .pill-purple { background: var(--purple-50); border-color: var(--purple-100); color: var(--purple-700); }
+  .pill-orange { background: var(--orange-50); border-color: var(--orange-100); color: var(--orange-600); }
+  .pill-zinc { background: var(--zinc-50); border-color: var(--zinc-200); color: var(--zinc-600); }
+  .pill-cyan { background: var(--cyan-50); border-color: var(--cyan-100); color: var(--cyan-600); }
+
+  /* ── ENV TABLE ── */
+  .env-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 16px 0;
+  }
+  .env-table th {
+    text-align: left;
+    padding: 10px 16px;
+    background: var(--zinc-100);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--zinc-500);
+    border-bottom: 2px solid var(--zinc-200);
+  }
+  .env-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--zinc-100);
+  }
+  .env-table td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--green-700);
+  }
+  .env-table tr:last-child td { border-bottom: none; }
+
+  /* ── NOTES TABLE ── */
+  .notes-grid {
+    display: grid;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .note-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    background: var(--zinc-50);
+    border: 1px solid var(--zinc-200);
+    align-items: flex-start;
+  }
+  .note-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .note-item p {
+    font-size: 13px;
+    color: var(--zinc-600);
+    line-height: 1.5;
+  }
+  .note-item strong { color: var(--zinc-800); }
+
+  /* ── COLOR SWATCH ── */
+  .color-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+  }
+  .swatch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid var(--zinc-200);
+  }
+  .swatch-color {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .swatch-info { font-size: 12px; line-height: 1.3; }
+  .swatch-info .name { font-weight: 600; color: var(--zinc-800); }
+  .swatch-info .hex { font-family: 'JetBrains Mono', monospace; color: var(--zinc-400); font-size: 11px; }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    padding: 32px 0;
+    text-align: center;
+    font-size: 12px;
+    color: var(--zinc-400);
+    border-top: 1px solid var(--zinc-200);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ COVER ═══════════════════ -->
+<div class="cover">
+  <div class="container">
+    <h1>🏗️ Arquitetura do Sistema</h1>
+    <p class="subtitle">Rui Figueira &amp; Roque — Imobiliária &amp; Seguros</p>
+    <div class="badge">Documentação Técnica · Março 2026</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TOC ═══════════════════ -->
+<div class="toc">
+  <div class="container">
+    <h2>Índice</h2>
+    <div class="toc-grid">
+      <a class="toc-item" href="#stack"><span class="toc-num">1</span> Stack Tecnológica</a>
+      <a class="toc-item" href="#overview"><span class="toc-num">2</span> Visão Geral do Sistema</a>
+      <a class="toc-item" href="#auth"><span class="toc-num">3</span> Autenticação</a>
+      <a class="toc-item" href="#database"><span class="toc-num">4</span> Base de Dados</a>
+      <a class="toc-item" href="#storage"><span class="toc-num">5</span> Storage</a>
+      <a class="toc-item" href="#routes"><span class="toc-num">6</span> Mapa de Rotas</a>
+      <a class="toc-item" href="#actions"><span class="toc-num">7</span> Server Actions &amp; API</a>
+      <a class="toc-item" href="#data"><span class="toc-num">8</span> Data Fetching</a>
+      <a class="toc-item" href="#theme"><span class="toc-num">9</span> Theming &amp; Dark Mode</a>
+      <a class="toc-item" href="#deploy"><span class="toc-num">10</span> Deploy Pipeline</a>
+      <a class="toc-item" href="#env"><span class="toc-num">11</span> Variáveis de Ambiente</a>
+      <a class="toc-item" href="#lead-flow"><span class="toc-num">12</span> Fluxo de Lead</a>
+      <a class="toc-item" href="#notes"><span class="toc-num">13</span> Notas Importantes</a>
+      <a class="toc-item" href="#external"><span class="toc-num">14</span> Serviços Externos</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 1. STACK ═══════════════════ -->
+<section id="stack">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--green-100);color:var(--green-600);">⚡</div>
+      <div>
+        <h2>1. Stack Tecnológica</h2>
+        <p>Tecnologias, frameworks e bibliotecas utilizadas</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--zinc-500);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Framework &amp; Runtime</h3>
+    <div class="stack-row">
+      <span class="pill pill-green">▲ Next.js 16.1.6</span>
+      <span class="pill pill-blue">⚛ React 19.2.3</span>
+      <span class="pill pill-blue">🔷 TypeScript 5</span>
+      <span class="pill pill-orange">⚡ Turbopack (dev)</span>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--zinc-500);margin:16px 0 8px;text-transform:uppercase;letter-spacing:1px;">UI &amp; Styling</h3>
+    <div class="stack-row">
+      <span class="pill pill-cyan">🎨 Tailwind CSS 4</span>
+      <span class="pill pill-purple">🧩 Radix UI</span>
+      <span class="pill pill-zinc">✨ Lucide Icons</span>
+      <span class="pill pill-zinc">🖊️ TipTap Editor</span>
+      <span class="pill pill-zinc">🗺️ Leaflet Maps</span>
+      <span class="pill pill-zinc">📱 dnd-kit</span>
+      <span class="pill pill-zinc">🌙 next-themes</span>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--zinc-500);margin:16px 0 8px;text-transform:uppercase;letter-spacing:1px;">Backend &amp; Hosting</h3>
+    <div class="stack-row">
+      <span class="pill pill-green">🗄️ Supabase (PG + Auth + Storage)</span>
+      <span class="pill pill-orange">☁️ Cloudflare Workers</span>
+      <span class="pill pill-purple">🔌 @opennextjs/cloudflare</span>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--zinc-500);margin:16px 0 8px;text-transform:uppercase;letter-spacing:1px;">Formulários &amp; Validação</h3>
+    <div class="stack-row">
+      <span class="pill pill-zinc">📝 React Hook Form</span>
+      <span class="pill pill-zinc">✅ Zod</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 2. OVERVIEW ═══════════════════ -->
+<section id="overview" class="page-break">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--blue-100);color:var(--blue-600);">🌐</div>
+      <div>
+        <h2>2. Visão Geral do Sistema</h2>
+        <p>Fluxo completo de um request desde o browser até à base de dados</p>
+      </div>
+    </div>
+
+    <div class="diagram no-break">
+      <div class="flow-vertical">
+
+        <!-- Browser -->
+        <div class="box box-zinc" style="min-width:280px;">
+          <div class="label">🖥️ Browser do Utilizador</div>
+          <div class="detail">HTTPS Request</div>
+        </div>
+        <div class="arrow-down"><span class="arrow-label">HTTPS</span></div>
+
+        <!-- Cloudflare -->
+        <div class="box box-orange" style="min-width:360px;">
+          <div class="label">☁️ Cloudflare Workers (Edge)</div>
+          <div class="detail">Runtime: @opennextjs/cloudflare · CDN para assets estáticos</div>
+          <div class="detail" style="margin-top:4px;"><code>wrangler.jsonc</code></div>
+        </div>
+        <div class="arrow-down"><span class="arrow-label">Processa</span></div>
+
+        <!-- Middleware -->
+        <div class="box box-red" style="min-width:360px;">
+          <div class="label">🔐 Next.js Middleware</div>
+          <div class="detail">1. Refresh sessão Supabase &nbsp;2. Verifica autenticação &nbsp;3. Redirect se necessário</div>
+          <div class="detail" style="margin-top:4px;"><code>src/middleware.ts</code> → <code>src/lib/supabase/middleware.ts</code></div>
+        </div>
+
+        <!-- Split -->
+        <div style="position:relative;width:100%;height:50px;">
+          <div style="position:absolute;left:50%;top:0;width:2px;height:16px;background:var(--zinc-300);transform:translateX(-50%);"></div>
+          <div style="position:absolute;left:22%;right:22%;top:16px;height:2px;background:var(--zinc-300);"></div>
+          <div style="position:absolute;left:22%;top:16px;width:2px;height:26px;background:var(--zinc-300);"></div>
+          <div style="position:absolute;right:22%;top:16px;width:2px;height:26px;background:var(--zinc-300);"></div>
+          <!-- arrows -->
+          <div style="position:absolute;left:22%;bottom:2px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--zinc-400);"></div>
+          <div style="position:absolute;right:22%;bottom:2px;transform:translateX(50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--zinc-400);"></div>
+        </div>
+
+        <div class="flow-horizontal" style="width:100%;">
+          <div class="box box-blue" style="flex:1;max-width:280px;">
+            <div class="label">📄 Server Component (RSC)</div>
+            <div class="detail">Fetch dados no servidor</div>
+            <div class="detail" style="margin-top:4px;"><code>createClient()</code> via <code>server.ts</code></div>
+          </div>
+          <div class="box box-cyan" style="flex:1;max-width:280px;">
+            <div class="label">⚡ Client Component</div>
+            <div class="detail">"use client" — interatividade</div>
+            <div class="detail" style="margin-top:4px;"><code>createBrowserClient()</code> via <code>client.ts</code></div>
+          </div>
+        </div>
+
+        <!-- Converge -->
+        <div style="position:relative;width:100%;height:50px;">
+          <div style="position:absolute;left:22%;top:0;width:2px;height:24px;background:var(--zinc-300);"></div>
+          <div style="position:absolute;right:22%;top:0;width:2px;height:24px;background:var(--zinc-300);"></div>
+          <div style="position:absolute;left:22%;right:22%;top:24px;height:2px;background:var(--zinc-300);"></div>
+          <div style="position:absolute;left:50%;top:24px;width:2px;height:18px;background:var(--zinc-300);transform:translateX(-50%);"></div>
+          <div style="position:absolute;left:50%;bottom:2px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--zinc-400);"></div>
+        </div>
+
+        <!-- Supabase -->
+        <div class="box box-green" style="min-width:440px;">
+          <div class="label">🗄️ Supabase</div>
+          <div class="detail">xxxxx.supabase.co</div>
+          <div style="display:flex;gap:16px;justify-content:center;margin-top:10px;flex-wrap:wrap;">
+            <div style="background:var(--green-100);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;color:var(--green-700);">🔐 Auth</div>
+            <div style="background:var(--green-100);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;color:var(--green-700);">🐘 PostgreSQL</div>
+            <div style="background:var(--green-100);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;color:var(--green-700);">📦 Storage</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 3. AUTH ═══════════════════ -->
+<section id="auth">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--red-100);color:var(--red-600);">🔐</div>
+      <div>
+        <h2>3. Fluxo de Autenticação</h2>
+        <p>Toda a aplicação está protegida — sem login não se acede a nada</p>
+      </div>
+    </div>
+
+    <div class="info-box info-box-warn">
+      <span class="icon">⚠️</span>
+      <div><strong>Site totalmente protegido.</strong> O middleware interceta todos os requests e redireciona para <code>/login</code> se não houver sessão ativa. Inclui páginas públicas (homepage, imóveis, seguros, etc.).</div>
+    </div>
+
+    <div class="diagram no-break">
+      <div class="flow-vertical">
+
+        <div class="box box-zinc" style="min-width:320px;">
+          <div class="label">📨 Request chega</div>
+          <div class="detail">Qualquer rota (exceto _next/static, imagens, favicon)</div>
+        </div>
+        <div class="arrow-down"></div>
+
+        <div class="box box-red" style="min-width:400px;">
+          <div class="label">🛡️ Middleware — updateSession()</div>
+          <div class="detail"><code>src/lib/supabase/middleware.ts</code></div>
+          <div style="text-align:left;margin-top:10px;font-size:12px;line-height:1.8;">
+            1. Cria Supabase client com cookie handler<br>
+            2. <code>supabase.auth.getUser()</code> (refresh automático)<br>
+            3. Cookies com <strong>maxAge: 2 horas</strong> (7200s)
+          </div>
+        </div>
+
+        <!-- Triple split -->
+        <div style="position:relative;width:100%;height:50px;">
+          <div style="position:absolute;left:50%;top:0;width:2px;height:14px;background:var(--zinc-300);transform:translateX(-50%);"></div>
+          <div style="position:absolute;left:15%;right:15%;top:14px;height:2px;background:var(--zinc-300);"></div>
+          <div style="position:absolute;left:15%;top:14px;width:2px;height:28px;background:var(--zinc-300);"></div>
+          <div style="position:absolute;left:50%;top:14px;width:2px;height:28px;background:var(--zinc-300);transform:translateX(-50%);"></div>
+          <div style="position:absolute;right:15%;top:14px;width:2px;height:28px;background:var(--zinc-300);"></div>
+          <div style="position:absolute;left:15%;bottom:2px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--zinc-400);"></div>
+          <div style="position:absolute;left:50%;bottom:2px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--zinc-400);"></div>
+          <div style="position:absolute;right:15%;bottom:2px;transform:translateX(50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--zinc-400);"></div>
+        </div>
+
+        <div class="flow-horizontal" style="width:100%;">
+          <div class="box box-green" style="flex:1;">
+            <div class="label">✅ Tem sessão</div>
+            <div class="detail">Continua request normal</div>
+          </div>
+          <div class="box box-orange" style="flex:1;">
+            <div class="label">❌ Sem sessão</div>
+            <div class="detail">Redirect → <code>/login?redirect=URL</code></div>
+          </div>
+          <div class="box box-blue" style="flex:1;">
+            <div class="label">📝 É /login</div>
+            <div class="detail">Permite acesso (excepção)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;margin:24px 0 12px;">Formulário de Login</h3>
+
+    <div class="diagram no-break">
+      <div class="flow-vertical">
+        <div class="box box-cyan" style="min-width:380px;">
+          <div class="label">📝 LoginForm (Client Component)</div>
+          <div class="detail"><code>src/app/login/login-form.tsx</code></div>
+          <div style="margin-top:8px;font-size:12px;text-align:left;line-height:1.8;">
+            • React Hook Form + Zod validation<br>
+            • <code>supabase.auth.signInWithPassword({ email, password })</code><br>
+            • Após sucesso: mostra 2 botões
+          </div>
+        </div>
+        <div class="arrow-down"><span class="arrow-label">Login OK</span></div>
+        <div class="flow-horizontal">
+          <div class="box box-green">
+            <div class="label">🌐 "Entrar no Site"</div>
+            <div class="detail">window.open("/", "_blank")</div>
+            <div class="detail" style="margin-top:4px;">Abre em nova tab</div>
+          </div>
+          <div class="box box-purple">
+            <div class="label">⚙️ "Entrar no Backoffice"</div>
+            <div class="detail">window.location.href = "/admin"</div>
+            <div class="detail" style="margin-top:4px;">Hard navigation (300ms delay mobile)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 4. DATABASE ═══════════════════ -->
+<section id="database" class="page-break">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--purple-100);color:var(--purple-600);">🗄️</div>
+      <div>
+        <h2>4. Schema da Base de Dados</h2>
+        <p>PostgreSQL via Supabase — 5 tabelas principais</p>
+      </div>
+    </div>
+
+    <!-- Properties + Images -->
+    <div class="flow-horizontal" style="gap:16px;margin:20px 0;">
+      <div class="db-table" style="flex:2;">
+        <div class="db-table-header" style="background:var(--green-100);color:var(--green-700);">
+          <span class="icon" style="background:var(--green-500);color:white;">🏠</span>
+          properties
+        </div>
+        <div class="db-table-row"><span>id</span><span class="pk">PK</span></div>
+        <div class="db-table-row"><span>title, slug</span><span class="type">TEXT (unique slug)</span></div>
+        <div class="db-table-row"><span>description</span><span class="type">TEXT (HTML)</span></div>
+        <div class="db-table-row"><span>price</span><span class="type">DECIMAL</span></div>
+        <div class="db-table-row"><span>business_type</span><span class="type">'sale' | 'rent'</span></div>
+        <div class="db-table-row"><span>property_type</span><span class="type">'apartment' | 'house' | ...</span></div>
+        <div class="db-table-row"><span>typology, area_m2</span><span class="type">TEXT, INT</span></div>
+        <div class="db-table-row"><span>bedrooms, bathrooms</span><span class="type">INT</span></div>
+        <div class="db-table-row"><span>district, municipality, parish</span><span class="type">TEXT</span></div>
+        <div class="db-table-row"><span>latitude, longitude</span><span class="type">DOUBLE</span></div>
+        <div class="db-table-row"><span>features, tags</span><span class="type">TEXT[]</span></div>
+        <div class="db-table-row"><span>status</span><span class="type">'active' | 'suspended' | 'draft'</span></div>
+        <div class="db-table-row"><span>featured, display_order</span><span class="type">BOOL, INT</span></div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+        <span class="relation-badge">1 : N</span>
+        <div style="width:48px;height:2px;background:var(--zinc-300);"></div>
+        <span style="font-size:10px;color:var(--zinc-400);">CASCADE</span>
+      </div>
+
+      <div class="db-table" style="flex:1;">
+        <div class="db-table-header" style="background:var(--blue-100);color:var(--blue-700);">
+          <span class="icon" style="background:var(--blue-500);color:white;">📷</span>
+          property_images
+        </div>
+        <div class="db-table-row"><span>id</span><span class="pk">PK</span></div>
+        <div class="db-table-row"><span>property_id</span><span class="fk">FK</span></div>
+        <div class="db-table-row"><span>url</span><span class="type">TEXT</span></div>
+        <div class="db-table-row"><span>alt_text</span><span class="type">TEXT</span></div>
+        <div class="db-table-row"><span>display_order</span><span class="type">INT</span></div>
+      </div>
+    </div>
+
+    <!-- Insurances + Leads + Settings -->
+    <div class="flow-horizontal" style="gap:16px;margin:20px 0;align-items:stretch;">
+      <div class="db-table" style="flex:1;">
+        <div class="db-table-header" style="background:var(--purple-100);color:var(--purple-700);">
+          <span class="icon" style="background:var(--purple-500);color:white;">🛡️</span>
+          insurances
+        </div>
+        <div class="db-table-row"><span>id</span><span class="pk">PK</span></div>
+        <div class="db-table-row"><span>name, slug</span><span class="type">TEXT</span></div>
+        <div class="db-table-row"><span>short_description</span><span class="type">TEXT</span></div>
+        <div class="db-table-row"><span>full_description</span><span class="type">TEXT (HTML)</span></div>
+        <div class="db-table-row"><span>icon_name, icon_url</span><span class="type">TEXT</span></div>
+        <div class="db-table-row"><span>benefits</span><span class="type">JSONB</span></div>
+        <div class="db-table-row"><span>faqs</span><span class="type">JSONB</span></div>
+        <div class="db-table-row"><span>form_fields</span><span class="type">JSONB (dinâmico)</span></div>
+        <div class="db-table-row"><span>status</span><span class="type">'active' | 'inactive'</span></div>
+      </div>
+
+      <div class="db-table" style="flex:1;">
+        <div class="db-table-header" style="background:var(--orange-100);color:var(--orange-600);">
+          <span class="icon" style="background:var(--orange-500);color:white;">📩</span>
+          leads
+        </div>
+        <div class="db-table-row"><span>id</span><span class="pk">PK</span></div>
+        <div class="db-table-row"><span>type</span><span class="type">'contact' | 'visit_request' | ...</span></div>
+        <div class="db-table-row"><span>name, email, phone</span><span class="type">TEXT</span></div>
+        <div class="db-table-row"><span>message</span><span class="type">TEXT</span></div>
+        <div class="db-table-row"><span>form_data</span><span class="type">JSONB</span></div>
+        <div class="db-table-row"><span>property_id</span><span class="fk">FK → properties</span></div>
+        <div class="db-table-row"><span>insurance_id</span><span class="fk">FK → insurances</span></div>
+        <div class="db-table-row"><span>status</span><span class="type">'new' | 'in_progress' | 'closed'</span></div>
+        <div class="db-table-row"><span>internal_notes</span><span class="type">TEXT</span></div>
+      </div>
+
+      <div class="db-table" style="flex:1;">
+        <div class="db-table-header" style="background:var(--cyan-100);color:var(--cyan-600);">
+          <span class="icon" style="background:var(--cyan-500);color:white;">⚙️</span>
+          site_settings
+        </div>
+        <div class="db-table-row"><span>id</span><span class="pk">PK</span></div>
+        <div class="db-table-row"><span>key</span><span class="type">TEXT (UNIQUE)</span></div>
+        <div class="db-table-row"><span>value</span><span class="type">TEXT</span></div>
+        <div class="db-table-row"><span>type</span><span class="type">'text' | 'richtext' | 'image'</span></div>
+        <div class="db-table-row"><span>group_name</span><span class="type">'homepage' | 'about' | ...</span></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;margin:24px 0 12px;">Relações</h3>
+    <div class="cards-grid" style="grid-template-columns:1fr 1fr 1fr;">
+      <div class="card" style="text-align:center;">
+        <h4 style="justify-content:center;">🏠 → 📷</h4>
+        <p><strong>properties → property_images</strong></p>
+        <p style="margin-top:4px;">1:N · CASCADE delete</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <h4 style="justify-content:center;">🏠 → 📩</h4>
+        <p><strong>properties → leads</strong></p>
+        <p style="margin-top:4px;">1:N · SET NULL on delete</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <h4 style="justify-content:center;">🛡️ → 📩</h4>
+        <p><strong>insurances → leads</strong></p>
+        <p style="margin-top:4px;">1:N · SET NULL on delete</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 5. STORAGE ═══════════════════ -->
+<section id="storage">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--yellow-100);color:var(--yellow-600);">📦</div>
+      <div>
+        <h2>5. Storage (Supabase Buckets)</h2>
+        <p>Dois buckets públicos para ficheiros estáticos</p>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card" style="border-left:4px solid var(--green-500);">
+        <h4>📷 property-photos</h4>
+        <ul>
+          <li>Fotos dos imóveis (uploadadas no admin)</li>
+          <li>Acesso: SELECT público, CUD requer auth</li>
+          <li>Path: <code>{property_id}/{filename}</code></li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--blue-500);">
+        <h4>🎨 site-assets</h4>
+        <ul>
+          <li>Hero banner, foto About, logo, assets genéricos</li>
+          <li>Acesso: SELECT público, CUD requer auth</li>
+          <li>Path: <code>hero/{filename}</code>, <code>about/{filename}</code></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 6. ROUTES ═══════════════════ -->
+<section id="routes" class="page-break">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--cyan-100);color:var(--cyan-600);">🗺️</div>
+      <div>
+        <h2>6. Mapa de Rotas</h2>
+        <p>Todas as rotas da aplicação com tipo de componente</p>
+      </div>
+    </div>
+
+    <div class="diagram">
+      <div class="route-tree">
+        <div class="route">
+          <span class="route-path">/</span>
+          <span class="route-badge badge-public">Público</span>
+          <span class="route-badge badge-server">Server</span>
+          <span class="route-desc">Homepage com banner, serviços, imóveis destaque</span>
+        </div>
+        <div class="route">
+          <span class="route-path">/login</span>
+          <span class="route-badge badge-auth">Auth</span>
+          <span class="route-badge badge-client">Client</span>
+          <span class="route-desc">Formulário de login</span>
+        </div>
+
+        <div style="margin:16px 0 8px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--green-600);">Imóveis</div>
+        <div class="route indent-1">
+          <span class="route-path">/imoveis</span>
+          <span class="route-badge badge-public">Público</span>
+          <span class="route-badge badge-server">Server</span>
+          <span class="route-desc">Listagem com filtros (tipo, negócio, localização)</span>
+        </div>
+        <div class="route indent-2">
+          <span class="route-path">/imoveis/[slug]</span>
+          <span class="route-badge badge-public">Público</span>
+          <span class="route-badge badge-server">Server</span>
+          <span class="route-desc">Detalhe: galeria, mapa, form visita</span>
+        </div>
+
+        <div style="margin:16px 0 8px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--purple-600);">Seguros</div>
+        <div class="route indent-1">
+          <span class="route-path">/seguros</span>
+          <span class="route-badge badge-public">Público</span>
+          <span class="route-badge badge-server">Server</span>
+          <span class="route-desc">Listagem de seguros disponíveis</span>
+        </div>
+        <div class="route indent-2">
+          <span class="route-path">/seguros/[slug]</span>
+          <span class="route-badge badge-public">Público</span>
+          <span class="route-badge badge-server">Server</span>
+          <span class="route-desc">Detalhe: benefícios, FAQs, form simulação dinâmico</span>
+        </div>
+
+        <div style="margin:16px 0 8px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--cyan-600);">Outras Páginas</div>
+        <div class="route indent-1">
+          <span class="route-path">/credito-bancario</span>
+          <span class="route-badge badge-public">Público</span>
+          <span class="route-badge badge-server">Server</span>
+          <span class="route-desc">Crédito habitação com parceiros</span>
+        </div>
+        <div class="route indent-1">
+          <span class="route-path">/contacto</span>
+          <span class="route-badge badge-public">Público</span>
+          <span class="route-badge badge-server">Server</span>
+          <span class="route-desc">Contacto com formulário de lead</span>
+        </div>
+        <div class="route indent-1">
+          <span class="route-path">/sobre-nos</span>
+          <span class="route-badge badge-public">Público</span>
+          <span class="route-badge badge-server">Server</span>
+          <span class="route-desc">Sobre a empresa</span>
+        </div>
+        <div class="route indent-1">
+          <span class="route-path">/documentos/politica-privacidade</span>
+          <span class="route-badge badge-public">Público</span>
+          <span class="route-desc">Política de privacidade</span>
+        </div>
+        <div class="route indent-1">
+          <span class="route-path">/documentos/termos</span>
+          <span class="route-badge badge-public">Público</span>
+          <span class="route-desc">Termos e condições</span>
+        </div>
+
+        <div style="margin:16px 0 8px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--orange-600);">API Routes</div>
+        <div class="route indent-1">
+          <span class="route-path">/api/debug-settings</span>
+          <span class="route-badge badge-api">API</span>
+          <span class="route-desc">GET — debug de settings (dev)</span>
+        </div>
+        <div class="route indent-1">
+          <span class="route-path">/api/seed-properties</span>
+          <span class="route-badge badge-api">API</span>
+          <span class="route-desc">GET — seed imóveis demo (dev)</span>
+        </div>
+
+        <div style="margin:16px 0 8px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--red-600);">Admin (Backoffice)</div>
+        <div class="route indent-1">
+          <span class="route-path">/admin</span>
+          <span class="route-badge badge-admin">Admin</span>
+          <span class="route-badge badge-server">Server</span>
+          <span class="route-desc">Dashboard com métricas</span>
+        </div>
+        <div class="route indent-1">
+          <span class="route-path">/admin/imoveis</span>
+          <span class="route-badge badge-admin">Admin</span>
+          <span class="route-desc">Tabela CRUD imóveis</span>
+        </div>
+        <div class="route indent-2">
+          <span class="route-path">/admin/imoveis/novo</span>
+          <span class="route-badge badge-admin">Admin</span>
+          <span class="route-badge badge-client">Client</span>
+          <span class="route-desc">Criar imóvel (formulário completo)</span>
+        </div>
+        <div class="route indent-2">
+          <span class="route-path">/admin/imoveis/[id]/editar</span>
+          <span class="route-badge badge-admin">Admin</span>
+          <span class="route-badge badge-client">Client</span>
+          <span class="route-desc">Editar imóvel</span>
+        </div>
+        <div class="route indent-1">
+          <span class="route-path">/admin/seguros</span>
+          <span class="route-badge badge-admin">Admin</span>
+          <span class="route-desc">Tabela CRUD seguros</span>
+        </div>
+        <div class="route indent-2">
+          <span class="route-path">/admin/seguros/novo</span>
+          <span class="route-badge badge-admin">Admin</span>
+          <span class="route-badge badge-client">Client</span>
+          <span class="route-desc">Criar seguro (form dinâmico)</span>
+        </div>
+        <div class="route indent-2">
+          <span class="route-path">/admin/seguros/[id]/editar</span>
+          <span class="route-badge badge-admin">Admin</span>
+          <span class="route-badge badge-client">Client</span>
+          <span class="route-desc">Editar seguro</span>
+        </div>
+        <div class="route indent-1">
+          <span class="route-path">/admin/leads</span>
+          <span class="route-badge badge-admin">Admin</span>
+          <span class="route-badge badge-client">Client</span>
+          <span class="route-desc">Inbox de leads + filtros + métricas</span>
+        </div>
+        <div class="route indent-2">
+          <span class="route-path">/admin/leads/[id]</span>
+          <span class="route-badge badge-admin">Admin</span>
+          <span class="route-badge badge-client">Client</span>
+          <span class="route-desc">Detalhe de lead</span>
+        </div>
+        <div class="route indent-1">
+          <span class="route-path">/admin/conteudo</span>
+          <span class="route-badge badge-admin">Admin</span>
+          <span class="route-badge badge-client">Client</span>
+          <span class="route-desc">Gestão de conteúdos do site</span>
+        </div>
+        <div class="route indent-1">
+          <span class="route-path">/admin/definicoes</span>
+          <span class="route-badge badge-admin">Admin</span>
+          <span class="route-badge badge-client">Client</span>
+          <span class="route-desc">Alterar email/password</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 7. ACTIONS ═══════════════════ -->
+<section id="actions">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--orange-100);color:var(--orange-600);">⚡</div>
+      <div>
+        <h2>7. Server Actions &amp; API Routes</h2>
+        <p>Endpoints do backend e como os dados fluem</p>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card card-full" style="border-left:4px solid var(--green-500);">
+        <h4>⚡ Server Action: <code>submitLead()</code></h4>
+        <p style="margin-bottom:8px;"><strong>Ficheiro:</strong> <code>src/app/actions/leads.ts</code></p>
+        <ul>
+          <li>Chamado por <code>&lt;LeadForm&gt;</code> em contacto, visita imóvel, simulação seguro</li>
+          <li>Recebe <code>FormData</code> — extrai nome, email, telefone, mensagem</li>
+          <li>Mapeia campos dinâmicos com heurísticos PT (keywords: "matrícula", "capital", etc.)</li>
+          <li>INSERT na tabela <code>leads</code> via Supabase server client</li>
+          <li><code>revalidatePath('/admin/leads')</code> para refresh imediato no admin</li>
+          <li>Retorna <code>{ success, error }</code></li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--orange-500);">
+        <h4>🔧 /api/debug-settings</h4>
+        <p><strong>GET</strong> — Dev only</p>
+        <p>Retorna credit settings para debugging</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--orange-500);">
+        <h4>🌱 /api/seed-properties</h4>
+        <p><strong>GET</strong> — Dev only</p>
+        <p>Insere 3 imóveis demo com imagens Unsplash</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 8. DATA FETCHING ═══════════════════ -->
+<section id="data">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--blue-100);color:var(--blue-600);">📊</div>
+      <div>
+        <h2>8. Padrão de Data Fetching</h2>
+        <p>Como os dados chegam do Supabase aos componentes</p>
+      </div>
+    </div>
+
+    <div class="diagram no-break">
+      <div class="flow-horizontal" style="gap:20px;">
+        <div class="box box-blue" style="text-align:left;min-width:300px;">
+          <div class="label" style="text-align:center;">📄 Server Component (padrão)</div>
+          <div style="font-size:12px;line-height:2;margin-top:8px;font-family:'JetBrains Mono',monospace;">
+            export const revalidate = 0<br>
+            <br>
+            async function Page() {<br>
+            &nbsp;&nbsp;const supabase = await createClient()<br>
+            &nbsp;&nbsp;const { data } = await supabase<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;.from('tabela').select('*')<br>
+            &nbsp;&nbsp;return &lt;JSX /&gt;<br>
+            }
+          </div>
+        </div>
+        <div class="box box-cyan" style="text-align:left;min-width:280px;">
+          <div class="label" style="text-align:center;">⚡ Client Component (excepção)</div>
+          <div style="font-size:12px;line-height:2;margin-top:8px;font-family:'JetBrains Mono',monospace;">
+            "use client"<br>
+            <br>
+            // Apenas para interatividade:<br>
+            // - Formulários<br>
+            // - Galerias de imagens<br>
+            // - Mapas interativos<br>
+            // - Theme toggle<br>
+            // - Auth (login)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box info-box-info">
+      <span class="icon">ℹ️</span>
+      <div><strong>revalidate = 0 em tudo.</strong> Todas as páginas fazem SSR dinâmico — sem cache. Cada request faz uma query fresca ao Supabase. A performance depende do edge (Cloudflare) + latência ao Supabase.</div>
+    </div>
+
+    <div class="info-box info-box-info">
+      <span class="icon">ℹ️</span>
+      <div><strong>Sem SWR, sem React Query, sem useEffect para dados.</strong> Os dados vêm sempre via React Server Components. Client components recebem dados como props.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 9. THEME ═══════════════════ -->
+<section id="theme" class="page-break">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--zinc-800);color:white;">🌙</div>
+      <div>
+        <h2>9. Theming &amp; Dark Mode</h2>
+        <p>Sistema de temas com next-themes e Tailwind CSS 4</p>
+      </div>
+    </div>
+
+    <div class="diagram no-break">
+      <div class="flow-vertical">
+        <div class="box box-zinc" style="min-width:400px;">
+          <div class="label">🎨 ThemeProvider</div>
+          <div class="detail"><code>src/components/theme-provider.tsx</code></div>
+          <div style="font-size:12px;margin-top:8px;text-align:left;line-height:1.8;">
+            • Wrapper: <code>next-themes</code><br>
+            • <code>attribute="class"</code> — classe .dark no &lt;html&gt;<br>
+            • <code>defaultTheme="system"</code> — respeita preferência OS<br>
+            • <code>enableSystem</code> — detecta prefers-color-scheme<br>
+            • <code>disableTransitionOnChange</code> — sem flash
+          </div>
+        </div>
+        <div class="arrow-down"></div>
+        <div class="box box-purple" style="min-width:400px;">
+          <div class="label">🔘 ThemeToggle (Flutuante Global)</div>
+          <div class="detail"><code>src/components/theme-toggle.tsx</code></div>
+          <div style="font-size:12px;margin-top:8px;text-align:left;line-height:1.8;">
+            • Posição: fixed bottom-4 right-4 z-[9999]<br>
+            • Renderizado no root layout (visível em TODAS as páginas)<br>
+            • rounded-full shadow-lg border<br>
+            • Alterna: light ↔ dark
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;margin:24px 0 12px;">Cores da Marca</h3>
+    <div class="color-row">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#4CAF50;"></div>
+        <div class="swatch-info"><div class="name">Primary</div><div class="hex">#4CAF50</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#2E7D32;"></div>
+        <div class="swatch-info"><div class="name">Dark</div><div class="hex">#2E7D32</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#81C784;"></div>
+        <div class="swatch-info"><div class="name">Light</div><div class="hex">#81C784</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#66BB6A;"></div>
+        <div class="swatch-info"><div class="name">Accent</div><div class="hex">#66BB6A</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;margin:24px 0 12px;">CSS Custom Variant (Tailwind 4)</h3>
+    <div class="card card-full" style="font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8;">
+      @custom-variant dark (&:where(.dark, .dark *));<br><br>
+      /* Uso nos componentes: */<br>
+      className="bg-white <strong>dark:bg-zinc-950</strong> text-zinc-900 <strong>dark:text-zinc-100</strong>"
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 10. DEPLOY ═══════════════════ -->
+<section id="deploy">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--orange-100);color:var(--orange-600);">🚀</div>
+      <div>
+        <h2>10. Deploy Pipeline</h2>
+        <p>Do código local até ao Cloudflare Workers</p>
+      </div>
+    </div>
+
+    <div class="diagram no-break">
+      <div class="flow-horizontal" style="gap:12px;align-items:center;flex-wrap:nowrap;">
+        <div class="box box-zinc" style="min-width:140px;">
+          <div class="label">💻 Local</div>
+          <div class="detail">git push</div>
+        </div>
+        <div class="arrow-right"></div>
+        <div class="box box-zinc" style="min-width:140px;">
+          <div class="label">🐙 GitHub</div>
+          <div class="detail">main branch</div>
+        </div>
+        <div style="width:24px;text-align:center;color:var(--zinc-400);font-size:11px;flex-shrink:0;">⏸️</div>
+        <div class="box box-blue" style="min-width:180px;">
+          <div class="label">📦 npm run deploy</div>
+          <div style="font-size:11px;text-align:left;margin-top:8px;font-family:'JetBrains Mono',monospace;line-height:1.8;">
+            1. next build<br>
+            2. opennextjs-cloudflare build<br>
+            3. wrangler deploy
+          </div>
+        </div>
+        <div class="arrow-right"></div>
+        <div class="box box-orange" style="min-width:160px;">
+          <div class="label">☁️ Cloudflare</div>
+          <div class="detail">Workers + Assets CDN</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box info-box-warn">
+      <span class="icon">⚠️</span>
+      <div><strong>Deploy manual.</strong> Não há CI/CD configurado. Executa-se <code>npm run deploy</code> localmente. O GitHub serve apenas como repositório — não há GitHub Actions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 11. ENV ═══════════════════ -->
+<section id="env">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--green-100);color:var(--green-600);">🔑</div>
+      <div>
+        <h2>11. Variáveis de Ambiente</h2>
+        <p>Configuração necessária para correr a aplicação</p>
+      </div>
+    </div>
+
+    <table class="env-table">
+      <thead>
+        <tr>
+          <th>Variável</th>
+          <th>Descrição</th>
+          <th>Onde configurar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NEXT_PUBLIC_SUPABASE_URL</td>
+          <td>URL do projecto Supabase</td>
+          <td><code>.env.local</code> + Cloudflare Dashboard (secrets)</td>
+        </tr>
+        <tr>
+          <td>NEXT_PUBLIC_SUPABASE_ANON_KEY</td>
+          <td>Chave anon (pública) do Supabase</td>
+          <td><code>.env.local</code> + Cloudflare Dashboard (secrets)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box info-box-info">
+      <span class="icon">ℹ️</span>
+      <div>Ambas são prefixadas com <code>NEXT_PUBLIC_</code> — são usadas tanto no servidor (RSC) como no browser (client components). O Supabase client é criado com ambas.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 12. LEAD FLOW ═══════════════════ -->
+<section id="lead-flow" class="page-break">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--green-100);color:var(--green-600);">📬</div>
+      <div>
+        <h2>12. Fluxo Completo: Submissão de Lead</h2>
+        <p>Desde o utilizador ao inbox do admin</p>
+      </div>
+    </div>
+
+    <div class="diagram no-break">
+      <div class="flow-vertical">
+        <div class="box box-zinc" style="min-width:340px;">
+          <div class="label">👤 Utilizador no site</div>
+          <div class="detail">Preenche formulário (contacto, visita, simulação seguro)</div>
+        </div>
+        <div class="arrow-down"><span class="arrow-label">submit</span></div>
+        <div class="box box-cyan" style="min-width:380px;">
+          <div class="label">📝 &lt;LeadForm&gt; (Client Component)</div>
+          <div style="font-size:12px;margin-top:8px;text-align:left;line-height:1.8;">
+            Props: type, propertyId, insuranceId<br>
+            Campos: nome, email, telefone, mensagem<br>
+            + campos dinâmicos (seguros com form_fields)
+          </div>
+        </div>
+        <div class="arrow-down"><span class="arrow-label">Server Action</span></div>
+        <div class="box box-blue" style="min-width:380px;">
+          <div class="label">⚡ submitLead(formData)</div>
+          <div style="font-size:12px;margin-top:8px;text-align:left;line-height:1.8;">
+            1. Extrai campos padrão (nome, email, etc.)<br>
+            2. Mapeia campos dinâmicos (keywords PT)<br>
+            3. <code>supabase.from('leads').insert({...})</code><br>
+            4. <code>revalidatePath('/admin/leads')</code>
+          </div>
+        </div>
+        <div class="arrow-down"><span class="arrow-label">INSERT</span></div>
+        <div class="box box-green" style="min-width:340px;">
+          <div class="label">🗄️ Supabase — tabela leads</div>
+          <div class="detail">status: "new" · com FK para property/insurance</div>
+        </div>
+        <div class="arrow-down"><span class="arrow-label">Visível</span></div>
+        <div class="box box-purple" style="min-width:340px;">
+          <div class="label">👨‍💼 Admin — /admin/leads</div>
+          <div class="detail">Inbox com filtros · Alterar status · Notas internas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 13. NOTES ═══════════════════ -->
+<section id="notes">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--yellow-100);color:var(--yellow-600);">⚠️</div>
+      <div>
+        <h2>13. Notas Importantes</h2>
+        <p>Decisões arquiteturais e pontos de atenção</p>
+      </div>
+    </div>
+
+    <div class="notes-grid">
+      <div class="note-item">
+        <div class="note-num" style="background:var(--red-100);color:var(--red-600);">1</div>
+        <p><strong>Site inteiro protegido por login</strong> — nenhuma página pública é acessível sem autenticação. Decisão intencional (fase beta/teste). Para abrir, remover o auth gate no middleware.</p>
+      </div>
+      <div class="note-item">
+        <div class="note-num" style="background:var(--red-100);color:var(--red-600);">2</div>
+        <p><strong>RLS (Row Level Security) desligado</strong> — está comentado no schema.sql. A segurança depende exclusivamente do middleware auth gate. Se o site for aberto ao público, considerar activar RLS.</p>
+      </div>
+      <div class="note-item">
+        <div class="note-num" style="background:var(--yellow-100);color:var(--yellow-600);">3</div>
+        <p><strong>Sessões de 2 horas</strong> — cookies expiram em 7200 segundos (hardcoded em middleware.ts e server.ts). Fix para compatibilidade com Safari iOS.</p>
+      </div>
+      <div class="note-item">
+        <div class="note-num" style="background:var(--yellow-100);color:var(--yellow-600);">4</div>
+        <p><strong>revalidate = 0 em toda a app</strong> — zero caching. Cada request faz uma query fresca ao Supabase. Para melhorar performance, considerar ISR com revalidate > 0.</p>
+      </div>
+      <div class="note-item">
+        <div class="note-num" style="background:var(--blue-100);color:var(--blue-600);">5</div>
+        <p><strong>Sem signup</strong> — utilizadores admin são criados manualmente no painel Supabase (Authentication → Users). Não existe formulário de registo.</p>
+      </div>
+      <div class="note-item">
+        <div class="note-num" style="background:var(--blue-100);color:var(--blue-600);">6</div>
+        <p><strong>form_fields dinâmicos nos seguros</strong> — cada seguro pode ter um formulário personalizado via JSONB. O <code>&lt;LeadForm&gt;</code> renderiza estes campos automaticamente.</p>
+      </div>
+      <div class="note-item">
+        <div class="note-num" style="background:var(--yellow-100);color:var(--yellow-600);">7</div>
+        <p><strong>Deploy manual</strong> — <code>npm run deploy</code> executado localmente. Sem CI/CD (GitHub Actions). Para automatizar, configurar workflow no <code>.github/workflows/</code>.</p>
+      </div>
+      <div class="note-item">
+        <div class="note-num" style="background:var(--blue-100);color:var(--blue-600);">8</div>
+        <p><strong>Fonts</strong> — Inter (corpo) + Outfit (headings) carregadas via <code>next/font/google</code> com subset latin. Optimizadas automaticamente pelo Next.js.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 14. EXTERNAL ═══════════════════ -->
+<section id="external">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--purple-100);color:var(--purple-600);">🔗</div>
+      <div>
+        <h2>14. Serviços Externos</h2>
+        <p>Todas as ligações a serviços de terceiros</p>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card" style="border-left:4px solid var(--green-500);">
+        <h4>🗄️ Supabase</h4>
+        <ul>
+          <li>Base de dados PostgreSQL</li>
+          <li>Autenticação (email/password)</li>
+          <li>Storage (imagens, assets)</li>
+          <li>Projeto: xxxxx</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--orange-500);">
+        <h4>☁️ Cloudflare Workers</h4>
+        <ul>
+          <li>Hosting da aplicação (edge runtime)</li>
+          <li>CDN para assets estáticos</li>
+          <li>Via @opennextjs/cloudflare</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--zinc-500);">
+        <h4>📷 Unsplash</h4>
+        <ul>
+          <li>Imagens demo para seed</li>
+          <li>Apenas em desenvolvimento</li>
+          <li>Não usado em produção</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--blue-500);">
+        <h4>🔤 Google Fonts</h4>
+        <ul>
+          <li>Inter (corpo de texto)</li>
+          <li>Outfit (headings)</li>
+          <li>Carregadas via next/font (optimizado)</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--cyan-500);">
+        <h4>🗺️ OpenStreetMap / Leaflet</h4>
+        <ul>
+          <li>Mapas nos imóveis (detalhe)</li>
+          <li>Map picker no admin</li>
+          <li>Tiles: tile.openstreetmap.org</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--zinc-800);">
+        <h4>🐙 GitHub</h4>
+        <ul>
+          <li>Repositório: Rafa200200/rui-figueira-roque</li>
+          <li>Apenas hosting de código</li>
+          <li>Sem CI/CD configurado</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<div class="doc-footer">
+  <div class="container">
+    <p>Rui Figueira &amp; Roque — Documentação de Arquitetura · Março 2026</p>
+    <p style="margin-top:4px;">Para imprimir como PDF: Ctrl+P → "Save as PDF" · Recomendado: A4 com margens mínimas</p>
+  </div>
+</div>
+
+</body>
+</html>
