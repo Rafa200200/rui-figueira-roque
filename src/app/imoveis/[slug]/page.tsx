@@ -101,7 +101,7 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
                                     {property.business_type === 'sale' ? 'Venda' : 'Arrendamento'}
                                 </Badge>
                                 {property.featured && <Badge className="bg-amber-50 text-amber-600 border border-amber-100 font-bold px-3 py-1 rounded text-[10px] uppercase tracking-wider">Destaque</Badge>}
-                                {property.tags?.map((tag: string) => (
+                                {property.tags?.filter((tag: string) => tag.toLowerCase() !== 'destaque').map((tag: string) => (
                                     <Badge key={tag} variant="outline" className="border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 font-semibold px-3 py-1 rounded text-[10px] uppercase tracking-wider">{tag}</Badge>
                                 ))}
                             </div>
