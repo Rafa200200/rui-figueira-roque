@@ -27,7 +27,7 @@ export async function Footer() {
                             Rui Figueira <span className="text-brand-primary">&</span> Roque Lda
                         </span>
                     </Link>
-                    <p className="text-zinc-400 font-medium leading-relaxed">
+                    <p className="text-white/80 font-medium leading-relaxed">
                         A sua parceira de confiança no mercado imobiliário e mediação de seguros. Especialistas em encontrar a melhor solução para o seu caso.
                     </p>
                     <div className="flex items-center gap-3 pt-2">
@@ -51,8 +51,8 @@ export async function Footer() {
 
                 {/* Links Column */}
                 <div className="space-y-8">
-                    <h3 className="text-[10px] font-bold uppercase tracking-wider text-white/40 pb-3 border-b border-white/5">Navegação</h3>
-                    <ul className="space-y-3 text-sm font-semibold text-zinc-400">
+                    <h3 className="text-[10px] font-bold uppercase tracking-wider text-white/70 pb-3 border-b border-white/10">Navegação</h3>
+                    <ul className="space-y-3 text-sm font-semibold text-white">
                         <li><Link href="/" className="hover:text-brand-primary transition-colors">Início</Link></li>
                         <li><Link href="/imoveis" className="hover:text-brand-primary transition-colors">Imóveis para Venda</Link></li>
                         <li><Link href="/imoveis?type=rent" className="hover:text-brand-primary transition-colors">Arrendamento</Link></li>
@@ -64,11 +64,11 @@ export async function Footer() {
 
                 {/* Contact Column */}
                 <div className="space-y-8">
-                    <h3 className="text-[10px] font-bold uppercase tracking-wider text-white/40 pb-3 border-b border-white/5">Contactos</h3>
+                    <h3 className="text-[10px] font-bold uppercase tracking-wider text-white/70 pb-3 border-b border-white/10">Contactos</h3>
                     <ul className="space-y-5 text-sm">
                         {settings.footer_address && (
-                            <li className="flex items-start gap-3 text-zinc-400">
-                                <div className="w-7 h-7 rounded bg-zinc-800 flex items-center justify-center text-brand-primary shrink-0">
+                            <li className="flex items-start gap-3 text-white">
+                                <div className="w-7 h-7 rounded bg-white/10 flex items-center justify-center text-brand-primary shrink-0">
                                     <MapPin className="h-3.5 w-3.5" />
                                 </div>
                                 <span className="font-medium leading-relaxed">{settings.footer_address}</span>
@@ -76,21 +76,21 @@ export async function Footer() {
                         )}
 
                         <li className="space-y-3">
-                            <div className="flex items-center gap-3 text-zinc-400">
-                                <div className="w-7 h-7 rounded bg-zinc-800 flex items-center justify-center text-brand-primary shrink-0">
+                            <div className="flex items-center gap-3 text-white">
+                                <div className="w-7 h-7 rounded bg-white/10 flex items-center justify-center text-brand-primary shrink-0">
                                     <Phone className="h-3.5 w-3.5" />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[9px] font-bold uppercase text-white/30 tracking-wider mb-0.5">Imobiliária</span>
+                                    <span className="text-[9px] font-bold uppercase text-white/60 tracking-wider mb-0.5">Imobiliária</span>
                                     <a href={`tel:${settings.contact_realestate_phone}`} className="font-semibold text-white hover:text-brand-primary transition-colors">{settings.contact_realestate_phone}</a>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3 text-zinc-400">
-                                <div className="w-7 h-7 rounded bg-zinc-800 flex items-center justify-center text-brand-primary shrink-0">
+                            <div className="flex items-center gap-3 text-white">
+                                <div className="w-7 h-7 rounded bg-white/10 flex items-center justify-center text-brand-primary shrink-0">
                                     <Phone className="h-3.5 w-3.5" />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[9px] font-bold uppercase text-white/30 tracking-wider mb-0.5">Seguros</span>
+                                    <span className="text-[9px] font-bold uppercase text-white/60 tracking-wider mb-0.5">Seguros</span>
                                     <a href={`tel:${settings.contact_insurance_phone}`} className="font-semibold text-white hover:text-brand-primary transition-colors">{settings.contact_insurance_phone}</a>
                                 </div>
                             </div>
@@ -100,9 +100,9 @@ export async function Footer() {
 
                 {/* Hours Column */}
                 <div className="space-y-8">
-                    <h3 className="text-[10px] font-bold uppercase tracking-wider text-white/40 pb-3 border-b border-white/5">Atendimento</h3>
-                    <div className="flex items-start gap-3 text-zinc-400">
-                        <div className="w-7 h-7 rounded bg-zinc-800 flex items-center justify-center text-brand-primary shrink-0">
+                    <h3 className="text-[10px] font-bold uppercase tracking-wider text-white/70 pb-3 border-b border-white/10">Atendimento</h3>
+                    <div className="flex items-start gap-3 text-white">
+                        <div className="w-7 h-7 rounded bg-white/10 flex items-center justify-center text-brand-primary shrink-0">
                             <Clock className="h-3.5 w-3.5" />
                         </div>
                         <div className="font-medium space-y-1 text-sm">
@@ -120,7 +120,7 @@ export async function Footer() {
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-xs font-medium text-zinc-400">
+            <div className="container mx-auto px-4 mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-xs font-medium text-white/80">
                 <p>&copy; {currentYear} Rui Figueira & Roque Lda. Todos os direitos reservados.</p>
                 <div className="flex gap-6 mt-4 md:mt-0">
                     <Link href="/documentos/politica-privacidade" className="hover:text-white transition-colors">Privacidade</Link>
