@@ -57,7 +57,7 @@ export async function Footer() {
                         <li><Link href="/imoveis" className="hover:text-brand-primary transition-colors">Imóveis para Venda</Link></li>
                         <li><Link href="/imoveis?type=rent" className="hover:text-brand-primary transition-colors">Arrendamento</Link></li>
                         <li><Link href="/seguros" className="hover:text-brand-primary transition-colors">Simulação de Seguros</Link></li>
-                        <li><Link href="/credito-bancario" className="hover:text-brand-primary transition-colors">Crédito Automóvel & Habitação</Link></li>
+                        <li><Link href="/credito-bancario" className="hover:text-brand-primary transition-colors">Créditos</Link></li>
 
                     </ul>
                 </div>
