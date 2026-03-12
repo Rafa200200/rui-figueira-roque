@@ -65,7 +65,7 @@
                           ▼
               ┌────────────────────────┐
               │       SUPABASE          │
-              │  xxxxx   │
+              │  xxxxx.supabase.co      │
               │  .supabase.co           │
               ├─────────┬──────────────┤
               │  Auth   │  PostgreSQL   │
