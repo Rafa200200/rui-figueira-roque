@@ -46,20 +46,33 @@ id, title, slug, price, business_type, typology, municipality, district,
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
-      {/* PROFESSIONAL COMPACT HEADER */}
-      <header className="w-full bg-white dark:bg-zinc-950 border-b border-zinc-100 dark:border-zinc-800 py-6 lg:py-8 relative z-10">
-        <div className="container px-4 md:px-6 mx-auto flex flex-col items-center text-center">
-          <h1 className="text-3xl md:text-5xl font-black tracking-tighter mb-3 text-zinc-900 dark:text-zinc-100 uppercase">
+      {/* PROFESSIONAL HERO BANNER WITH BACKGROUND IMAGE */}
+      <header className="w-full relative overflow-hidden">
+        {/* Background Image */}
+        {settings.hero_image && (
+          <Image
+            src={settings.hero_image}
+            alt="Banner"
+            fill
+            className="object-cover object-center"
+            priority
+          />
+        )}
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/60" />
+        {/* Content */}
+        <div className="relative z-10 container px-4 md:px-6 mx-auto flex flex-col items-center text-center py-10 lg:py-14">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tighter mb-3 text-white uppercase drop-shadow-lg">
             {settings.hero_title || "Rui Figueira & Roque, Lda"}
           </h1>
-          <p className="text-xs md:text-sm font-bold text-zinc-400 uppercase tracking-[0.3em] max-w-2xl leading-relaxed">
+          <p className="text-xs md:text-sm font-bold text-white/70 uppercase tracking-[0.3em] max-w-2xl leading-relaxed">
             {settings.hero_subtitle || "Soluções integradas em Imobiliária, Seguros e Crédito."}
           </p>
         </div>
       </header>
 
       {/* SERVICES SECTION - BROUGHT TO TOP */}
-      <section className="py-8 lg:py-12 bg-zinc-50/50 dark:bg-zinc-900/50 relative z-20">
+      <section className="py-8 lg:py-12 bg-white dark:bg-zinc-950 relative z-20">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Real Estate Card */}

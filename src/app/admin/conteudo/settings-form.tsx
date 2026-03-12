@@ -29,6 +29,8 @@ export function SiteSettingsForm({ initialSettings }: { initialSettings: Record<
     // Image upload states
     const [aboutFile, setAboutFile] = React.useState<File | null>(null)
     const [aboutPreview, setAboutPreview] = React.useState<string | null>(settings['about_photo']?.value || null)
+    const [heroFile, setHeroFile] = React.useState<File | null>(null)
+    const [heroPreview, setHeroPreview] = React.useState<string | null>(settings['hero_image']?.value || null)
 
     const handleChange = (key: string, value: string) => {
         setSettings(prev => ({
@@ -47,6 +49,29 @@ export function SiteSettingsForm({ initialSettings }: { initialSettings: Record<
             const supabase = createClient()
 
             const currentSettings = { ...settings }
+
+            // Upload hero banner image
+            if (heroFile) {
+                const fileExt = heroFile.name.split('.').pop()
+                const fileName = `hero-${Date.now()}.${fileExt}`
+                const filePath = `hero/${fileName}`
+
+                const { error: uploadError } = await supabase.storage
+                    .from('site-assets')
+                    .upload(filePath, heroFile)
+
+                if (uploadError) throw uploadError
+
+                const { data: { publicUrl } } = supabase.storage
+                    .from('site-assets')
+                    .getPublicUrl(filePath)
+
+                if (currentSettings['hero_image']) {
+                    currentSettings['hero_image'].value = publicUrl
+                } else {
+                    currentSettings['hero_image'] = { key: 'hero_image', value: publicUrl, group_name: 'homepage', type: 'image' }
+                }
+            }
 
 
             if (aboutFile) {
@@ -173,6 +198,67 @@ export function SiteSettingsForm({ initialSettings }: { initialSettings: Record<
                                 value={getValue('hero_subtitle')}
                                 onChange={(e) => handleChange('hero_subtitle', e.target.value)}
                             />
+                        </div>
+
+                        {/* Hero Banner Image */}
+                        <div className="space-y-2 md:col-span-2">
+                            <Label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-1">Imagem de Fundo do Banner</Label>
+                            <div className="flex flex-col gap-6">
+                                {heroPreview && (
+                                    <div className="relative aspect-[3/1] w-full max-w-2xl rounded-2xl overflow-hidden border border-border bg-muted/30 shadow-sm group">
+                                        <img src={heroPreview} alt="Hero Preview" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                            <Button
+                                                variant="secondary"
+                                                size="sm"
+                                                onClick={() => document.getElementById('hero-upload')?.click()}
+                                                className="rounded-lg h-10 px-6 font-bold text-[10px] uppercase tracking-wider"
+                                            >
+                                                <RefreshCw className="mr-2 h-4 w-4" />
+                                                Alterar Imagem
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )}
+                                {!heroPreview && (
+                                    <div
+                                        onClick={() => document.getElementById('hero-upload')?.click()}
+                                        className="aspect-[3/1] w-full max-w-2xl rounded-2xl border-2 border-dashed border-border bg-muted/30 flex flex-col items-center justify-center cursor-pointer hover:bg-muted/50 transition-colors shadow-inner"
+                                    >
+                                        <div className="p-4 rounded-full bg-background shadow-sm mb-4">
+                                            <UploadCloud className="h-8 w-8 text-muted-foreground" />
+                                        </div>
+                                        <span className="text-[10px] text-muted-foreground font-medium mt-1">Formatos: JPG, PNG, WEBP • Recomendado: Panorâmica 1920×640 (Máx 2MB)</span>
+                                    </div>
+                                )}
+                                <input
+                                    id="hero-upload"
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0]
+                                        if (file) {
+                                            setHeroFile(file)
+                                            setHeroPreview(URL.createObjectURL(file))
+                                        }
+                                    }}
+                                />
+                                <div className="space-y-2 bg-muted/30 p-4 rounded-xl border border-border max-w-2xl">
+                                    <Label htmlFor="hero_image_url" className="text-[9px] font-bold text-muted-foreground uppercase ml-1">Ou cole um link direto</Label>
+                                    <Input
+                                        id="hero_image_url"
+                                        className="h-9 px-3 text-xs border-border bg-background text-foreground rounded-lg focus-visible:ring-brand-primary"
+                                        value={getValue('hero_image')}
+                                        onChange={(e) => {
+                                            handleChange('hero_image', e.target.value)
+                                            setHeroPreview(e.target.value)
+                                            setHeroFile(null)
+                                        }}
+                                        placeholder="https://..."
+                                    />
+                                </div>
+                            </div>
                         </div>
 
 
