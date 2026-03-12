@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import { createClient } from "@/lib/supabase/server"
 import Image from "next/image"
+import { Footer } from "@/components/public/footer"
 
 export const revalidate = 0
 
@@ -78,6 +79,7 @@ export default async function AboutUsPage() {
 
                 </div>
             </main>
+            <Footer />
         </div>
     )
 }

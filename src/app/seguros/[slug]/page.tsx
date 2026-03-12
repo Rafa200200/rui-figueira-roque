@@ -5,6 +5,7 @@ import { ShieldCheck, Mail, Phone, ArrowRight, CheckCircle2, FileText, HelpCircl
 import { Button } from "@/components/ui/button"
 import { LeadForm } from "@/components/public/lead-form"
 import { PageNavigation } from "@/components/public/page-navigation"
+import { Footer } from "@/components/public/footer"
 
 export const revalidate = 0
 
@@ -186,6 +187,7 @@ export default async function InsuranceDetailPage({ params }: { params: Promise<
 
                 </div>
             </main>
+            <Footer />
         </div >
     )
 }

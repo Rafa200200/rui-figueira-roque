@@ -8,6 +8,7 @@ import { PropertySearch } from "@/components/public/property-search"
 import { PageNavigation } from "@/components/public/page-navigation"
 import { Suspense } from "react"
 import { PriceFormatter } from "@/components/ui/price-formatter"
+import { Footer } from "@/components/public/footer"
 
 export const revalidate = 0
 
@@ -184,6 +185,7 @@ export default async function PropertiesPage({
                     </div>
                 </div>
             </section >
+            <Footer />
         </div >
     )
 }

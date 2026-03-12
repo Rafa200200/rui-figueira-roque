@@ -4,6 +4,7 @@ import { ShieldCheck, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { PageNavigation } from "@/components/public/page-navigation"
+import { Footer } from "@/components/public/footer"
 
 export const revalidate = 0
 
@@ -117,6 +118,7 @@ export default async function InsurancesListPage() {
                     </div>
                 </div>
             </section >
+            <Footer />
         </div >
     )
 }

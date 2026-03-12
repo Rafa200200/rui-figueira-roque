@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/server"
 import Image from "next/image"
 import { PriceFormatter } from "@/components/ui/price-formatter"
+import { Footer } from "@/components/public/footer"
 
 export const revalidate = 0 // Opt out of full static rendering
 
@@ -277,6 +278,7 @@ id, title, slug, price, business_type, typology, municipality, district,
         </div>
       </section>
 
+      <Footer />
     </div>
   )
 }

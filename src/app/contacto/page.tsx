@@ -4,6 +4,7 @@ import { MapPin, Phone, Mail, Clock, Send, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LeadForm } from "@/components/public/lead-form"
 import { PageNavigation } from "@/components/public/page-navigation"
+import { Footer } from "@/components/public/footer"
 
 export const revalidate = 0
 
@@ -103,6 +104,7 @@ export default async function ContactPage() {
 
                 </div>
             </main>
+            <Footer />
         </div>
     )
 }

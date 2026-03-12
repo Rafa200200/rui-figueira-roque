@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server"
 import { Landmark, ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PageNavigation } from "@/components/public/page-navigation"
+import { Footer } from "@/components/public/footer"
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -158,6 +159,7 @@ Na Rui Figueira & Roque Lda fazemos intermediação de crédito vinculado, procu
 
                 </div>
             </main>
+            <Footer />
         </div >
     )
 }

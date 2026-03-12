@@ -1,7 +1,20 @@
 import Link from "next/link"
 import { MapPin, Phone, Clock, Facebook, Instagram, Linkedin, Home } from "lucide-react"
+import { createClient } from "@/lib/supabase/server"
 
-export function Footer({ settings }: { settings: Record<string, string> }) {
+export async function Footer() {
+    const supabase = await createClient()
+
+    const { data: settingsData } = await supabase
+        .from('site_settings')
+        .select('key, value')
+        .in('group_name', ['contacts', 'social', 'footer'])
+
+    const settings = settingsData?.reduce((acc: Record<string, string>, curr) => {
+        acc[curr.key] = curr.value
+        return acc
+    }, {}) || {}
+
     const currentYear = new Date().getFullYear();
 
     return (
@@ -107,12 +120,12 @@ export function Footer({ settings }: { settings: Record<string, string> }) {
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-[9px] font-bold uppercase tracking-wider text-white/20">
+            <div className="container mx-auto px-4 mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-xs font-medium text-zinc-400">
                 <p>&copy; {currentYear} Rui Figueira & Roque Lda. Todos os direitos reservados.</p>
                 <div className="flex gap-6 mt-4 md:mt-0">
                     <Link href="/documentos/politica-privacidade" className="hover:text-white transition-colors">Privacidade</Link>
                     <Link href="/documentos/termos" className="hover:text-white transition-colors">Termos</Link>
-                    <Link href="/admin" className="hover:text-white transition-colors text-white/40">Backoffice</Link>
+                    <Link href="/admin" className="hover:text-white transition-colors">Backoffice</Link>
                 </div>
             </div>
         </footer>

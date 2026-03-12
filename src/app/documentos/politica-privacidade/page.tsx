@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import { Footer } from "@/components/public/footer"
 
 export const metadata: Metadata = {
     title: "Política de Privacidade | Rui Figueira & Roque",
@@ -7,7 +8,8 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
     return (
-        <div className="container mx-auto px-4 py-24 max-w-4xl">
+        <div className="flex flex-col min-h-screen">
+            <div className="flex-1 container mx-auto px-4 py-24 max-w-4xl">
             <h1 className="text-4xl font-bold mb-8 text-brand-dark dark:text-brand-light">Política de Privacidade</h1>
             <div className="prose prose-lg dark:prose-invert max-w-none space-y-6 text-zinc-700 dark:text-zinc-300">
                 <p>
@@ -32,6 +34,8 @@ export default function PrivacyPolicyPage() {
                     </p>
                 </section>
             </div>
+            </div>
+            <Footer />
         </div>
     )
 }
