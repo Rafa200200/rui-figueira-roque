@@ -22,13 +22,14 @@ export default async function InsurancesListPage() {
         .eq('status', 'active')
         .order('display_order', { ascending: true })
 
-    const { data: contacts } = await supabase
+    const { data: settingsData } = await supabase
         .from('site_settings')
         .select('key, value')
-        .in('key', ['contact_insurance_phone', 'contact_insurance_email'])
 
-    const insurancePhone = contacts?.find(c => c.key === 'contact_insurance_phone')?.value
-    const insuranceEmail = contacts?.find(c => c.key === 'contact_insurance_email')?.value
+    const settings = settingsData?.reduce((acc: Record<string, string>, curr) => {
+        acc[curr.key] = curr.value
+        return acc
+    }, {}) || {}
 
     return (
         <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
@@ -92,28 +93,57 @@ export default async function InsurancesListPage() {
                     <h3 className="text-2xl font-black mb-3 uppercase tracking-widest">Fale Connosco</h3>
                     <div className="h-1 w-16 bg-brand-accent mx-auto mb-6" />
                     <p className="text-brand-light text-sm font-medium max-w-2xl mx-auto mb-10 leading-relaxed uppercase tracking-wider">A nossa equipa está pronta para encontrar a melhor proteção para si e para a sua família.</p>
-                    <div className="flex flex-col md:flex-row justify-center items-center gap-6">
-                        {insurancePhone && (
-                            <a href={`tel:${insurancePhone}`} className="group flex items-center gap-4 bg-white/5 p-5 rounded-xl hover:bg-white/10 transition-all border border-white/10 w-full md:w-auto min-w-[280px]">
-                                <div className="w-12 h-12 bg-zinc-700 rounded-lg flex items-center justify-center shadow-lg transition-colors">
-                                    <ShieldCheck className="h-5 w-5 text-white" />
-                                </div>
-                                <div className="text-left">
-                                    <span className="block text-[10px] uppercase font-bold text-white/50 tracking-wider">Ligar Agora</span>
-                                    <span className="text-lg font-bold">{insurancePhone}</span>
-                                </div>
-                            </a>
-                        )}
-                        {insuranceEmail && (
-                            <a href={`mailto:${insuranceEmail}`} className="group flex items-center gap-4 bg-white/5 p-5 rounded-xl hover:bg-white/10 transition-all border border-white/10 w-full md:w-auto min-w-[280px]">
-                                <div className="w-12 h-12 bg-zinc-700 rounded-lg flex items-center justify-center shadow-lg transition-colors">
-                                    <ShieldCheck className="h-5 w-5 text-white" />
-                                </div>
-                                <div className="text-left">
-                                    <span className="block text-[10px] uppercase font-bold text-white/50 tracking-wider">Enviar Email</span>
-                                    <span className="text-lg font-bold truncate max-w-[180px]">{insuranceEmail}</span>
-                                </div>
-                            </a>
+                    <div className="grid gap-8 max-w-3xl mx-auto">
+                        <div className="grid md:grid-cols-2 gap-4">
+                            {settings.contact_insurance_phone && (
+                                <a href={`tel:${settings.contact_insurance_phone}`} className="group flex items-center gap-4 bg-white/5 p-4 rounded-xl hover:bg-white/10 transition-all border border-white/10">
+                                    <div className="w-10 h-10 bg-zinc-700/50 rounded-lg flex items-center justify-center shadow-lg group-hover:bg-zinc-700 transition-colors">
+                                        <ShieldCheck className="h-5 w-5 text-white" />
+                                    </div>
+                                    <div className="text-left">
+                                        <span className="block text-[10px] uppercase font-bold text-white/50 tracking-wider">Telefone Principal</span>
+                                        <span className="text-base font-bold">{settings.contact_insurance_phone}</span>
+                                    </div>
+                                </a>
+                            )}
+                            {settings.contact_insurance_email && (
+                                <a href={`mailto:${settings.contact_insurance_email}`} className="group flex items-center gap-4 bg-white/5 p-4 rounded-xl hover:bg-white/10 transition-all border border-white/10">
+                                    <div className="w-10 h-10 bg-zinc-700/50 rounded-lg flex items-center justify-center shadow-lg group-hover:bg-zinc-700 transition-colors">
+                                        <ShieldCheck className="h-5 w-5 text-white" />
+                                    </div>
+                                    <div className="text-left overflow-hidden">
+                                        <span className="block text-[10px] uppercase font-bold text-white/50 tracking-wider">E-mail de Contacto</span>
+                                        <span className="text-sm font-bold block truncate">{settings.contact_insurance_email}</span>
+                                    </div>
+                                </a>
+                            )}
+                        </div>
+
+                        {(settings.contact_insurance_phone_2 || settings.contact_insurance_email_2) && (
+                            <div className="grid md:grid-cols-2 gap-4 pt-6 border-t border-white/5">
+                                {settings.contact_insurance_phone_2 && (
+                                    <a href={`tel:${settings.contact_insurance_phone_2}`} className="group flex items-center gap-4 bg-white/5 p-4 rounded-xl hover:bg-white/10 transition-all border border-white/10">
+                                        <div className="w-10 h-10 bg-zinc-700/50 rounded-lg flex items-center justify-center shadow-lg group-hover:bg-zinc-700 transition-colors">
+                                            <ShieldCheck className="h-5 w-5 text-white" />
+                                        </div>
+                                        <div className="text-left">
+                                            <span className="block text-[10px] uppercase font-bold text-white/50 tracking-wider">Telefone Secundário</span>
+                                            <span className="text-base font-bold">{settings.contact_insurance_phone_2}</span>
+                                        </div>
+                                    </a>
+                                )}
+                                {settings.contact_insurance_email_2 && (
+                                    <a href={`mailto:${settings.contact_insurance_email_2}`} className="group flex items-center gap-4 bg-white/5 p-4 rounded-xl hover:bg-white/10 transition-all border border-white/10">
+                                        <div className="w-10 h-10 bg-zinc-700/50 rounded-lg flex items-center justify-center shadow-lg group-hover:bg-zinc-700 transition-colors">
+                                            <ShieldCheck className="h-5 w-5 text-white" />
+                                        </div>
+                                        <div className="text-left overflow-hidden">
+                                            <span className="block text-[10px] uppercase font-bold text-white/50 tracking-wider">E-mail Secundário</span>
+                                            <span className="text-sm font-bold block truncate">{settings.contact_insurance_email_2}</span>
+                                        </div>
+                                    </a>
+                                )}
+                            </div>
                         )}
                     </div>
                 </div>

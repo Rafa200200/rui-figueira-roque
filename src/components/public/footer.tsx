@@ -75,23 +75,33 @@ export async function Footer() {
                             </li>
                         )}
 
-                        <li className="space-y-3">
-                            <div className="flex items-center gap-3 text-white">
-                                <div className="w-7 h-7 rounded bg-white/10 flex items-center justify-center text-brand-primary shrink-0">
+                        <li className="space-y-4">
+                            <div className="flex items-start gap-3 text-white">
+                                <div className="w-7 h-7 rounded bg-white/10 flex items-center justify-center text-brand-primary shrink-0 mt-0.5">
                                     <Phone className="h-3.5 w-3.5" />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[9px] font-bold uppercase text-white/60 tracking-wider mb-0.5">Imobiliária</span>
-                                    <a href={`tel:${settings.contact_realestate_phone}`} className="font-semibold text-white hover:text-brand-primary transition-colors">{settings.contact_realestate_phone}</a>
+                                    <span className="text-[9px] font-bold uppercase text-white/60 tracking-wider mb-1">Imobiliária</span>
+                                    <div className="space-y-1">
+                                        <a href={`tel:${settings.contact_realestate_phone}`} className="font-semibold text-white hover:text-brand-primary transition-colors block">{settings.contact_realestate_phone}</a>
+                                        {settings.contact_realestate_phone_2 && (
+                                            <a href={`tel:${settings.contact_realestate_phone_2}`} className="font-semibold text-white hover:text-brand-primary transition-colors block">{settings.contact_realestate_phone_2}</a>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3 text-white">
-                                <div className="w-7 h-7 rounded bg-white/10 flex items-center justify-center text-brand-primary shrink-0">
+                            <div className="flex items-start gap-3 text-white">
+                                <div className="w-7 h-7 rounded bg-white/10 flex items-center justify-center text-brand-primary shrink-0 mt-0.5">
                                     <Phone className="h-3.5 w-3.5" />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[9px] font-bold uppercase text-white/60 tracking-wider mb-0.5">Seguros</span>
-                                    <a href={`tel:${settings.contact_insurance_phone}`} className="font-semibold text-white hover:text-brand-primary transition-colors">{settings.contact_insurance_phone}</a>
+                                    <span className="text-[9px] font-bold uppercase text-white/60 tracking-wider mb-1">Seguros</span>
+                                    <div className="space-y-1">
+                                        <a href={`tel:${settings.contact_insurance_phone}`} className="font-semibold text-white hover:text-brand-primary transition-colors block">{settings.contact_insurance_phone}</a>
+                                        {settings.contact_insurance_phone_2 && (
+                                            <a href={`tel:${settings.contact_insurance_phone_2}`} className="font-semibold text-white hover:text-brand-primary transition-colors block">{settings.contact_insurance_phone_2}</a>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </li>

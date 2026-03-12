@@ -387,30 +387,59 @@ export function SiteSettingsForm({ initialSettings }: { initialSettings: Record<
                                 Departamento Imobiliário
                             </h3>
                         </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="contact_realestate_phone" className="text-[10px] font-bold text-brand-primary/80 uppercase tracking-widest px-1">Telefone Principal</Label>
-                            <Input
-                                id="contact_realestate_phone"
-                                className="h-11 rounded-xl border-brand-primary/20 focus-visible:ring-brand-primary font-bold text-foreground bg-background"
-                                value={getValue('contact_realestate_phone')}
-                                onChange={(e) => {
-                                    handleChange('contact_realestate_phone', e.target.value);
-                                    if (!settings['contact_realestate_phone']?.type) setSettings(p => ({ ...p, contact_realestate_phone: { ...p.contact_realestate_phone, type: 'text', group_name: 'contacts' } }))
-                                }}
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="contact_realestate_email" className="text-[10px] font-bold text-brand-primary/80 uppercase tracking-widest px-1">E-mail de Contacto</Label>
-                            <Input
-                                id="contact_realestate_email"
-                                type="email"
-                                className="h-11 rounded-xl border-brand-primary/20 focus-visible:ring-brand-primary font-bold text-foreground bg-background"
-                                value={getValue('contact_realestate_email')}
-                                onChange={(e) => {
-                                    handleChange('contact_realestate_email', e.target.value)
-                                    if (!settings['contact_realestate_email']?.type) setSettings(p => ({ ...p, contact_realestate_email: { ...p.contact_realestate_email, type: 'text', group_name: 'contacts' } }))
-                                }}
-                            />
+                        <div className="space-y-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="contact_realestate_phone" className="text-[11px] font-bold text-brand-primary/80 uppercase tracking-widest px-1">Telefone Principal</Label>
+                                <Input
+                                    id="contact_realestate_phone"
+                                    className="h-11 rounded-xl border-brand-primary/20 focus-visible:ring-brand-primary font-bold text-foreground bg-background w-full"
+                                    value={getValue('contact_realestate_phone')}
+                                    onChange={(e) => {
+                                        handleChange('contact_realestate_phone', e.target.value);
+                                        if (!settings['contact_realestate_phone']?.type) setSettings(p => ({ ...p, contact_realestate_phone: { ...p.contact_realestate_phone, type: 'text', group_name: 'contacts' } }))
+                                    }}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="contact_realestate_email" className="text-[11px] font-bold text-brand-primary/80 uppercase tracking-widest px-1">E-mail de Contacto</Label>
+                                <Input
+                                    id="contact_realestate_email"
+                                    type="email"
+                                    className="h-11 rounded-xl border-brand-primary/20 focus-visible:ring-brand-primary font-bold text-foreground bg-background w-full"
+                                    value={getValue('contact_realestate_email')}
+                                    onChange={(e) => {
+                                        handleChange('contact_realestate_email', e.target.value)
+                                        if (!settings['contact_realestate_email']?.type) setSettings(p => ({ ...p, contact_realestate_email: { ...p.contact_realestate_email, type: 'text', group_name: 'contacts' } }))
+                                    }}
+                                />
+                            </div>
+                            <div className="pt-4 border-t border-brand-primary/10 space-y-6">
+                                <div className="space-y-2">
+                                    <Label htmlFor="contact_realestate_phone_2" className="text-[11px] font-bold text-brand-primary/80 uppercase tracking-widest px-1">Telefone Secundário (Opcional)</Label>
+                                    <Input
+                                        id="contact_realestate_phone_2"
+                                        className="h-11 rounded-xl border-brand-primary/20 focus-visible:ring-brand-primary font-bold text-foreground bg-background w-full"
+                                        value={getValue('contact_realestate_phone_2')}
+                                        onChange={(e) => {
+                                            handleChange('contact_realestate_phone_2', e.target.value);
+                                            if (!settings['contact_realestate_phone_2']?.type) setSettings(p => ({ ...p, contact_realestate_phone_2: { ...p.contact_realestate_phone_2, type: 'text', group_name: 'contacts' } }))
+                                        }}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="contact_realestate_email_2" className="text-[11px] font-bold text-brand-primary/80 uppercase tracking-widest px-1">E-mail Secundário (Opcional)</Label>
+                                    <Input
+                                        id="contact_realestate_email_2"
+                                        type="email"
+                                        className="h-11 rounded-xl border-brand-primary/20 focus-visible:ring-brand-primary font-bold text-foreground bg-background w-full"
+                                        value={getValue('contact_realestate_email_2')}
+                                        onChange={(e) => {
+                                            handleChange('contact_realestate_email_2', e.target.value)
+                                            if (!settings['contact_realestate_email_2']?.type) setSettings(p => ({ ...p, contact_realestate_email_2: { ...p.contact_realestate_email_2, type: 'text', group_name: 'contacts' } }))
+                                        }}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -425,30 +454,59 @@ export function SiteSettingsForm({ initialSettings }: { initialSettings: Record<
                                 Departamento de Seguros
                             </h3>
                         </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="contact_insurance_phone" className="text-[10px] font-bold text-blue-500/80 uppercase tracking-widest px-1">Telefone Especializado</Label>
-                            <Input
-                                id="contact_insurance_phone"
-                                className="h-11 rounded-xl border-blue-500/20 focus-visible:ring-blue-500 font-bold text-foreground bg-background"
-                                value={getValue('contact_insurance_phone')}
-                                onChange={(e) => {
-                                    handleChange('contact_insurance_phone', e.target.value)
-                                    if (!settings['contact_insurance_phone']?.type) setSettings(p => ({ ...p, contact_insurance_phone: { ...p.contact_insurance_phone, type: 'text', group_name: 'contacts' } }))
-                                }}
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="contact_insurance_email" className="text-[10px] font-bold text-blue-500/80 uppercase tracking-widest px-1">E-mail Especializado</Label>
-                            <Input
-                                id="contact_insurance_email"
-                                type="email"
-                                className="h-11 rounded-xl border-blue-500/20 focus-visible:ring-blue-500 font-bold text-foreground bg-background"
-                                value={getValue('contact_insurance_email')}
-                                onChange={(e) => {
-                                    handleChange('contact_insurance_email', e.target.value)
-                                    if (!settings['contact_insurance_email']?.type) setSettings(p => ({ ...p, contact_insurance_email: { ...p.contact_insurance_email, type: 'text', group_name: 'contacts' } }))
-                                }}
-                            />
+                        <div className="space-y-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="contact_insurance_phone" className="text-[11px] font-bold text-blue-500/80 uppercase tracking-widest px-1">Telefone Especializado</Label>
+                                <Input
+                                    id="contact_insurance_phone"
+                                    className="h-11 rounded-xl border-blue-500/20 focus-visible:ring-blue-500 font-bold text-foreground bg-background w-full"
+                                    value={getValue('contact_insurance_phone')}
+                                    onChange={(e) => {
+                                        handleChange('contact_insurance_phone', e.target.value)
+                                        if (!settings['contact_insurance_phone']?.type) setSettings(p => ({ ...p, contact_insurance_phone: { ...p.contact_insurance_phone, type: 'text', group_name: 'contacts' } }))
+                                    }}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="contact_insurance_email" className="text-[11px] font-bold text-blue-500/80 uppercase tracking-widest px-1">E-mail Especializado</Label>
+                                <Input
+                                    id="contact_insurance_email"
+                                    type="email"
+                                    className="h-11 rounded-xl border-blue-500/20 focus-visible:ring-blue-500 font-bold text-foreground bg-background w-full"
+                                    value={getValue('contact_insurance_email')}
+                                    onChange={(e) => {
+                                        handleChange('contact_insurance_email', e.target.value)
+                                        if (!settings['contact_insurance_email']?.type) setSettings(p => ({ ...p, contact_insurance_email: { ...p.contact_insurance_email, type: 'text', group_name: 'contacts' } }))
+                                    }}
+                                />
+                            </div>
+                            <div className="pt-4 border-t border-blue-500/10 space-y-6">
+                                <div className="space-y-2">
+                                    <Label htmlFor="contact_insurance_phone_2" className="text-[11px] font-bold text-blue-500/80 uppercase tracking-widest px-1">Telefone Secundário (Opcional)</Label>
+                                    <Input
+                                        id="contact_insurance_phone_2"
+                                        className="h-11 rounded-xl border-blue-500/20 focus-visible:ring-blue-500 font-bold text-foreground bg-background w-full"
+                                        value={getValue('contact_insurance_phone_2')}
+                                        onChange={(e) => {
+                                            handleChange('contact_insurance_phone_2', e.target.value)
+                                            if (!settings['contact_insurance_phone_2']?.type) setSettings(p => ({ ...p, contact_insurance_phone_2: { ...p.contact_insurance_phone_2, type: 'text', group_name: 'contacts' } }))
+                                        }}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="contact_insurance_email_2" className="text-[11px] font-bold text-blue-500/80 uppercase tracking-widest px-1">E-mail Secundário (Opcional)</Label>
+                                    <Input
+                                        id="contact_insurance_email_2"
+                                        type="email"
+                                        className="h-11 rounded-xl border-blue-500/20 focus-visible:ring-blue-500 font-bold text-foreground bg-background w-full"
+                                        value={getValue('contact_insurance_email_2')}
+                                        onChange={(e) => {
+                                            handleChange('contact_insurance_email_2', e.target.value)
+                                            if (!settings['contact_insurance_email_2']?.type) setSettings(p => ({ ...p, contact_insurance_email_2: { ...p.contact_insurance_email_2, type: 'text', group_name: 'contacts' } }))
+                                        }}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -463,30 +521,59 @@ export function SiteSettingsForm({ initialSettings }: { initialSettings: Record<
                                 Intermediação de Crédito
                             </h3>
                         </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="contact_credit_phone" className="text-[10px] font-bold text-amber-500/80 uppercase tracking-widest px-1">Contacto Créditos</Label>
-                            <Input
-                                id="contact_credit_phone"
-                                className="h-11 rounded-xl border-amber-500/20 focus-visible:ring-amber-500 font-bold text-foreground bg-background"
-                                value={getValue('contact_credit_phone')}
-                                onChange={(e) => {
-                                    handleChange('contact_credit_phone', e.target.value)
-                                    if (!settings['contact_credit_phone']?.type) setSettings(p => ({ ...p, contact_credit_phone: { ...p.contact_credit_phone, type: 'text', group_name: 'contacts' } }))
-                                }}
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="contact_credit_email" className="text-[10px] font-bold text-amber-500/80 uppercase tracking-widest px-1">E-mail Créditos</Label>
-                            <Input
-                                id="contact_credit_email"
-                                type="email"
-                                className="h-11 rounded-xl border-amber-500/20 focus-visible:ring-amber-500 font-bold text-foreground bg-background"
-                                value={getValue('contact_credit_email')}
-                                onChange={(e) => {
-                                    handleChange('contact_credit_email', e.target.value)
-                                    if (!settings['contact_credit_email']?.type) setSettings(p => ({ ...p, contact_credit_email: { ...p.contact_credit_email, type: 'text', group_name: 'contacts' } }))
-                                }}
-                            />
+                        <div className="space-y-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="contact_credit_phone" className="text-[11px] font-bold text-amber-500/80 uppercase tracking-widest px-1">Contacto Créditos</Label>
+                                <Input
+                                    id="contact_credit_phone"
+                                    className="h-11 rounded-xl border-amber-500/20 focus-visible:ring-amber-500 font-bold text-foreground bg-background w-full"
+                                    value={getValue('contact_credit_phone')}
+                                    onChange={(e) => {
+                                        handleChange('contact_credit_phone', e.target.value)
+                                        if (!settings['contact_credit_phone']?.type) setSettings(p => ({ ...p, contact_credit_phone: { ...p.contact_credit_phone, type: 'text', group_name: 'contacts' } }))
+                                    }}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="contact_credit_email" className="text-[11px] font-bold text-amber-500/80 uppercase tracking-widest px-1">E-mail Créditos</Label>
+                                <Input
+                                    id="contact_credit_email"
+                                    type="email"
+                                    className="h-11 rounded-xl border-amber-500/20 focus-visible:ring-amber-500 font-bold text-foreground bg-background w-full"
+                                    value={getValue('contact_credit_email')}
+                                    onChange={(e) => {
+                                        handleChange('contact_credit_email', e.target.value)
+                                        if (!settings['contact_credit_email']?.type) setSettings(p => ({ ...p, contact_credit_email: { ...p.contact_credit_email, type: 'text', group_name: 'contacts' } }))
+                                    }}
+                                />
+                            </div>
+                            <div className="pt-4 border-t border-amber-500/10 space-y-6">
+                                <div className="space-y-2">
+                                    <Label htmlFor="contact_credit_phone_2" className="text-[11px] font-bold text-amber-500/80 uppercase tracking-widest px-1">Contacto Créditos 2 (Opcional)</Label>
+                                    <Input
+                                        id="contact_credit_phone_2"
+                                        className="h-11 rounded-xl border-amber-500/20 focus-visible:ring-amber-500 font-bold text-foreground bg-background w-full"
+                                        value={getValue('contact_credit_phone_2')}
+                                        onChange={(e) => {
+                                            handleChange('contact_credit_phone_2', e.target.value)
+                                            if (!settings['contact_credit_phone_2']?.type) setSettings(p => ({ ...p, contact_credit_phone_2: { ...p.contact_credit_phone_2, type: 'text', group_name: 'contacts' } }))
+                                        }}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="contact_credit_email_2" className="text-[11px] font-bold text-amber-500/80 uppercase tracking-widest px-1">E-mail Créditos 2 (Opcional)</Label>
+                                    <Input
+                                        id="contact_credit_email_2"
+                                        type="email"
+                                        className="h-11 rounded-xl border-amber-500/20 focus-visible:ring-amber-500 font-bold text-foreground bg-background w-full"
+                                        value={getValue('contact_credit_email_2')}
+                                        onChange={(e) => {
+                                            handleChange('contact_credit_email_2', e.target.value)
+                                            if (!settings['contact_credit_email_2']?.type) setSettings(p => ({ ...p, contact_credit_email_2: { ...p.contact_credit_email_2, type: 'text', group_name: 'contacts' } }))
+                                        }}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </TabsContent>

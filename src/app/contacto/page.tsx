@@ -70,25 +70,61 @@ export default async function ContactPage() {
                             <div>
                                 <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-6">Departamentos</h4>
                                 <div className="space-y-5">
-                                    <div className="flex justify-between items-center pb-5 border-b border-zinc-200 dark:border-zinc-800">
-                                        <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">Imobiliária</span>
-                                        <div className="text-right">
-                                            <p className="text-brand-primary font-bold">{settings.contact_realestate_phone || "N/A"}</p>
-                                            <p className="text-[10px] text-zinc-400 font-semibold uppercase tracking-wider mt-0.5">{settings.contact_realestate_email || "N/A"}</p>
+                                    <div className="flex justify-between items-start pb-6 border-b border-zinc-200 dark:border-zinc-800">
+                                        <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm mt-1">Imobiliária</span>
+                                        <div className="text-right space-y-3">
+                                            <div className="space-y-1">
+                                                <p className="text-brand-primary font-bold text-base leading-tight">{settings.contact_realestate_phone || "N/A"}</p>
+                                                <p className="text-sm text-zinc-500 dark:text-zinc-400 font-semibold block">{settings.contact_realestate_email || "N/A"}</p>
+                                            </div>
+                                            {(settings.contact_realestate_phone_2 || settings.contact_realestate_email_2) && (
+                                                <div className="space-y-1 pt-2 border-t border-zinc-100 dark:border-zinc-800">
+                                                    {settings.contact_realestate_phone_2 && (
+                                                        <p className="text-brand-primary font-bold text-base leading-tight">{settings.contact_realestate_phone_2}</p>
+                                                    )}
+                                                    {settings.contact_realestate_email_2 && (
+                                                        <p className="text-sm text-zinc-500 dark:text-zinc-400 font-semibold block">{settings.contact_realestate_email_2}</p>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
-                                    <div className="flex justify-between items-center pb-5 border-b border-zinc-200 dark:border-zinc-800">
-                                        <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">Seguros</span>
-                                        <div className="text-right">
-                                            <p className="text-brand-primary font-bold">{settings.contact_insurance_phone || "N/A"}</p>
-                                            <p className="text-[10px] text-zinc-400 font-semibold uppercase tracking-wider mt-0.5">{settings.contact_insurance_email || "N/A"}</p>
+                                    <div className="flex justify-between items-start pb-6 border-b border-zinc-200 dark:border-zinc-800">
+                                        <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm mt-1">Seguros</span>
+                                        <div className="text-right space-y-3">
+                                            <div className="space-y-1">
+                                                <p className="text-brand-primary font-bold text-base leading-tight">{settings.contact_insurance_phone || "N/A"}</p>
+                                                <p className="text-sm text-zinc-500 dark:text-zinc-400 font-semibold block">{settings.contact_insurance_email || "N/A"}</p>
+                                            </div>
+                                            {(settings.contact_insurance_phone_2 || settings.contact_insurance_email_2) && (
+                                                <div className="space-y-1 pt-2 border-t border-zinc-100 dark:border-zinc-800">
+                                                    {settings.contact_insurance_phone_2 && (
+                                                        <p className="text-brand-primary font-bold text-base leading-tight">{settings.contact_insurance_phone_2}</p>
+                                                    )}
+                                                    {settings.contact_insurance_email_2 && (
+                                                        <p className="text-sm text-zinc-500 dark:text-zinc-400 font-semibold block">{settings.contact_insurance_email_2}</p>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
-                                    <div className="flex justify-between items-center">
-                                        <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">Créditos</span>
-                                        <div className="text-right">
-                                            <p className="text-brand-primary font-bold">{settings.contact_credit_phone || "N/A"}</p>
-                                            <p className="text-[10px] text-zinc-400 font-semibold uppercase tracking-wider mt-0.5">{settings.contact_credit_email || "N/A"}</p>
+                                    <div className="flex justify-between items-start pt-2">
+                                        <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm mt-1">Créditos</span>
+                                        <div className="text-right space-y-3">
+                                            <div className="space-y-1">
+                                                <p className="text-brand-primary font-bold text-base leading-tight">{settings.contact_credit_phone || "N/A"}</p>
+                                                <p className="text-sm text-zinc-500 dark:text-zinc-400 font-semibold block">{settings.contact_credit_email || "N/A"}</p>
+                                            </div>
+                                            {(settings.contact_credit_phone_2 || settings.contact_credit_email_2) && (
+                                                <div className="space-y-1 pt-2 border-t border-zinc-100 dark:border-zinc-800">
+                                                    {settings.contact_credit_phone_2 && (
+                                                        <p className="text-brand-primary font-bold text-base leading-tight">{settings.contact_credit_phone_2}</p>
+                                                    )}
+                                                    {settings.contact_credit_email_2 && (
+                                                        <p className="text-sm text-zinc-500 dark:text-zinc-400 font-semibold block">{settings.contact_credit_email_2}</p>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

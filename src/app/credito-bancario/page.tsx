@@ -108,34 +108,48 @@ Na Rui Figueira & Roque Lda fazemos intermediação de crédito vinculado, procu
                             </div>
 
                             <div className="p-8 space-y-8">
-                                <div className="space-y-5">
-                                    <div className="group">
-                                        <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-3">Linha Direta</h4>
-                                        {settings.contact_credit_phone ? (
+                                <div className="space-y-6">
+                                    <div className="space-y-3">
+                                        <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Contacto Principal</h4>
+                                        {settings.contact_credit_phone && (
                                             <a href={`tel:${settings.contact_credit_phone}`} className="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-800 p-4 rounded-lg hover:bg-brand-primary hover:text-white transition-all border border-zinc-100 dark:border-zinc-700 group/item">
-                                                <div className="p-2.5 bg-white dark:bg-zinc-700 rounded-lg text-brand-primary shadow-sm group-hover/item:bg-white/20 group-hover/item:text-white transition-colors">
+                                                <div className="p-2 bg-white dark:bg-zinc-700 rounded-lg text-brand-primary shadow-sm group-hover/item:bg-white/20 group-hover/item:text-white transition-colors">
                                                     <Landmark className="h-4 w-4" />
                                                 </div>
-                                                <span className="text-xl font-bold">{settings.contact_credit_phone}</span>
+                                                <span className="text-lg font-bold">{settings.contact_credit_phone}</span>
                                             </a>
-                                        ) : (
-                                            <p className="text-zinc-500 italic text-sm">Contacto não disponível.</p>
+                                        )}
+                                        {settings.contact_credit_email && (
+                                            <a href={`mailto:${settings.contact_credit_email}`} className="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-800 p-4 rounded-lg hover:bg-zinc-900 hover:text-white transition-all border border-zinc-100 dark:border-zinc-700 group/email">
+                                                <div className="p-2 bg-white dark:bg-zinc-700 rounded-lg text-zinc-400 shadow-sm group-hover/email:bg-white/10 group-hover/email:text-white transition-colors">
+                                                    <CheckCircle2 className="h-4 w-4" />
+                                                </div>
+                                                <span className="text-sm font-bold block truncate">{settings.contact_credit_email}</span>
+                                            </a>
                                         )}
                                     </div>
 
-                                    <div>
-                                        <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-3">Enviar Proposta</h4>
-                                        {settings.contact_credit_email ? (
-                                            <a href={`mailto:${settings.contact_credit_email}`} className="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-800 p-4 rounded-lg hover:bg-zinc-900 hover:text-white transition-all border border-zinc-100 dark:border-zinc-700 group/email">
-                                                <div className="p-2.5 bg-white dark:bg-zinc-700 rounded-lg text-zinc-400 shadow-sm group-hover/email:bg-white/10 group-hover/email:text-white transition-colors">
-                                                    <CheckCircle2 className="h-4 w-4" />
-                                                </div>
-                                                <span className="text-sm font-bold truncate">{settings.contact_credit_email}</span>
-                                            </a>
-                                        ) : (
-                                            <p className="text-zinc-500 italic text-sm">Email não disponível.</p>
-                                        )}
-                                    </div>
+                                    {(settings.contact_credit_phone_2 || settings.contact_credit_email_2) && (
+                                        <div className="pt-6 border-t border-zinc-100 dark:border-zinc-800 space-y-3">
+                                            <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Contacto Secundário</h4>
+                                            {settings.contact_credit_phone_2 && (
+                                                <a href={`tel:${settings.contact_credit_phone_2}`} className="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-800 p-4 rounded-lg hover:bg-brand-primary hover:text-white transition-all border border-zinc-100 dark:border-zinc-700 group/item">
+                                                    <div className="p-2 bg-white dark:bg-zinc-700 rounded-lg text-brand-primary shadow-sm group-hover/item:bg-white/20 group-hover/item:text-white transition-colors">
+                                                        <Landmark className="h-4 w-4" />
+                                                    </div>
+                                                    <span className="text-lg font-bold">{settings.contact_credit_phone_2}</span>
+                                                </a>
+                                            )}
+                                            {settings.contact_credit_email_2 && (
+                                                <a href={`mailto:${settings.contact_credit_email_2}`} className="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-800 p-4 rounded-lg hover:bg-zinc-900 hover:text-white transition-all border border-zinc-100 dark:border-zinc-700 group/email">
+                                                    <div className="p-2 bg-white dark:bg-zinc-700 rounded-lg text-zinc-400 shadow-sm group-hover/email:bg-white/10 group-hover/email:text-white transition-colors">
+                                                        <CheckCircle2 className="h-4 w-4" />
+                                                    </div>
+                                                    <span className="text-sm font-bold block truncate">{settings.contact_credit_email_2}</span>
+                                                </a>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="pt-2">

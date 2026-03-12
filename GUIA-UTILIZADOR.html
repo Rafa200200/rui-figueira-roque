@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia do Utilizador — Rui Figueira &amp; Roque Lda</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --green-50: #f0fdf4; --green-100: #dcfce7; --green-200: #bbf7d0;
+    --green-300: #86efac; --green-400: #4ade80; --green-500: #4CAF50;
+    --green-600: #2E7D32; --green-700: #1a5c20; --green-800: #14532d; --green-900: #052e16;
+    --blue-50: #eff6ff; --blue-100: #dbeafe; --blue-200: #bfdbfe;
+    --blue-500: #3b82f6; --blue-600: #2563eb; --blue-700: #1d4ed8;
+    --purple-50: #faf5ff; --purple-100: #f3e8ff; --purple-500: #a855f7; --purple-600: #9333ea;
+    --orange-50: #fff7ed; --orange-100: #ffedd5; --orange-500: #f97316; --orange-600: #ea580c;
+    --red-50: #fef2f2; --red-100: #fee2e2; --red-500: #ef4444; --red-600: #dc2626;
+    --yellow-50: #fefce8; --yellow-100: #fef9c3; --yellow-500: #eab308; --yellow-600: #ca8a04;
+    --amber-50: #fffbeb; --amber-100: #fef3c7; --amber-500: #f59e0b; --amber-600: #d97706;
+    --cyan-50: #ecfeff; --cyan-100: #cffafe; --cyan-500: #06b6d4; --cyan-600: #0891b2;
+    --emerald-50: #ecfdf5; --emerald-100: #d1fae5; --emerald-500: #10b981; --emerald-600: #059669;
+    --zinc-50: #fafafa; --zinc-100: #f4f4f5; --zinc-200: #e4e4e7; --zinc-300: #d4d4d8;
+    --zinc-400: #a1a1aa; --zinc-500: #71717a; --zinc-600: #52525b; --zinc-700: #3f3f46;
+    --zinc-800: #27272a; --zinc-900: #18181b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--zinc-800);
+    background: #fff;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @media print {
+    body { font-size: 11px; }
+    .page-break { page-break-before: always; }
+    .no-break { page-break-inside: avoid; }
+    section { page-break-inside: avoid; }
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  /* ── COVER ── */
+  .cover {
+    background: linear-gradient(135deg, var(--green-600) 0%, var(--green-800) 50%, var(--green-900) 100%);
+    color: white; padding: 80px 0; text-align: center; position: relative; overflow: hidden;
+  }
+  .cover::before {
+    content: ''; position: absolute; top: -50%; right: -30%; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%); border-radius: 50%;
+  }
+  .cover::after {
+    content: ''; position: absolute; bottom: -40%; left: -20%; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); border-radius: 50%;
+  }
+  .cover h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; position: relative; }
+  .cover .subtitle { font-size: 18px; font-weight: 300; opacity: 0.85; position: relative; }
+  .cover .badge {
+    display: inline-block; margin-top: 24px; padding: 6px 18px; background: rgba(255,255,255,0.15);
+    border-radius: 100px; font-size: 13px; font-weight: 500; backdrop-filter: blur(4px); position: relative;
+  }
+
+  /* ── TOC ── */
+  .toc { padding: 48px 0; background: var(--zinc-50); border-bottom: 1px solid var(--zinc-200); }
+  .toc h2 { font-size: 22px; font-weight: 700; margin-bottom: 20px; color: var(--zinc-900); }
+  .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 32px; }
+  .toc-item {
+    display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px;
+    color: var(--zinc-600); text-decoration: none; border-bottom: 1px solid var(--zinc-100); transition: color .2s;
+  }
+  .toc-item:hover { color: var(--green-600); }
+  .toc-num {
+    display: flex; align-items: center; justify-content: center; width: 28px; height: 28px;
+    border-radius: 8px; background: var(--green-100); color: var(--green-700); font-weight: 700;
+    font-size: 12px; flex-shrink: 0;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 48px 0; border-bottom: 1px solid var(--zinc-100); }
+  section:last-child { border-bottom: none; }
+
+  .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+  .section-icon {
+    width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center;
+    justify-content: center; font-size: 22px; flex-shrink: 0;
+  }
+  .section-header h2 { font-size: 24px; font-weight: 700; color: var(--zinc-900); letter-spacing: -0.5px; }
+  .section-header p { font-size: 14px; color: var(--zinc-500); margin-top: 2px; }
+
+  h3 { font-size: 18px; font-weight: 700; color: var(--zinc-800); margin: 28px 0 14px; }
+  h4 { font-size: 15px; font-weight: 700; color: var(--zinc-700); margin: 20px 0 10px; }
+  p { font-size: 14px; color: var(--zinc-600); margin-bottom: 12px; }
+  strong { color: var(--zinc-800); }
+
+  /* ── TABLES ── */
+  table {
+    width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 13px;
+    border-radius: 12px; overflow: hidden; border: 1px solid var(--zinc-200);
+  }
+  th {
+    background: var(--zinc-100); color: var(--zinc-600); font-weight: 700; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.8px; padding: 10px 14px; text-align: left;
+    border-bottom: 1px solid var(--zinc-200);
+  }
+  td {
+    padding: 10px 14px; border-bottom: 1px solid var(--zinc-100); color: var(--zinc-700);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--zinc-50); }
+  td:first-child { font-weight: 600; color: var(--zinc-800); }
+
+  /* ── CARDS ── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 20px 0; }
+  .card {
+    border: 1px solid var(--zinc-200); border-radius: 12px; padding: 20px; background: white;
+    transition: all .2s;
+  }
+  .card:hover { border-color: var(--green-300); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+  .card-icon { font-size: 28px; margin-bottom: 10px; }
+  .card h4 { font-size: 14px; font-weight: 700; color: var(--zinc-800); margin: 0 0 6px; }
+  .card p { font-size: 13px; color: var(--zinc-500); margin: 0; }
+
+  /* ── TIPS, WARNINGS ── */
+  .tip, .warning, .info {
+    border-radius: 12px; padding: 16px 20px; margin: 16px 0; font-size: 13px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .tip { background: var(--green-50); border: 1px solid var(--green-200); color: var(--green-700); }
+  .warning { background: var(--orange-50); border: 1px solid var(--orange-100); color: var(--orange-600); }
+  .info { background: var(--blue-50); border: 1px solid var(--blue-200); color: var(--blue-700); }
+  .tip-icon, .warning-icon, .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── STEPS ── */
+  .steps { margin: 16px 0 24px; }
+  .step {
+    display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--zinc-100);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 8px; background: var(--green-600); color: white;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px;
+    flex-shrink: 0;
+  }
+  .step-content { font-size: 14px; color: var(--zinc-700); }
+  .step-content strong { color: var(--zinc-900); }
+
+  /* ── TAGS / PILLS ── */
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 6px; padding: 3px 12px; border-radius: 100px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .status-active { background: var(--green-100); color: var(--green-700); }
+  .status-suspended { background: var(--yellow-100); color: var(--yellow-600); }
+  .status-draft { background: var(--zinc-100); color: var(--zinc-500); }
+  .status-new { background: var(--red-100); color: var(--red-600); }
+  .status-progress { background: var(--blue-100); color: var(--blue-600); }
+  .status-closed { background: var(--emerald-100); color: var(--emerald-600); }
+
+  /* ── CHECKLIST ── */
+  .checklist { margin: 12px 0; }
+  .check-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 13px; color: var(--zinc-600); }
+  .check-yes { color: var(--green-600); font-weight: 700; }
+  .check-no { color: var(--red-500); font-weight: 700; }
+
+  /* ── DIAGRAM WRAPPER ── */
+  .diagram-wrap {
+    margin: 24px 0; padding: 28px; background: var(--zinc-50); border: 1px solid var(--zinc-200);
+    border-radius: 16px; overflow-x: auto;
+  }
+  .diagram-wrap .mermaid { display: flex; justify-content: center; }
+  .diagram-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--zinc-400); margin-bottom: 16px; text-align: center;
+  }
+
+  /* ── DEPT CARDS ── */
+  .dept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .dept-card {
+    border-radius: 14px; padding: 24px; position: relative; overflow: hidden;
+  }
+  .dept-card h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 16px; }
+  .dept-card .field { margin-bottom: 12px; }
+  .dept-card .field-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; margin-bottom: 2px; }
+  .dept-card .field-value { font-size: 14px; font-weight: 600; }
+  .dept-loc { background: var(--zinc-50); border: 1px solid var(--zinc-200); }
+  .dept-loc h4 { color: var(--zinc-700); }
+  .dept-loc .field-label { color: var(--zinc-400); }
+  .dept-loc .field-value { color: var(--zinc-800); }
+  .dept-imob { background: var(--green-50); border: 1px solid var(--green-200); }
+  .dept-imob h4 { color: var(--green-700); }
+  .dept-imob .field-label { color: var(--green-500); }
+  .dept-imob .field-value { color: var(--green-800); }
+  .dept-seg { background: var(--blue-50); border: 1px solid var(--blue-200); }
+  .dept-seg h4 { color: var(--blue-700); }
+  .dept-seg .field-label { color: var(--blue-500); }
+  .dept-seg .field-value { color: var(--blue-700); }
+  .dept-cred { background: var(--amber-50); border: 1px solid var(--amber-100); }
+  .dept-cred h4 { color: var(--amber-600); }
+  .dept-cred .field-label { color: var(--amber-500); }
+  .dept-cred .field-value { color: var(--amber-600); }
+
+  /* ── FAQ ACCORDION VISUAL ── */
+  .faq-item { border: 1px solid var(--zinc-200); border-radius: 10px; padding: 16px 20px; margin: 8px 0; }
+  .faq-q { font-size: 14px; font-weight: 700; color: var(--zinc-800); margin-bottom: 8px; }
+  .faq-a { font-size: 13px; color: var(--zinc-600); line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 40px 0; background: var(--zinc-50);
+    border-top: 1px solid var(--zinc-200); color: var(--zinc-400); font-size: 13px;
+  }
+  footer strong { color: var(--zinc-600); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .toc-grid { grid-template-columns: 1fr; }
+    .dept-grid { grid-template-columns: 1fr; }
+    .card-grid { grid-template-columns: 1fr; }
+    .cover h1 { font-size: 28px; }
+    .container { padding: 0 20px; }
+  }
+
+  /* ── SCROLL SMOOTH ── */
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<!-- ========== COVER ========== -->
+<div class="cover">
+  <div class="container">
+    <h1>📖 Guia do Utilizador</h1>
+    <div class="subtitle">Rui Figueira & Roque Lda — Manual Completo do Backoffice</div>
+    <div class="badge">Março 2026 · v1.0</div>
+  </div>
+</div>
+
+<!-- ========== TABLE OF CONTENTS ========== -->
+<div class="toc">
+  <div class="container">
+    <h2>Índice</h2>
+    <div class="toc-grid">
+      <a class="toc-item" href="#login"><span class="toc-num">1</span> Acesso ao Backoffice (Login)</a>
+      <a class="toc-item" href="#dashboard"><span class="toc-num">2</span> Dashboard — Painel de Controlo</a>
+      <a class="toc-item" href="#imoveis"><span class="toc-num">3</span> Gestão de Imóveis</a>
+      <a class="toc-item" href="#seguros"><span class="toc-num">4</span> Gestão de Seguros</a>
+      <a class="toc-item" href="#leads"><span class="toc-num">5</span> Gestão de Leads</a>
+      <a class="toc-item" href="#conteudo"><span class="toc-num">6</span> Conteúdo do Site</a>
+      <a class="toc-item" href="#definicoes"><span class="toc-num">7</span> Definições da Conta</a>
+      <a class="toc-item" href="#paginas"><span class="toc-num">8</span> Páginas Públicas do Site</a>
+      <a class="toc-item" href="#dicas"><span class="toc-num">9</span> Dicas e Boas Práticas</a>
+      <a class="toc-item" href="#problemas"><span class="toc-num">10</span> Resolução de Problemas</a>
+    </div>
+  </div>
+</div>
+
+<!-- ========== DIAGRAMA: NAVEGAÇÃO DO BACKOFFICE ========== -->
+<div class="container" style="padding-top: 48px;">
+  <div class="diagram-wrap">
+    <div class="diagram-label">Mapa do Backoffice — Menu Lateral</div>
+    <div class="mermaid">
+graph LR
+  LOGIN["🔑 Login\n/login"] --> DASH["📊 Dashboard\n/admin"]
+  DASH --> IMOV["🏠 Imóveis\n/admin/imoveis"]
+  DASH --> SEG["🛡️ Seguros\n/admin/seguros"]
+  DASH --> CONT["📝 Conteúdo\n/admin/conteudo"]
+  DASH --> LEADS["📬 Leads\n/admin/leads"]
+  DASH --> DEF["⚙️ Definições\n/admin/definicoes"]
+  IMOV --> IMOV_NEW["➕ Novo Imóvel"]
+  IMOV --> IMOV_EDIT["✏️ Editar Imóvel"]
+  SEG --> SEG_NEW["➕ Novo Seguro"]
+  SEG --> SEG_EDIT["✏️ Editar Seguro"]
+  LEADS --> LEAD_DET["👁️ Detalhe da Lead"]
+
+  style LOGIN fill:#fef2f2,stroke:#ef4444,color:#991b1b
+  style DASH fill:#f0fdf4,stroke:#4ade80,color:#14532d
+  style IMOV fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
+  style SEG fill:#faf5ff,stroke:#a855f7,color:#581c87
+  style CONT fill:#fff7ed,stroke:#f97316,color:#9a3412
+  style LEADS fill:#fef2f2,stroke:#ef4444,color:#991b1b
+  style DEF fill:#f4f4f5,stroke:#a1a1aa,color:#3f3f46
+    </div>
+  </div>
+</div>
+
+
+<!-- ========== 1. LOGIN ========== -->
+<section id="login">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--green-100);color:var(--green-600);">🔑</div>
+      <div>
+        <h2>1. Acesso ao Backoffice</h2>
+        <p>Como entrar e sair do painel de gestão do site</p>
+      </div>
+    </div>
+
+    <h3>Como entrar</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">Abra o browser e aceda ao endereço do site seguido de <strong>/login</strong></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">Introduza o <strong>e-mail</strong> e a <strong>palavra-passe</strong> que lhe foram fornecidos</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">Clique em <strong>"Entrar no Backoffice"</strong> — será redirecionado para o Dashboard</div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <span class="tip-icon">💡</span>
+      <div>O botão <strong>"Entrar no Site"</strong> permite-lhe entrar na sessão e abrir o site público em simultâneo — útil para verificar alterações que acabou de fazer.</div>
+    </div>
+
+    <h3>Terminar sessão</h3>
+    <p>No menu lateral (sidebar), clique no botão <strong>"Terminar Sessão"</strong> no fundo da barra lateral esquerda.</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-label">Fluxo de Login</div>
+      <div class="mermaid">
+sequenceDiagram
+  actor User as 👤 Utilizador
+  participant Login as Página de Login
+  participant Auth as Supabase Auth
+  participant Back as Backoffice
+
+  User->>Login: Acede a /login
+  Login->>Login: Preenche email + password
+  User->>Login: Clica "Entrar no Backoffice"
+  Login->>Auth: Verifica credenciais
+  Auth-->>Login: ✅ Sessão criada
+  Login->>Back: Redireciona para /admin
+  Back-->>User: Dashboard visível
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== 2. DASHBOARD ========== -->
+<section id="dashboard">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--blue-50);color:var(--blue-600);">📊</div>
+      <div>
+        <h2>2. Dashboard — Painel de Controlo</h2>
+        <p>Visão geral instantânea do estado do site</p>
+      </div>
+    </div>
+
+    <p>O Dashboard é a primeira página que vê ao entrar. Apresenta um resumo rápido de toda a atividade:</p>
+
+    <div class="card-grid">
+      <div class="card" style="border-left: 4px solid var(--green-500);">
+        <div class="card-icon">🏠</div>
+        <h4>Imóveis Ativos</h4>
+        <p>Número de imóveis visíveis no site público</p>
+      </div>
+      <div class="card" style="border-left: 4px solid var(--blue-500);">
+        <div class="card-icon">🛡️</div>
+        <h4>Seguros Ativos</h4>
+        <p>Seguros com formulário de simulação ativo</p>
+      </div>
+      <div class="card" style="border-left: 4px solid var(--red-500);">
+        <div class="card-icon">📧</div>
+        <h4>Leads Novas</h4>
+        <p>Contactos por ler — fundo vermelho = urgente!</p>
+      </div>
+      <div class="card" style="border-left: 4px solid var(--purple-500);">
+        <div class="card-icon">📍</div>
+        <h4>Pedidos de Visita</h4>
+        <p>Clientes que pediram para visitar um imóvel</p>
+      </div>
+    </div>
+
+    <h3>Secções adicionais</h3>
+    <table>
+      <tr><th>Secção</th><th>Descrição</th></tr>
+      <tr><td>Leads Recentes</td><td>Os últimos 5 contactos recebidos com nome, tipo e data</td></tr>
+      <tr><td>Imóveis Recentes</td><td>Os últimos 5 imóveis adicionados com preço e localização</td></tr>
+    </table>
+
+    <div class="info">
+      <span class="info-icon">ℹ️</span>
+      <div>Pode clicar em qualquer item do Dashboard para aceder diretamente aos seus detalhes.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== 3. IMÓVEIS ========== -->
+<section id="imoveis" class="page-break">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--blue-50);color:var(--blue-600);">🏠</div>
+      <div>
+        <h2>3. Gestão de Imóveis</h2>
+        <p>Criar, editar e gerir o seu portfólio imobiliário</p>
+      </div>
+    </div>
+
+    <p>Aceda através do menu lateral: <strong>Imóveis</strong>. Verá uma tabela com todos os imóveis, mostrando foto, título, tipo de negócio, tipologia, localização, preço e estado.</p>
+
+    <h3>3.1 Criar Novo Imóvel</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">Clique no botão verde <strong>"Adicionar Imóvel"</strong> no canto superior direito</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">Preencha o formulário (dividido em 6 secções — ver abaixo)</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">Clique em <strong>"Guardar Alterações do Imóvel"</strong></div>
+      </div>
+    </div>
+
+    <!-- Diagrama: fluxo do imóvel -->
+    <div class="diagram-wrap">
+      <div class="diagram-label">Ciclo de Vida de um Imóvel</div>
+      <div class="mermaid">
+flowchart LR
+  A["➕ Criar Imóvel"] --> B["⚪ Rascunho"]
+  B --> C["🟢 Ativo\n(Visível no site)"]
+  C --> D["🟡 Suspenso\n(Vendido/Reservado)"]
+  D -->|Reativar| C
+  C -->|Eliminar| E["🗑️ Apagado"]
+
+  style B fill:#f4f4f5,stroke:#a1a1aa,color:#3f3f46
+  style C fill:#dcfce7,stroke:#4ade80,color:#14532d
+  style D fill:#fef9c3,stroke:#eab308,color:#854d0e
+  style E fill:#fee2e2,stroke:#ef4444,color:#991b1b
+      </div>
+    </div>
+
+    <h4>Secção 1: Informação Principal</h4>
+    <table>
+      <tr><th>Campo</th><th>Descrição</th><th style="width:90px;text-align:center;">Obrigatório</th></tr>
+      <tr><td>Título do Imóvel</td><td>Nome que aparece no site (ex: "Moradia T3 com Piscina em Cascais")</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Descrição Detalhada</td><td>Texto rico com formatação (negrito, listas, etc.)</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Preço (€)</td><td>Valor em euros</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Tipo de Negócio</td><td>Venda ou Arrendamento</td><td style="text-align:center;">✅</td></tr>
+    </table>
+
+    <h4>Secção 2: Características Gerais</h4>
+    <table>
+      <tr><th>Campo</th><th>Descrição</th><th style="width:90px;text-align:center;">Obrigatório</th></tr>
+      <tr><td>Tipo de Imóvel</td><td>Apartamento, Moradia, Terreno, Espaço Comercial, Outro</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Tipologia</td><td>T0, T1, T2, T3, T4, T5+</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Área Bruta (m²)</td><td>Área total em metros quadrados</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Quartos</td><td>Número de quartos (apenas Apartamento/Moradia)</td><td style="text-align:center;">❌</td></tr>
+      <tr><td>Casas de Banho</td><td>Número de WC (apenas Apartamento/Moradia)</td><td style="text-align:center;">❌</td></tr>
+      <tr><td>Certificado Energético</td><td>De A+ a F, ou Isento</td><td style="text-align:center;">✅</td></tr>
+    </table>
+
+    <h4>Secção 3: Localização</h4>
+    <table>
+      <tr><th>Campo</th><th>Descrição</th><th style="width:90px;text-align:center;">Obrigatório</th></tr>
+      <tr><td>Distrito</td><td>Selecione da lista de distritos de Portugal</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Concelho</td><td>Escreva o nome do concelho</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Freguesia</td><td>Opcional mas recomendado</td><td style="text-align:center;">❌</td></tr>
+      <tr><td>Morada Completa</td><td>Endereço exato — não é mostrado publicamente na íntegra</td><td style="text-align:center;">❌</td></tr>
+      <tr><td>Mapa</td><td>Clique "Procurar Morada" ou posicione o pin manualmente</td><td style="text-align:center;">❌</td></tr>
+    </table>
+
+    <div class="tip">
+      <span class="tip-icon">💡</span>
+      <div><strong>Mapa:</strong> Preencha primeiro o concelho e distrito, depois clique em "Procurar Morada". Se não encontrar a localização exata, clique diretamente no mapa para posicionar o marcador.</div>
+    </div>
+
+    <h4>Secção 4: Extras & Detalhes</h4>
+    <p>Clique em <strong>"Novo Extra"</strong> para adicionar características como: Cozinha Equipada, Ar Condicionado, Garagem, Piscina, Varanda, etc. Pode adicionar quantas quiser. Para remover, clique no ícone 🗑️.</p>
+
+    <h4>Secção 5: Galeria Fotográfica</h4>
+    <table>
+      <tr><th>Ação</th><th>Como fazer</th></tr>
+      <tr><td>Carregar fotos</td><td>Clique na área de upload ou arraste fotos — JPG, PNG, WebP (máx. 5MB)</td></tr>
+      <tr><td>Reordenar</td><td>Arraste e largue as fotos na ordem desejada — a 1.ª foto é a capa no site</td></tr>
+      <tr><td>Remover foto</td><td>Clique no <strong>X</strong> que aparece ao passar o rato sobre a foto</td></tr>
+    </table>
+
+    <h4>Secção 6: Visibilidade & Destaques</h4>
+    <table>
+      <tr><th>Campo</th><th>Descrição</th></tr>
+      <tr><td>Estado de Publicação</td><td><span class="status-pill status-active">🟢 Ativo</span> visível · <span class="status-pill status-suspended">🟡 Suspenso</span> invisível · <span class="status-pill status-draft">⚪ Rascunho</span> interno</td></tr>
+      <tr><td>Destacar na Homepage</td><td>Se marcado, o imóvel aparece na secção de destaques da homepage</td></tr>
+    </table>
+
+    <h3>3.2 Editar Imóvel Existente</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Na tabela de imóveis, clique no ícone <strong>✏️ lápis</strong> na linha do imóvel</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Faça as alterações desejadas em qualquer secção</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Clique em <strong>"Guardar Alterações do Imóvel"</strong></div></div>
+    </div>
+
+    <h3>3.3 Apagar Imóvel</h3>
+    <p>Na tabela de imóveis, clique no ícone <strong>🗑️ lixo</strong> e confirme na janela de diálogo.</p>
+    <div class="warning">
+      <span class="warning-icon">⚠️</span>
+      <div>A eliminação é <strong>permanente</strong> e não pode ser revertida. Considere usar o estado "Suspenso" em vez de apagar.</div>
+    </div>
+
+    <h3>3.4 Estados de Publicação</h3>
+    <table>
+      <tr><th>Estado</th><th>Ícone</th><th>Significado</th></tr>
+      <tr><td>Ativo</td><td style="text-align:center;">🟢</td><td>Visível para todos os visitantes do site</td></tr>
+      <tr><td>Suspenso</td><td style="text-align:center;">🟡</td><td>Oculto no site mas mantém-se no sistema (ex: vendido temporariamente)</td></tr>
+      <tr><td>Rascunho</td><td style="text-align:center;">⚪</td><td>Apenas visível no backoffice — útil para preparar antes de publicar</td></tr>
+    </table>
+
+    <div class="tip">
+      <span class="tip-icon">💡</span>
+      <div>Quando um imóvel é vendido/arrendado, mude o estado para <strong>Suspenso</strong> em vez de o apagar. Assim mantém o registo no sistema.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== 4. SEGUROS ========== -->
+<section id="seguros" class="page-break">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--purple-50);color:var(--purple-600);">🛡️</div>
+      <div>
+        <h2>4. Gestão de Seguros</h2>
+        <p>Configurar seguros, formulários dinâmicos, vantagens e FAQs</p>
+      </div>
+    </div>
+
+    <p>Aceda através do menu lateral: <strong>Seguros</strong>. Verá uma tabela com todos os seguros configurados.</p>
+
+    <h3>4.1 Criar Novo Seguro</h3>
+    <p>Clique em <strong>"Adicionar Seguro"</strong>. O formulário está dividido em duas colunas:</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-label">Estrutura de um Seguro</div>
+      <div class="mermaid">
+flowchart TB
+  SEG["🛡️ Seguro"] --> INFO["📋 Informação Geral\nNome · Descrição · Estado · Ordem"]
+  SEG --> VISUAL["🎨 Identidade Visual\nImagem de Capa · Ícone"]
+  SEG --> FORM["🔧 Construtor de Formulário\nCampos do sistema + personalizados"]
+  SEG --> BENEF["⭐ Vantagens\nLista de coberturas/benefícios"]
+  SEG --> FAQ["❓ FAQs\nPerguntas frequentes"]
+
+  FORM --> F1["🔒 Nome (obrigatório)"]
+  FORM --> F2["🔒 Email (obrigatório)"]
+  FORM --> F3["🔒 Telefone (obrigatório)"]
+  FORM --> F4["➕ Campos personalizados"]
+
+  style SEG fill:#faf5ff,stroke:#a855f7,color:#581c87
+  style FORM fill:#eff6ff,stroke:#3b82f6,color:#1e3a5f
+  style F1 fill:#f0fdf4,stroke:#4ade80,color:#14532d
+  style F2 fill:#f0fdf4,stroke:#4ade80,color:#14532d
+  style F3 fill:#f0fdf4,stroke:#4ade80,color:#14532d
+      </div>
+    </div>
+
+    <h4>Coluna Esquerda — Informação Geral</h4>
+    <table>
+      <tr><th>Campo</th><th>Descrição</th><th style="width:90px;text-align:center;">Obrigatório</th></tr>
+      <tr><td>Nome do Seguro</td><td>Ex: "Seguro Automóvel", "Seguro de Saúde"</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Breve Descrição</td><td>Texto curto para os cards da página de seguros</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Descrição Detalhada</td><td>Texto rico completo para a página individual</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Visibilidade</td><td>🟢 Ativo ou ⚪ Inativo</td><td style="text-align:center;">✅</td></tr>
+      <tr><td>Ordem Layout</td><td>Número que define a posição na lista (0 = primeiro)</td><td style="text-align:center;">✅</td></tr>
+    </table>
+
+    <h4>Identidade Visual</h4>
+    <table>
+      <tr><th>Elemento</th><th>Recomendações</th></tr>
+      <tr><td>Imagem de Capa</td><td>Foto para a página do seguro — JPG/PNG/WebP — máx. 5MB</td></tr>
+      <tr><td>Logótipo / Ícone</td><td>Ícone pequeno para os cards — SVG ou PNG transparente — máx. 1MB</td></tr>
+    </table>
+
+    <h3>4.2 Construtor de Formulário</h3>
+    <p>A coluna direita permite configurar os <strong>campos do formulário de simulação</strong> que os clientes preenchem.</p>
+
+    <div class="info">
+      <span class="info-icon">🔒</span>
+      <div>Os campos <strong>Nome</strong>, <strong>E-mail</strong> e <strong>Telefone</strong> são obrigatórios do sistema e não podem ser removidos.</div>
+    </div>
+
+    <p>Para adicionar campos personalizados, clique em <strong>"Novo Campo"</strong> e configure:</p>
+    <table>
+      <tr><th>Parâmetro</th><th>Descrição</th></tr>
+      <tr><td>ID Único</td><td>Identificador interno (ex: <code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">matricula_carro</code>)</td></tr>
+      <tr><td>Tipo de Campo</td><td>Texto · E-mail · Telefone · Número · Lista de Opções · Data · Sim/Não</td></tr>
+      <tr><td>Título Visível</td><td>O que o cliente vê (ex: "Matrícula do Veículo")</td></tr>
+      <tr><td>Obrigatório</td><td>Se o cliente é obrigado a preencher este campo</td></tr>
+    </table>
+
+    <div class="tip">
+      <span class="tip-icon">💡</span>
+      <div>Para campos do tipo <strong>"Lista de Opções"</strong>, escreva as opções separadas por vírgula. Exemplo: <code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">Ligeiro, Pesado, Moto, Outro</code></div>
+    </div>
+
+    <h3>4.3 Vantagens e FAQs</h3>
+    <table>
+      <tr><th>Secção</th><th>Como usar</th></tr>
+      <tr><td>Vantagens e Coberturas</td><td>Clique em "Adicionar Vantagem" — ex: "Assistência 24/7", "Cobertura contra terceiros"</td></tr>
+      <tr><td>Perguntas Frequentes</td><td>Clique em "Adicionar FAQ" — crie pares de Pergunta/Resposta que aparecem na página pública</td></tr>
+    </table>
+  </div>
+</section>
+
+
+<!-- ========== 5. LEADS ========== -->
+<section id="leads" class="page-break">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--red-50);color:var(--red-600);">📬</div>
+      <div>
+        <h2>5. Gestão de Leads (Oportunidades)</h2>
+        <p>Consultar, gerir e responder a contactos de clientes</p>
+      </div>
+    </div>
+
+    <p>As leads são contactos enviados pelos visitantes do site. Existem <strong>3 tipos</strong>:</p>
+
+    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card" style="border-left: 4px solid var(--orange-500);">
+        <div class="card-icon">📧</div>
+        <h4>Contacto Geral</h4>
+        <p>Formulário da página de contacto</p>
+      </div>
+      <div class="card" style="border-left: 4px solid var(--blue-500);">
+        <div class="card-icon">📍</div>
+        <h4>Pedido de Visita</h4>
+        <p>Formulário na página de um imóvel</p>
+      </div>
+      <div class="card" style="border-left: 4px solid var(--green-500);">
+        <div class="card-icon">🛡️</div>
+        <h4>Simulação de Seguro</h4>
+        <p>Formulário na página de um seguro</p>
+      </div>
+    </div>
+
+    <div class="diagram-wrap">
+      <div class="diagram-label">Ciclo de Vida de uma Lead</div>
+      <div class="mermaid">
+flowchart LR
+  A["📩 Visitante envia\nformulário"] --> B["🔴 Nova\n(Por ler)"]
+  B -->|"Abre a lead"| C["🔵 Em Tratamento"]
+  C -->|"Clica Finalizar"| D["🟢 Fechada\n(Resolvida)"]
+  D -->|"Clica Reabrir"| C
+  C -->|"Clica Apagar"| E["🗑️ Eliminada"]
+  B -->|"Clica Apagar"| E
+
+  style B fill:#fee2e2,stroke:#ef4444,color:#991b1b
+  style C fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
+  style D fill:#d1fae5,stroke:#10b981,color:#064e3b
+  style E fill:#f4f4f5,stroke:#a1a1aa,color:#3f3f46
+      </div>
+    </div>
+
+    <h3>5.1 Caixa de Entrada</h3>
+    <p>A caixa de entrada mostra todas as leads com filtros de pesquisa:</p>
+    <table>
+      <tr><th>Filtro</th><th>Opções</th></tr>
+      <tr><td>Pesquisa</td><td>Por nome ou email do remetente</td></tr>
+      <tr><td>Tipo</td><td>Todos · Contactos Gerais · Pedidos de Visita · Simulações de Seguro</td></tr>
+      <tr><td>Estado</td><td>Todos · Novas (Por ler) · Em Tratamento · Fechadas</td></tr>
+    </table>
+
+    <div class="info">
+      <span class="info-icon">🔴</span>
+      <div>As leads <strong>novas</strong> (por ler) aparecem com um fundo <strong>vermelho claro</strong> para chamar atenção.</div>
+    </div>
+
+    <h3>5.2 Ver Detalhes de uma Lead</h3>
+    <p>Clique no ícone <strong>👁️ olho</strong> ou diretamente na lead para ver:</p>
+    <table>
+      <tr><th>Secção</th><th>Conteúdo</th></tr>
+      <tr><td>Dados de Contacto</td><td>Nome, e-mail e telefone do cliente</td></tr>
+      <tr><td>Contexto do Pedido</td><td>Se é sobre um imóvel ou seguro específico, com link direto</td></tr>
+      <tr><td>Mensagem</td><td>Texto enviado ou dados do formulário de simulação</td></tr>
+      <tr><td>Notas Internas</td><td>Espaço privado para as suas notas — nunca visível para o cliente</td></tr>
+    </table>
+
+    <h3>5.3 Alterar Estado</h3>
+    <table>
+      <tr><th>Estado</th><th>Significado</th><th>Ação</th></tr>
+      <tr><td><span class="status-pill status-new">Nova</span></td><td>Acabou de chegar, não foi lida</td><td>Muda automaticamente ao abrir</td></tr>
+      <tr><td><span class="status-pill status-progress">Em Tratamento</span></td><td>Já foi vista/está em curso</td><td>—</td></tr>
+      <tr><td><span class="status-pill status-closed">Fechada</span></td><td>Assunto resolvido</td><td>Clique "Finalizar"</td></tr>
+    </table>
+
+    <div class="tip">
+      <span class="tip-icon">💡</span>
+      <div>Ao abrir uma lead nova, o estado muda <strong>automaticamente</strong> para "Em Tratamento". Não precisa de fazer nada manualmente.</div>
+    </div>
+
+    <h3>5.4 Notas Internas</h3>
+    <p>O campo de notas internas é um espaço privado para registar o que foi combinado, follow-ups pendentes e observações. Clique em <strong>"Guardar Nota"</strong> após escrever.</p>
+    <div class="warning">
+      <span class="warning-icon">⚠️</span>
+      <div>As notas internas são <strong>apenas visíveis no backoffice</strong> e nunca são partilhadas com o cliente.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== 6. CONTEÚDO ========== -->
+<section id="conteudo" class="page-break">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--orange-50);color:var(--orange-600);">📝</div>
+      <div>
+        <h2>6. Conteúdo do Site</h2>
+        <p>Personalizar textos, imagens, contactos e redes sociais do site público</p>
+      </div>
+    </div>
+
+    <p>Aceda pelo menu lateral: <strong>Conteúdo</strong>. Esta secção é organizada em <strong>5 separadores (tabs)</strong>:</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-label">Separadores do Editor de Conteúdo</div>
+      <div class="mermaid">
+graph LR
+  CONT["📝 Conteúdo"] --> T1["🏠 Homepage\nTítulos + Banner"]
+  CONT --> T2["👤 Sobre Nós\nBiografia + Foto"]
+  CONT --> T3["📞 Contactos\n4 Departamentos"]
+  CONT --> T4["💰 Crédito\nBdP + Vantagens"]
+  CONT --> T5["📱 Redes Sociais\nWhatsApp"]
+
+  T3 --> D1["📍 Localização"]
+  T3 --> D2["🏠 Imobiliário"]
+  T3 --> D3["🛡️ Seguros"]
+  T3 --> D4["💰 Crédito"]
+
+  style CONT fill:#fff7ed,stroke:#f97316,color:#9a3412
+  style T1 fill:#fef9c3,stroke:#eab308,color:#854d0e
+  style T2 fill:#faf5ff,stroke:#a855f7,color:#581c87
+  style T3 fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
+  style T4 fill:#fffbeb,stroke:#f59e0b,color:#92400e
+  style T5 fill:#d1fae5,stroke:#10b981,color:#064e3b
+      </div>
+    </div>
+
+    <h3>6.1 Homepage (Títulos e Banner)</h3>
+    <table>
+      <tr><th>Campo</th><th>O que controla</th></tr>
+      <tr><td>Título Principal (Hero)</td><td>O texto grande em cima da imagem de fundo na homepage</td></tr>
+      <tr><td>Subtítulo Explicativo</td><td>O texto menor por baixo do título principal</td></tr>
+      <tr><td>Imagem de Fundo do Banner</td><td>A foto panorâmica de fundo do topo da homepage</td></tr>
+    </table>
+
+    <p><strong>Para alterar a imagem do banner:</strong></p>
+    <table>
+      <tr><th>Método</th><th>Como fazer</th></tr>
+      <tr><td>Upload</td><td>Clique na imagem (ou área de upload) e selecione uma foto do computador</td></tr>
+      <tr><td>URL</td><td>Cole um link direto (URL) de uma imagem externa no campo "Ou cole um link"</td></tr>
+    </table>
+    <div class="tip">
+      <span class="tip-icon">💡</span>
+      <div>Formato recomendado: <strong>panorâmica 1920×640 pixels</strong>, JPG/PNG/WebP, máximo 2MB. Fotos verticais ficam cortadas.</div>
+    </div>
+
+    <h3>6.2 Sobre Nós (Biografia e Foto)</h3>
+    <table>
+      <tr><th>Campo</th><th>O que controla</th></tr>
+      <tr><td>Biografia / Apresentação</td><td>Texto "Sobre Nós" na homepage — suporta formatação rica (negrito, listas, etc.)</td></tr>
+      <tr><td>Fotografia de Destaque</td><td>A foto que aparece ao lado da biografia — formato recomendado: retrato (vertical), máx. 2MB</td></tr>
+    </table>
+
+    <h3>6.3 Contactos (Departamentos)</h3>
+    <p>Os contactos estão organizados por <strong>4 departamentos</strong> com cores distintas:</p>
+
+    <div class="dept-grid">
+      <div class="dept-card dept-loc">
+        <h4>📍 Localização & Logística</h4>
+        <div class="field">
+          <div class="field-label">Morada Física Central</div>
+          <div class="field-value">Endereço no footer + página de contacto</div>
+        </div>
+        <div class="field">
+          <div class="field-label">Horário de Funcionamento</div>
+          <div class="field-value">Ex: "Segunda a Sexta, 09h-18h"</div>
+        </div>
+      </div>
+      <div class="dept-card dept-imob">
+        <h4>🏠 Departamento Imobiliário</h4>
+        <div class="field">
+          <div class="field-label">Telefone Principal</div>
+          <div class="field-value">Contacto do departamento</div>
+        </div>
+        <div class="field">
+          <div class="field-label">E-mail de Contacto</div>
+          <div class="field-value">Email do departamento</div>
+        </div>
+      </div>
+      <div class="dept-card dept-seg">
+        <h4>🛡️ Departamento de Seguros</h4>
+        <div class="field">
+          <div class="field-label">Telefone Especializado</div>
+          <div class="field-value">Contacto de seguros</div>
+        </div>
+        <div class="field">
+          <div class="field-label">E-mail Especializado</div>
+          <div class="field-value">Email de seguros</div>
+        </div>
+      </div>
+      <div class="dept-card dept-cred">
+        <h4>💰 Intermediação de Crédito</h4>
+        <div class="field">
+          <div class="field-label">Contacto Créditos</div>
+          <div class="field-value">Número do departamento</div>
+        </div>
+        <div class="field">
+          <div class="field-label">E-mail Créditos</div>
+          <div class="field-value">Email do departamento</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info">
+      <span class="info-icon">ℹ️</span>
+      <div>Estes contactos são usados automaticamente na <strong>página de Contacto</strong>, no <strong>footer</strong> e nas páginas de cada serviço.</div>
+    </div>
+
+    <h3>6.4 Crédito Bancário</h3>
+    <table>
+      <tr><th>Campo</th><th>O que controla</th></tr>
+      <tr><td>Registo Banco de Portugal</td><td>Número BdP obrigatório por lei em todas as menções a crédito (ex: "BdP 0006370")</td></tr>
+      <tr><td>Link do Registo BdP</td><td>Se preenchido, o badge torna-se clicável para o site do Banco de Portugal</td></tr>
+      <tr><td>Título da Página</td><td>Título principal da página de crédito bancário</td></tr>
+      <tr><td>Apresentação dos Serviços</td><td>Texto rico com descrição dos serviços (lado esquerdo da página)</td></tr>
+      <tr><td>Título da Caixa de Vantagens</td><td>Título do bloco de vantagens (lado direito)</td></tr>
+      <tr><td>Texto de Vantagens</td><td>Conteúdo rico que descreve os benefícios</td></tr>
+    </table>
+    <div class="warning">
+      <span class="warning-icon">⚠️</span>
+      <div><strong>Nota Legal:</strong> O número de registo do Banco de Portugal é <strong>obrigatório por lei</strong> e aparece automaticamente em todas as páginas que mencionam crédito.</div>
+    </div>
+
+    <h3>6.5 Redes Sociais (WhatsApp)</h3>
+    <table>
+      <tr><th>Campo</th><th>O que controla</th></tr>
+      <tr><td>Número WhatsApp</td><td>Número do botão de apoio rápido. Formato: apenas números com indicativo (ex: <code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">351912345678</code>)</td></tr>
+    </table>
+    <div class="tip">
+      <span class="tip-icon">💡</span>
+      <div>Não inclua espaços, traços ou "+". Apenas os dígitos: 351 seguido dos 9 dígitos do telemóvel.</div>
+    </div>
+
+    <h3 style="color: var(--red-600);">❗ Guardar Alterações</h3>
+    <p>Depois de editar qualquer campo, clique em <strong>"Guardar Alterações"</strong> no canto superior direito. Uma mensagem verde de confirmação aparecerá. As alterações ficam <strong>imediatamente visíveis</strong> no site público.</p>
+  </div>
+</section>
+
+
+<!-- ========== 7. DEFINIÇÕES ========== -->
+<section id="definicoes">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--zinc-100);color:var(--zinc-600);">⚙️</div>
+      <div>
+        <h2>7. Definições da Conta</h2>
+        <p>Gerir e-mail e palavra-passe de acesso</p>
+      </div>
+    </div>
+
+    <h3>Detalhes da Conta</h3>
+    <p>Mostra o <strong>e-mail associado</strong> à sua conta. Este campo não pode ser alterado por motivos de segurança.</p>
+
+    <h3>Alterar Palavra-passe</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Escreva a nova palavra-passe (mínimo 6 caracteres)</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Confirme a nova palavra-passe no segundo campo</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Clique em <strong>"Atualizar Palavra-passe"</strong></div></div>
+    </div>
+    <div class="info">
+      <span class="info-icon">ℹ️</span>
+      <div>A próxima vez que iniciar sessão, use a nova palavra-passe.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== 8. PÁGINAS PÚBLICAS ========== -->
+<section id="paginas" class="page-break">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--cyan-50);color:var(--cyan-600);">🌐</div>
+      <div>
+        <h2>8. Páginas Públicas do Site</h2>
+        <p>O que os visitantes vêem e como interagem com o site</p>
+      </div>
+    </div>
+
+    <div class="diagram-wrap">
+      <div class="diagram-label">Mapa Completo do Site Público</div>
+      <div class="mermaid">
+graph TB
+  HOME["🏠 Homepage\n/ "] --> IMOV["🏘️ Imóveis\n/imoveis"]
+  HOME --> SEG["🛡️ Seguros\n/seguros"]
+  HOME --> SOBRE["👤 Sobre Nós\n/sobre-nos"]
+  HOME --> CONT["📞 Contacto\n/contacto"]
+  HOME --> CRED["💰 Crédito\n/credito-bancario"]
+
+  IMOV --> IMOV_DET["📄 Detalhe Imóvel\n/imoveis/[nome]\nGaleria + Mapa + Form Visita"]
+  SEG --> SEG_DET["📄 Detalhe Seguro\n/seguros/[nome]\nDescrição + Form Simulação"]
+
+  HOME --> PRIV["📋 Privacidade\n/documentos/politica-privacidade"]
+  HOME --> TERMOS["📋 Termos\n/documentos/termos"]
+
+  IMOV_DET -->|"Formulário"| LEAD_V["📍 Lead: Pedido de Visita"]
+  SEG_DET -->|"Formulário"| LEAD_S["🛡️ Lead: Simulação Seguro"]
+  CONT -->|"Formulário"| LEAD_C["📧 Lead: Contacto Geral"]
+
+  LEAD_V --> INBOX["📬 Caixa de Leads\n(Backoffice)"]
+  LEAD_S --> INBOX
+  LEAD_C --> INBOX
+
+  style HOME fill:#fef9c3,stroke:#eab308,color:#854d0e
+  style INBOX fill:#fee2e2,stroke:#ef4444,color:#991b1b
+  style LEAD_V fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
+  style LEAD_S fill:#d1fae5,stroke:#10b981,color:#064e3b
+  style LEAD_C fill:#ffedd5,stroke:#f97316,color:#9a3412
+      </div>
+    </div>
+
+    <table>
+      <tr><th>Página</th><th>Rota</th><th>Conteúdo</th></tr>
+      <tr><td>Homepage</td><td><code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">/</code></td><td>Banner, imóveis em destaque, "Sobre Nós", seguros e crédito</td></tr>
+      <tr><td>Imóveis</td><td><code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">/imoveis</code></td><td>Listagem com filtros: distrito, negócio, tipologia e preço</td></tr>
+      <tr><td>Detalhe Imóvel</td><td><code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">/imoveis/[nome]</code></td><td>Galeria, descrição, características, mapa e formulário de visita</td></tr>
+      <tr><td>Seguros</td><td><code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">/seguros</code></td><td>Cards de todos os seguros ativos</td></tr>
+      <tr><td>Detalhe Seguro</td><td><code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">/seguros/[nome]</code></td><td>Descrição, vantagens, FAQs e formulário de simulação</td></tr>
+      <tr><td>Contacto</td><td><code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">/contacto</code></td><td>Mapa, morada, contactos por departamento e formulário geral</td></tr>
+      <tr><td>Sobre Nós</td><td><code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">/sobre-nos</code></td><td>Biografia e fotografia da empresa</td></tr>
+      <tr><td>Crédito Bancário</td><td><code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">/credito-bancario</code></td><td>Intermediação de crédito com registo BdP</td></tr>
+      <tr><td>Privacidade</td><td><code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">/documentos/politica-privacidade</code></td><td>Texto legal obrigatório</td></tr>
+      <tr><td>Termos</td><td><code style="background:var(--zinc-100);padding:2px 6px;border-radius:4px;">/documentos/termos</code></td><td>Texto legal obrigatório</td></tr>
+    </table>
+
+    <h3>Como os visitantes enviam contactos</h3>
+    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card" style="border-top: 3px solid var(--orange-500);">
+        <div class="card-icon">📧</div>
+        <h4>Contacto Geral</h4>
+        <p>Página /contacto — Nome, e-mail, telefone e mensagem</p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--blue-500);">
+        <div class="card-icon">📍</div>
+        <h4>Pedido de Visita</h4>
+        <p>Página de cada imóvel — Nome, e-mail, telefone, data preferida e mensagem</p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--green-500);">
+        <div class="card-icon">🛡️</div>
+        <h4>Simulação de Seguro</h4>
+        <p>Página de cada seguro — Os campos que configurou no Construtor</p>
+      </div>
+    </div>
+
+    <h3>Pesquisa de Imóveis</h3>
+    <p>Na página pública de imóveis, os visitantes podem filtrar por:</p>
+    <div class="card-grid" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="card" style="text-align:center;"><h4>Distrito</h4><p>Todos os distritos de Portugal</p></div>
+      <div class="card" style="text-align:center;"><h4>Negócio</h4><p>Venda ou Arrendamento</p></div>
+      <div class="card" style="text-align:center;"><h4>Tipologia</h4><p>T0 a T5+</p></div>
+      <div class="card" style="text-align:center;"><h4>Preço</h4><p>Mínimo e Máximo</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== 9. BOAS PRÁTICAS ========== -->
+<section id="dicas" class="page-break">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--yellow-50);color:var(--yellow-600);">💡</div>
+      <div>
+        <h2>9. Dicas e Boas Práticas</h2>
+        <p>Recomendações para tirar o máximo partido do site</p>
+      </div>
+    </div>
+
+    <h3>📸 Fotos dos Imóveis</h3>
+    <div class="checklist">
+      <div class="check-item"><span class="check-yes">✅</span> Use fotos com <strong>boa iluminação</strong> e <strong>boa resolução</strong></div>
+      <div class="check-item"><span class="check-yes">✅</span> A <strong>primeira foto</strong> da galeria é a capa — escolha a mais apelativa</div>
+      <div class="check-item"><span class="check-yes">✅</span> Carregue <strong>pelo menos 5 fotos</strong> por imóvel para mais engagement</div>
+      <div class="check-item"><span class="check-yes">✅</span> Use formatos <strong>JPG</strong> (mais leve) ou <strong>WebP</strong> (melhor qualidade/peso)</div>
+      <div class="check-item"><span class="check-no">❌</span> Evite fotos desfocadas, escuras ou com marcas de água de outros sites</div>
+    </div>
+
+    <h3>✍️ Textos e Descrições</h3>
+    <div class="checklist">
+      <div class="check-item"><span class="check-yes">✅</span> Escreva títulos <strong>claros e objetivos</strong> (ex: "Apartamento T2 Renovado no Centro de Lisboa")</div>
+      <div class="check-item"><span class="check-yes">✅</span> Use o <strong>editor rico</strong> para formatar com parágrafos, negrito e listas</div>
+      <div class="check-item"><span class="check-yes">✅</span> Inclua as <strong>principais características</strong> logo no início da descrição</div>
+      <div class="check-item"><span class="check-no">❌</span> Evite TUDO EM MAIÚSCULAS ou pontuação excessiva (!!!)</div>
+    </div>
+
+    <h3>🛡️ Seguros</h3>
+    <div class="checklist">
+      <div class="check-item"><span class="check-yes">✅</span> Mantenha a <strong>breve descrição</strong> dos cards curta e apelativa (2-3 frases)</div>
+      <div class="check-item"><span class="check-yes">✅</span> Adicione pelo menos <strong>3 vantagens</strong> para cada seguro</div>
+      <div class="check-item"><span class="check-yes">✅</span> Configure <strong>FAQs</strong> para reduzir contactos com dúvidas repetidas</div>
+      <div class="check-item"><span class="check-yes">✅</span> Defina o campo de <strong>ordem</strong> para controlar a disposição dos cards</div>
+    </div>
+
+    <h3>📬 Leads</h3>
+    <div class="checklist">
+      <div class="check-item"><span class="check-yes">✅</span> Consulte a caixa de leads <strong>diariamente</strong></div>
+      <div class="check-item"><span class="check-yes">✅</span> Responda rapidamente — visitantes esperam contacto em <strong>24-48 horas</strong></div>
+      <div class="check-item"><span class="check-yes">✅</span> Use as <strong>notas internas</strong> para registar interações</div>
+      <div class="check-item"><span class="check-yes">✅</span> <strong>Feche</strong> as leads resolvidas para manter a caixa organizada</div>
+    </div>
+
+    <h3>📝 Conteúdo do Site</h3>
+    <div class="checklist">
+      <div class="check-item"><span class="check-yes">✅</span> Atualize o <strong>banner da homepage</strong> sazonalmente para manter o site fresco</div>
+      <div class="check-item"><span class="check-yes">✅</span> Mantenha os <strong>contactos sempre atualizados</strong> — um número errado = cliente perdido</div>
+      <div class="check-item"><span class="check-yes">✅</span> Reveja a <strong>biografia</strong> periodicamente</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== 10. RESOLUÇÃO DE PROBLEMAS ========== -->
+<section id="problemas">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon" style="background:var(--red-50);color:var(--red-600);">🔧</div>
+      <div>
+        <h2>10. Resolução de Problemas</h2>
+        <p>Soluções para os problemas mais comuns</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">❓ "Não consigo fazer login"</div>
+      <div class="faq-a">
+        • Verifique se está a usar o e-mail e palavra-passe corretos<br>
+        • Verifique se tem letras maiúsculas/minúsculas corretas na password<br>
+        • Se esqueceu a password, contacte o administrador técnico para reset
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">❓ "Fiz alterações mas não aparecem no site"</div>
+      <div class="faq-a">
+        • Certifique-se que clicou em <strong>"Guardar Alterações"</strong><br>
+        • Limpe a cache do browser: <strong>Ctrl + Shift + R</strong> (ou Cmd + Shift + R no Mac)<br>
+        • Aguarde 30 segundos e atualize a página
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">❓ "As fotos não carregam"</div>
+      <div class="faq-a">
+        • Verifique se o ficheiro tem menos de <strong>5MB</strong><br>
+        • Verifique se o formato é <strong>JPG, PNG ou WebP</strong><br>
+        • Tente com outra foto para descartar problemas no ficheiro original
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">❓ "O mapa não mostra a localização correta"</div>
+      <div class="faq-a">
+        • Preencha primeiro o <strong>concelho</strong> e <strong>distrito</strong>, depois clique em "Procurar Morada"<br>
+        • Se a pesquisa automática falhar, <strong>clique diretamente no mapa</strong> para posicionar o pin<br>
+        • O pin pode ser arrastado para a posição exata
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">❓ "Um imóvel não aparece no site"</div>
+      <div class="faq-a">
+        • Verifique se o <strong>estado</strong> é "Ativo" (🟢) — apenas imóveis ativos são visíveis<br>
+        • Imóveis em "Suspenso" (🟡) ou "Rascunho" (⚪) ficam ocultos do público
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">❓ "Um seguro não aparece no site"</div>
+      <div class="faq-a">
+        • Verifique se o <strong>estado</strong> é "Ativo" — seguros inativos ficam ocultos<br>
+        • Verifique se a <strong>ordem de layout</strong> não está a colocar o seguro fora da vista
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">❓ "Recebo muitas leads de spam"</div>
+      <div class="faq-a">
+        • Os formulários do site já incluem validação de campos obrigatórios<br>
+        • Contacte o administrador técnico se o problema persistir
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <p style="margin-bottom: 6px;">Guia do Utilizador — <strong>Rui Figueira & Roque Lda</strong></p>
+    <p style="font-size: 12px;">Março 2026 · Precisa de ajuda técnica? Contacte o suporte.</p>
+  </div>
+</footer>
+
+<!-- ========== MERMAID JS ========== -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'neutral',
+    flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
+    sequence: { useMaxWidth: true, actorMargin: 60 },
+    themeVariables: {
+      primaryColor: '#dcfce7',
+      primaryBorderColor: '#4ade80',
+      primaryTextColor: '#14532d',
+      lineColor: '#a1a1aa',
+      secondaryColor: '#eff6ff',
+      tertiaryColor: '#faf5ff',
+      noteBkgColor: '#fefce8',
+      noteTextColor: '#854d0e',
+      noteBorderColor: '#eab308',
+      actorBkg: '#f0fdf4',
+      actorBorder: '#4ade80',
+      actorTextColor: '#14532d',
+      signalColor: '#3f3f46',
+      signalTextColor: '#3f3f46',
+    }
+  });
+</script>
+
+</body>
+</html>
