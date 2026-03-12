@@ -3,6 +3,7 @@ import { Building2, ShieldCheck, Landmark, MapPin, ArrowRight } from "lucide-rea
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/server"
 import Image from "next/image"
+import { PriceFormatter } from "@/components/ui/price-formatter"
 
 export const revalidate = 0 // Opt out of full static rendering
 
@@ -205,7 +206,6 @@ id, title, slug, price, business_type, typology, municipality, district,
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
               {featuredProperties.map((property: Property) => {
                 const primaryImage = property.property_images?.[0]
-                const formattedPrice = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(property.price)
 
                 return (
                   <Link key={property.id} href={`/imoveis/${property.slug}`} className="group flex flex-col rounded-3xl overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
@@ -226,9 +226,12 @@ id, title, slug, price, business_type, typology, municipality, district,
                     </div>
 
                     <div className="p-8 flex flex-col flex-1">
-                      <div className="text-zinc-900 dark:text-zinc-100 font-black text-2xl mb-2 tracking-tighter">
-                        {formattedPrice}
-                      </div>
+                      <PriceFormatter
+                        price={property.price}
+                        businessType={property.business_type}
+                        className="text-2xl mb-2"
+                        amountClassName="text-zinc-900 dark:text-zinc-100"
+                      />
                       <h3 className="font-bold text-sm uppercase tracking-widest text-zinc-400 mb-6 line-clamp-1 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors">
                         {property.title}
                       </h3>

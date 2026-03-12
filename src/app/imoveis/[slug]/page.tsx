@@ -30,6 +30,7 @@ import { PropertyGallery } from "@/components/public/property-gallery"
 import { ShareButton } from "@/components/public/share-button"
 import { PageNavigation } from "@/components/public/page-navigation"
 import { PropertyMapClient } from "@/components/public/property-map-client"
+import { PriceFormatter } from "@/components/ui/price-formatter"
 
 export const revalidate = 0
 
@@ -81,7 +82,6 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
 
     const images = property.property_images?.sort((a: any, b: any) => a.display_order - b.display_order) || []
     const mainImage = images[0]?.url || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000"
-    const priceFormatted = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(property.price)
 
     return (
         <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
@@ -198,11 +198,18 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
 
                     {/* RIGHT COLUMN: Price & Lead Form Sticky */}
                     <div className="lg:col-span-4 lg:sticky lg:top-24 h-fit space-y-6">
-                        {/* Price Card */}
                         <div className="bg-brand-dark text-white p-8 rounded-xl shadow-lg relative overflow-hidden border border-white/10">
                             <div className="relative z-10">
-                                <div className="text-[10px] font-bold opacity-50 mb-1 uppercase tracking-wider text-white">Preço de Venda</div>
-                                <div className="text-4xl font-black mb-8 text-white">{priceFormatted}</div>
+                                <div className="text-[10px] font-bold opacity-50 mb-1 uppercase tracking-wider text-white">
+                                    {property.business_type === 'sale' ? 'Preço de Venda' : 'Preço de Arrendamento'}
+                                </div>
+                                <PriceFormatter
+                                    price={property.price}
+                                    businessType={property.business_type}
+                                    className="text-4xl mb-8"
+                                    amountClassName="text-white"
+                                    currencyClassName="text-white/60"
+                                />
 
                                 <div className="space-y-3">
                                     {contacts.social_whatsapp && (

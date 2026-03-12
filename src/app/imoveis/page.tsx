@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { PropertySearch } from "@/components/public/property-search"
 import { PageNavigation } from "@/components/public/page-navigation"
 import { Suspense } from "react"
+import { PriceFormatter } from "@/components/ui/price-formatter"
 
 export const revalidate = 0
 
@@ -95,7 +96,6 @@ export default async function PropertiesPage({
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {properties.map((property) => {
                                 const mainImage = property.property_images?.[0]?.url || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000"
-                                const priceFormatted = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(property.price)
 
                                 return (
                                     <Link key={property.id} href={`/imoveis/${property.slug}`} className="group flex flex-col rounded-xl overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all">
@@ -111,10 +111,12 @@ export default async function PropertiesPage({
                                             </div>
                                         </div>
                                         <div className="p-6 flex-1 flex flex-col">
-                                            <div className="text-brand-dark dark:text-brand-light font-bold text-xl mb-1">
-                                                {priceFormatted}
-                                                {property.business_type === 'rent' && <span className="text-xs font-medium text-zinc-400 ml-1">/mês</span>}
-                                            </div>
+                                            <PriceFormatter
+                                                price={property.price}
+                                                businessType={property.business_type}
+                                                className="text-xl mb-1"
+                                                amountClassName="text-brand-dark dark:text-brand-light"
+                                            />
                                             <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100 mb-4 line-clamp-1 group-hover:text-brand-primary transition-colors">{property.title}</h2>
 
                                             <div className="mt-auto space-y-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
