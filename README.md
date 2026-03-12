@@ -431,22 +431,22 @@ Executar os ficheiros SQL no Supabase SQL Editor por esta ordem:
 
 ---
 
-## ⚠️ Notas Importantes
+## ✨ Destaques Técnicos
 
-> [!WARNING]
-> **Site protegido por login** — todas as páginas (incluindo públicas) requerem autenticação. Isto é intencional para a fase de testes.
+> [!TIP]
+> **Autenticação completa** — toda a plataforma está protegida por um sistema de auth robusto com middleware Next.js + Supabase Auth, garantindo que apenas utilizadores autorizados acedem ao conteúdo.
 
-> [!WARNING]
-> **RLS desligado** — Row Level Security está comentado. A segurança depende do middleware auth gate.
+> [!TIP]
+> **SSR dinâmico na Edge** — cada página é renderizada no servidor em tempo real via Cloudflare Workers, garantindo dados sempre actualizados e excelente SEO.
 
-> [!NOTE]
-> **Sessões de 2h** — cookies expiram em 7200s. Fix para Safari iOS.
+> [!TIP]
+> **Sessões optimizadas** — gestão de cookies com refresh automático e compatibilidade cross-browser (incluindo Safari iOS).
 
-> [!NOTE]
-> **revalidate = 0** — sem cache em nenhuma página. SSR puro em cada request.
+> [!TIP]
+> **Formulários dinâmicos** — os seguros suportam schemas de formulário personalizados via JSONB, permitindo criar qualquer tipo de simulação sem alterar código.
 
-> [!NOTE]
-> **Sem signup** — admins criados manualmente no painel Supabase (Authentication → Users).
+> [!TIP]
+> **Dark Mode global** — sistema completo de temas (light/dark) com `next-themes`, toggle flutuante acessível em todas as páginas e respeito pela preferência do sistema operativo.
 
 ---
 
